@@ -8,4 +8,4 @@ new Vue({
 }).$mount('#app')
 
 
-export let task = { a:1 , b: "asdölamälm"}
+
