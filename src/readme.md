@@ -1,13 +1,13 @@
-install vue:
+# install vue:
 npm install -g @vue/cli
 
-create vue app:
+# create vue app:
 vue create my-app
 
-start server:
+# start server:
 cd my-app
 npm run serve
 
-start code:
+# start code:
 cd my-app
 code .

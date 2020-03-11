@@ -1,4 +1,4 @@
-import { Task } from './Task.js'
+
 
 export class NextTaskResult
 {
@@ -6,6 +6,7 @@ export class NextTaskResult
     {
         this.Task = task;
         this.Completed = completed;
+        
 
     }
 }
@@ -17,7 +18,8 @@ export class TaskGroup
     {   
         this.Tasks = tasks;
         this.current = 0;
-        this.TaskGroupId = taskGroupId;     
+        this.TaskGroupId = taskGroupId;   
+        this.ComponentName = 'TaskGroup'  
     }
     
     completed()

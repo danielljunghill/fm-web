@@ -1,9 +1,9 @@
 
-import { Attempts } from './Attempts.js'
+//import { Attempts } from './Attempts.js'
 import { Attempt } from './Attempt.js'
 
 
-export class Task
+export  class Task
 {
     
     constructor(taskId,taskGroupId,roundId)
@@ -13,9 +13,10 @@ export class Task
         this.taskGroupId = taskGroupId;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
+        this.ComponentName = 'Task'
     }
 
-    attempt(input)
+    attempt()
     {
         let attempt = new Attempt(this.taskId,this.taskGroupId, this.roundId ,true);
         this.Attempts.push(attempt);

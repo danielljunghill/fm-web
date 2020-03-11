@@ -32,4 +32,3 @@ export class MultiplyTable extends TaskGroup
 
 }
 
-let test = new MultiplyTable(6);

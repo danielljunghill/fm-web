@@ -1,27 +1,26 @@
 <template>
   <div>
-    <p>{{ name }}</p>
-    <button v-on:click="changeName">change name</button>
-    <ul> 
-      <li v-for="link in selectedItem.Links" v-bind:key="link.TableNr">
-            <!-- <td v-on:click="selectionChange(link.TableNr)">
-              {{link.TableNr}}
-            </td> -->
-            {{link.TableNr}}
-            
-      </li>
-    </ul>
+      <component v-bind:is="selectedItem.ComponentName"></component>
   </div>
- 
 </template>
 
 <script>
- import getModelInstance from '../model/main-model.js'
+
+import TaskGroupLinks from './TaskGroupLinks.vue'
+import getModelInstance from '../model/main-model.js'
+import TaskGroup  from './TaskGroup.vue'
+
 
  let data = getModelInstance()
 
   export default {
-    name: 'Task',
+    name: 'Main',
+    components:
+    {
+        'TaskGroupLinks': TaskGroupLinks,
+        'TaskGroup': TaskGroup,
+
+    },
     props: {
       msg: String,
 

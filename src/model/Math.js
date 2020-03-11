@@ -10,7 +10,7 @@ export function createUUID() {
       let value = Math.random() * (max - min + 1) + min;
       let t = Math.floor(+value);
       return t;
-  };
+  }
   //a + b * c
 export let multiply =
     function(a)

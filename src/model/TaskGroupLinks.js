@@ -5,6 +5,7 @@ export class TaskGroupLinks
     constructor(links)
     {
         this.Links = links
+        this.ComponentName = 'TaskGroupLinks'
     }
 }
 
