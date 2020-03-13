@@ -1,39 +1,21 @@
 <template>
   <div>
-    <p>{{ name }}</p>
-    <button v-on:click="changeName">change name</button>
-    <ul> 
-      <li v-for="link in selectedItem.Links" v-bind:key="link.TableNr">
-            <!-- <td v-on:click="selectionChange(link.TableNr)">
-              {{link.TableNr}}
-            </td> -->
-            {{link.TableNr}}
-            
-      </li>
-    </ul>
+    Task
+    <p>{{ task.A }}</p>
+    <p>{{ task.B }}</p>
   </div>
  
 </template>
 
 <script>
- import getModelInstance from '../model/main-model.js'
-
- let data = getModelInstance()
 
   export default {
     name: 'Task',
     props: {
-      msg: String,
+      task: {},
 
-    },
-    data: function()  { return data },
-    methods:
-    {
-        changeName:function()
-        {
-            data.changeData();
-        }
     }
+
 
   }
 </script>

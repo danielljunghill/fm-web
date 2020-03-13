@@ -1,5 +1,6 @@
 import { TaskGroup } from "./TaskGroup.js";
 
+
 export class TaskGroupLink
 {
     constructor(taskGroupId,isActive,dependentOnTaskGroupId,attemptStore)
@@ -11,7 +12,7 @@ export class TaskGroupLink
         this.attemptStore = attemptStore;
     }
 
-    CreateTaskGroup()
+    Create()
     {
         return new TaskGroup(this.taskGroupId,[])
     }

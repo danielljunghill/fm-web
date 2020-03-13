@@ -1,19 +1,24 @@
 
 //import { Attempts } from './Attempts.js'
 import { Attempt } from './Attempt.js'
+import { Component } from './Component.js'
 
-
-export  class Task
+export class Task extends Component
 {
     
-    constructor(taskId,taskGroupId,roundId)
-    {        
+    constructor(componentName,taskId,taskGroupId,roundId)
+    {       
+        super(componentName) 
         this.Attempts = []
         this.taskId = taskId;
         this.taskGroupId = taskGroupId;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
-        this.ComponentName = 'Task'
+   
+    }
+    static Create(id,taskGroupId,roundId)
+    {
+        new Task('Task',id,taskGroupId,roundId)
     }
 
     attempt()

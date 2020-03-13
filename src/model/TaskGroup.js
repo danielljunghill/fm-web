@@ -1,4 +1,4 @@
-
+import { Component } from './Component.js'
 
 export class NextTaskResult
 {
@@ -12,14 +12,15 @@ export class NextTaskResult
 }
 
 
-export class TaskGroup 
+export class TaskGroup extends Component
 {
-    constructor(taskGroupId,tasks)
+    constructor(taskGroupId,tasks,parent)
     {   
+        super('TaskGroup',)
         this.Tasks = tasks;
         this.current = 0;
         this.TaskGroupId = taskGroupId;   
-        this.ComponentName = 'TaskGroup'  
+        this.parent = parent
     }
     
     completed()
