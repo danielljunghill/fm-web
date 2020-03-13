@@ -1,33 +1,28 @@
 <template>
   <div>
-    <ul> 
+    <ul>
         <template v-for="link in selectedItem.Links" >
-            <li v-if="link.isActive()" v-on:click="selectTaskGroup(link.TableNr)" v-bind:key="link.TableNr">{{ link.TableNr }}</li>
+            <li v-if="link.isActive()" v-on:click="selectTaskGroup(link)" v-bind:key="link.TableNr">{{ link.TableNr }}</li>
             <li v-else v-bind:key="link.TableNr">{{ link.TableNr }} inaktive</li>
-            
         </template>
     </ul>
   </div>
- 
+
 </template>
 
 <script>
 import getModelInstance from '../model/main-model.js'
-import { MultiplyTable } from '../model/MultiplyTable.js'
+
 
  let data = getModelInstance()
- 
+
   export default {
     name: 'TaskGroupLinks',
-    props: {
-      msg: String,
-
-    },
     data: function()  { return data },
     methods:{
-        selectTaskGroup(tableNr)
+        selectTaskGroup(link)
         {
-            data.selectedItem = new MultiplyTable(tableNr);
+            data.selectedItem = link.CreateTaskGroup();
             console.log(data.selectedItem.ComponentName);
         }
     }

@@ -3,6 +3,15 @@
     Task
     <p>{{ task.A }}</p>
     <p>{{ task.B }}</p>
+    <p>{{ task.Answer }}</p>
+    <input 
+                    v-bind:class="{hide:true}"
+                    id='answer-question-input' 
+                    type="text" 
+                    v-on:keyup.enter="verifyAnswer" 
+                    v-model="task.Answer"
+                    autocomplete="off"/>
+    
   </div>
  
 </template>
@@ -13,10 +22,7 @@
     name: 'Task',
     props: {
       task: {},
-
     }
-
-
   }
 </script>
 

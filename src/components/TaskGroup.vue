@@ -2,7 +2,8 @@
     <div>
         <p>{{ timer.seconds }}</p>
         <p>{{ currentTask.A }} </p>
-         <p>{{ currentTask.B }} </p>
+        <p>{{ currentTask.B }} </p>
+        <p>{{ currentTask.Answer }} </p>
         <Task v-bind:task="currentTask"></Task>
     <!-- <table id="question-table" style="width:400px">
             <tr>
@@ -78,7 +79,7 @@
             {
                 state.currentTask = nextTask();
             }
-            Timer.flow(() => timer.stopAndReset(),() => setNext(this),2000) 
+            Timer.flow(() => timer.stopAndReset(),() => setNext(this),500) 
         }
     }
   }

@@ -10,19 +10,14 @@ import TaskGroupLinks from './TaskGroupLinks.vue'
 import getModelInstance from '../model/main-model.js'
 import TaskGroup  from './TaskGroup.vue'
 
+let data = getModelInstance()
 
- let data = getModelInstance()
-
-  export default {
+export default {
     name: 'Main',
     components:
     {
         'TaskGroupLinks': TaskGroupLinks,
         'TaskGroup': TaskGroup,
-
-    },
-    props: {
-      msg: String,
 
     },
     data: function()  { return data },
