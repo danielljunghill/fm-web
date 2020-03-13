@@ -1,43 +1,80 @@
 <template>
     <div>
-       <p>{{ currentTask.A }} </p>
-       <p>{{ currentTask.B }} </p>
-       
+        <p>{{ timer.seconds }}</p>
+    <!-- <table id="question-table" style="width:400px">
+            <tr>
+            <td>
+                <table style="width:300px">
+                  <tr>
+                    <td><div class="display-text" style="width: 50px;">{{state.Task.A}}</div></td>
+                    <td>*</td>
+                    <td><div class="display-text" style="width: 50px;">{{state.Task.B}}</div></td>
+                    <td><div class="display-text" style="width: 50px;"> =</div></td>
+                    <td><div class="display-text" style="width: 50px;">{{state.Answer}}</div></td> 
+                  </tr>
+                  <tr><td colspan="5">
+                    <input 
+                    v-bind:class="{hide:true}"
+                    id='answer-question-input' 
+                    type="text" 
+                    v-on:keyup.enter="verifyAnswer" 
+                    v-model="state.Answer"
+                    autocomplete="off"></input></td></tr>
+                  <tr><td colspan="5"><button v-on:click="verifyAnswer" id='answer-question-button'>Svar</button></td></tr>
+                </table>
+            </td>
+            <td>
+              
+              <div v-if="state.seconds != 0"  div class="display-time">{{state.seconds}}</div>
+          </td>
+          </tr>
+        </table> -->
        <button v-on:click="next">nextTask</button>
+
     </div>
 </template>
 
 <script>
  import getModelInstance from '../model/main-model.js'
+ import Timer from '../model/Time.js'
 
+
+ let timer = new Timer();
  let data = getModelInstance()
 
+
  function nextTask()
- {
-     let next = data.selectedItem.getNextTask()
-     console.log(next)
-     if(next.Completed)
+ {  
+     function innerNextTask()
      {
+        let next = data.selectedItem.getNextTask()
+        console.log(next)
+        if(next.Completed)
+        {
 
-         data.backToStart();
-         return {};
-     }
-     return next.Task;
-
+            data.backToStart();
+            return {};
+        }
+        timer.start()
+        return next.Task;
+    } 
+    
+    Timer.flow(() => timer.stopAndReset(),innerNextTask,2000) 
  }
 
  export default {
     name: 'TaskGroup',
-    data: function()  { return { model: data , currentTask: nextTask() }},
+    data: function()  { return { model: data , currentTask: nextTask(), timer: timer }},
     methods:
     {
         next:function()
         {
+            
             this.currentTask = nextTask()
         }
     }
-
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
