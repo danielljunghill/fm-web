@@ -1,9 +1,9 @@
 <template>
     <div>
         <p>{{ timer.seconds }}</p>
-        <p>{{ currentTask.A }} </p>
-        <p>{{ currentTask.B }} </p>
-        <p>{{ currentTask.Answer }} </p>
+        <p>{{ task.A }} </p>
+        <p>{{ task.B }} </p>
+        <p>{{ task.Answer }} </p>
         <Task v-bind:task="currentTask"></Task>
     <!-- <table id="question-table" style="width:400px">
             <tr>
@@ -41,27 +41,12 @@
 <script>
  import getModelInstance from '../model/main-model.js'
  import Timer from '../model/Time.js'
+//  import nextTask from '../model/main-model.js'
  
 
  let timer = new Timer();
  let data = getModelInstance()
 
-
- function nextTask()
- {  
-    
-    let next = data.selectedItem.getNextTask()
-    console.log(next)
-    if(next.Completed)
-    {
-
-        data.backToStart();
-        return {};
-    }
-    timer.start()
-    return next.Task;
-
- }
 
  import Task  from './Task.vue'
  export default {
@@ -70,14 +55,14 @@
     {
         'Task': Task
     },
-    data: function()  { return { model: data , currentTask: nextTask(), timer: timer }},
+    data: function()  { return { model: data , timer: timer }},
     methods:
     {
         next:function()
         {
             function setNext(state)
             {
-                state.currentTask = nextTask();
+                state.nextTask();
             }
             Timer.flow(() => timer.stopAndReset(),() => setNext(this),500) 
         }

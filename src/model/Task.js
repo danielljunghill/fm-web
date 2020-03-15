@@ -2,6 +2,8 @@
 //import { Attempts } from './Attempts.js'
 import { Attempt } from './Attempt.js'
 import { Component } from './Component.js'
+import Timer from './Time.js';
+
 
 export class Task extends Component
 {
@@ -14,6 +16,7 @@ export class Task extends Component
         this.taskGroupId = taskGroupId;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
+        this.timer = new Timer();
    
     }
     static Create(id,taskGroupId,roundId)

@@ -3,9 +3,11 @@
 //     return { name: 'daniel', age: 12 };
 // }
 
-import { MultiplyQuestion } from '../model/MultiplyQuestion.js'
+
 import { multiplyTableLinks } from './TaskGroupLinks';
 import { AttemptStore } from './AttemptStore';
+
+
 let attemptStore = new AttemptStore()
 
 export class MainModel
@@ -13,29 +15,40 @@ export class MainModel
     constructor()
     {
         this.start = multiplyTableLinks(attemptStore)
-        this.user = { name: 'daniel', age: 12 };
-        this.name = 'orvar';
         this.selectedItem = this.start;
+           
     }
 
-    user()
-    {       
-        return this.user;
-    }
-
-    changeData()
+    setTask(task)
     {
-        let tempName = this.user.name;
-        this.user.name = this.name;
-        this.name = tempName;
-        this.selectedItem = new MultiplyQuestion(8,8,"MultiplyTable[8]","")
+        this.task = task;
     }
 
-    backToStart()
+    setTaskGroup(taskGroupLink)
+    {   
+        this.selectedItem = taskGroupLink.CreateTaskGroup();
+        //hämta första task. Kankse ska vara egen function
+        this.task = this.selectedItem.getNextTask();       
+    }
+
+    nextTask(answer)
     {
-        this.selectedItem = this.start;
+        this.task.Attempt(answer)
+        //här borde attempt sparas
+        let nextTask = this.selectedItem.getNextTask()
+        if(nextTask.endOfTasks)
+        {
+            this.selectedItem = this.start;
+            return;
+        }
+        this.task = nextTask.Task
+        
     }
 
+    setTaskGroupLinks(links)
+    {
+        this.selectedItem = links;
+    }
 
 }
 
@@ -44,6 +57,11 @@ export default function getModelInstance()
 {
     return data;
 }
+
+
+
+
+
 
 
 

@@ -2,10 +2,10 @@ import { Component } from './Component.js'
 
 export class NextTaskResult
 {
-    constructor(task,completed)
+    constructor(task,endOfTasks)
     {
         this.Task = task;
-        this.Completed = completed;
+        this.EndOfTasks = endOfTasks;
         
 
     }
