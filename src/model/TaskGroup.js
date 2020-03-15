@@ -4,23 +4,22 @@ export class NextTaskResult
 {
     constructor(task,endOfTasks)
     {
-        this.Task = task;
-        this.EndOfTasks = endOfTasks;
+        this.task = task;
+        this.endOfTasks = endOfTasks;
         
-
     }
 }
 
 
 export class TaskGroup extends Component
 {
-    constructor(taskGroupId,tasks,parent)
+    constructor(taskGroupId,tasks)
     {   
         super('TaskGroup',)
         this.Tasks = tasks;
         this.current = 0;
         this.TaskGroupId = taskGroupId;   
-        this.parent = parent
+       
     }
     
     completed()

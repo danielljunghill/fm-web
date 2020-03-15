@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p>{{ timer.seconds }}</p>
-        <p>{{ task.A }} </p>
-        <p>{{ task.B }} </p>
-        <p>{{ task.Answer }} </p>
-        <Task v-bind:task="currentTask"></Task>
+        <!-- <p>{{ task.timer.seconds }}</p> -->
+        <p>{{ct.A }} </p>
+        <p>{{ ct.B }} </p>
+        <p>{{ ct.Answer }} </p>
+        <Task v-bind:task="ct"></Task> 
     <!-- <table id="question-table" style="width:400px">
             <tr>
             <td>
@@ -41,12 +41,11 @@
 <script>
  import getModelInstance from '../model/main-model.js'
  import Timer from '../model/Time.js'
-//  import nextTask from '../model/main-model.js'
+// //  import nextTask from '../model/main-model.js'
  
 
- let timer = new Timer();
- let data = getModelInstance()
-
+//  let timer = new Timer();
+let data = getModelInstance()
 
  import Task  from './Task.vue'
  export default {
@@ -55,16 +54,21 @@
     {
         'Task': Task
     },
-    data: function()  { return { model: data , timer: timer }},
+    data: function()  { return { model: data , ct: data.task}},
     methods:
     {
         next:function()
         {
-            function setNext(state)
+            function setNext(data)
             {
-                state.nextTask();
+                
+                data.model.nextTask('12');
+                console.log(data.model.task);
+                data.ct = data.model.task;
+              
             }
-            Timer.flow(() => timer.stopAndReset(),() => setNext(this),500) 
+            setNext(this);
+            //Timer.flow(() =>{ return },() => setNext(getModelInstance()),500) 
         }
     }
   }

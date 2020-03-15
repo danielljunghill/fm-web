@@ -4,13 +4,13 @@
     <p>{{ task.A }}</p>
     <p>{{ task.B }}</p>
     <p>{{ task.Answer }}</p>
-    <input 
+    <!-- <input 
                     v-bind:class="{hide:true}"
                     id='answer-question-input' 
                     type="text" 
                     v-on:keyup.enter="verifyAnswer" 
                     v-model="task.Answer"
-                    autocomplete="off"/>
+                    autocomplete="off"/> -->
     
   </div>
  

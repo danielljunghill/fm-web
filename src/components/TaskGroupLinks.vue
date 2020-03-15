@@ -22,8 +22,8 @@ import getModelInstance from '../model/main-model.js'
     methods:{
         selectTaskGroup(link)
         {
-            data.selectedItem = link.CreateTaskGroup();
-            console.log(data.selectedItem.ComponentName);
+            data.setTaskGroup(link);
+            console.log('taskgroup ' + data.selectedItem.ComponentName);
         }
     }
 

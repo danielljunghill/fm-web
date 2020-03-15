@@ -10,7 +10,8 @@ export class MultiplyQuestion extends Task
 {
     constructor(a,b,taskGroupId,roundId)
     {
-        super(id(a,b),taskGroupId,roundId)
+        super('Task',id(a,b),taskGroupId,roundId)
+        console.log('A ' + a)
         this.A = a;
         this.B = b;
  
