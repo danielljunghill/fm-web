@@ -1,10 +1,10 @@
 <template>
     <div>
         <!-- <p>{{ task.timer.seconds }}</p> -->
-        <p>{{ct.A }} </p>
-        <p>{{ ct.B }} </p>
-        <p>{{ ct.Answer }} </p>
-        <Task v-bind:task="ct"></Task> 
+        <p>{{ taskGroup.task.A}} </p>
+        <p>{{ taskGroup.task.B}} </p>
+        <p>{{ taskGroup.task.Answer }} </p>
+        <Task v-bind:task="taskGroup.task"></Task> 
     <!-- <table id="question-table" style="width:400px">
             <tr>
             <td>
@@ -54,20 +54,19 @@ let data = getModelInstance()
     {
         'Task': Task
     },
-    data: function()  { return { model: data , ct: data.task}},
+    data: function()  { return { taskGroup: data.selectedItem }},
     methods:
     {
         next:function()
         {
-            function setNext(data)
+            function setNext()
             {
                 
-                data.model.nextTask('12');
-                console.log(data.model.task);
-                data.ct = data.model.task;
+                data.nextTask('ads');
+                
               
             }
-            setNext(this);
+            setNext();
             //Timer.flow(() =>{ return },() => setNext(getModelInstance()),500) 
         }
     }

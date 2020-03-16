@@ -19,16 +19,10 @@ export class MainModel
            
     }
 
-  
-
     setTaskGroup(taskGroupLink)
     {   
         let taskGroup  = taskGroupLink.CreateTaskGroup();
-        let nextTask = taskGroup.getNextTask();
-        console.log('nexttask ' + nextTask.task)
         //hämta första task. Kankse ska vara egen function
-
-        this.task = nextTask.task; 
         this.selectedItem = taskGroup;
         //kontrollera taskgroup.ComponentName
         console.log('task ' + this.task)      
@@ -37,23 +31,22 @@ export class MainModel
     nextTask(answer)
     {
         console.log(answer + ' answer')
-        this.task.attempt(answer)
+        let task = this.selectedItem.task;
+        task.attempt(answer)
         //här borde attempt sparas
         let nextTask = this.selectedItem.getNextTask()
         if(nextTask.endOfTasks)
         {
             this.selectedItem = this.start;
             return;
-        }
-        console.log(nextTask + ' next task ' + nextTask.task.B);
-        this.task = nextTask.task
-        
+        }  
     }
+ 
 
-    setTaskGroupLinks(links)
-    {
-        this.selectedItem = links;
-    }
+    // setTaskGroupLinks(links)
+    // {
+    //     this.selectedItem = links;
+    // }
 
 }
 

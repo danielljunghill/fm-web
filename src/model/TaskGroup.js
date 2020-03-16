@@ -16,9 +16,10 @@ export class TaskGroup extends Component
     constructor(taskGroupId,tasks)
     {   
         super('TaskGroup',)
-        this.Tasks = tasks;
-        this.current = 0;
-        this.TaskGroupId = taskGroupId;   
+        this.tasks = tasks;
+        this.position = 0;
+        this.taskGroupId = taskGroupId;   
+        this.task = this.getNextTask().task
        
     }
     
@@ -34,16 +35,17 @@ export class TaskGroup extends Component
 
     getNextTask()
     {
-        if(this.Tasks.length == 0)
+        if(this.tasks.length == 0)
         {
             return new NextTaskResult(null,true);
         }
-        if(this.current >= this.Tasks.length)
+        if(this.position >= this.tasks.length)
         {
             return new NextTaskResult(null,true);
         }
-        let result = this.Tasks[this.current];
-        this.current++;
+        let result = this.tasks[this.position];
+        this.position++;
+        this.task = result;
         return new NextTaskResult(result,false);
     }
 
@@ -53,3 +55,5 @@ export class TaskGroup extends Component
     }
 
 }
+
+
