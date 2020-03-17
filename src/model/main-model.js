@@ -25,6 +25,7 @@ export class MainModel
     {   
         let taskGroup  = taskGroupLink.CreateTaskGroup();
         //hämta första task. Kankse ska vara egen function
+        this.timer.start();
         this.selectedItem = taskGroup;
         //kontrollera taskgroup.ComponentName
  
@@ -35,9 +36,10 @@ export class MainModel
        
         //HÄMTA TASK
         let task = this.selectedItem.task;
-        this.timer.stop();
+        let seconds = this.timer.seconds;
+        this.timer.stopAndReset();
         //KONTROLLERA ATTEMPT
-        let attempt = task.attempt(answer)
+        let attempt = task.attempt(answer,seconds);
         //LAGRA ATTEMPT
         this.store.add(attempt);
         console.log(attempt);

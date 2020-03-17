@@ -1,7 +1,7 @@
 <template>
   <div>
     Task
-
+    <p> {{ model.timer.seconds }} </p>
     <p>{{ task.A }}</p>
     <p>{{ task.B }}</p>
     <p>{{ answer }}</p>

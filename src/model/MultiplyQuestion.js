@@ -20,13 +20,12 @@ export class MultiplyQuestion extends Task
 
   //current Attempts
 
-    attempt(input)
+    attempt(input,elapsedSeconds)
     {
        
-     
-        let correctAnswer = (this.A * this.B);
-        console.log(' answer ' + input + ' correct ' + correctAnswer)
-        let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId , input == (this.A * this.B));
+        let correct = ((this.A * this.B) == input) && elapsedSeconds < 5;
+ 
+        let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId , correct);
         this.Attempts.push(attempt);
         return attempt;
     }
