@@ -21,10 +21,12 @@ export class Attempts
 
         if(this.AttemptMap.get(attempt.roundId).filter(a => a.correct).length == 10)
         {
-            let result = this.AttemptMap.get(attempt.roundId).length == 10;
-            console.log(this.AttemptMap.get(attempt.roundId).length);
-            console.log("check completed " + result)
-            return (this.isCompleted  = this.AttemptMap.get(attempt.roundId).length == 10);
+            console.log('iscompleted' + attempt.roundId)
+            // let result = this.AttemptMap.get(attempt.roundId).length == 10;
+            // console.log(this.AttemptMap.get(attempt.roundId).length);
+            // console.log("check completed " + result)
+            this.isCompleted  = this.AttemptMap.get(attempt.roundId).length == 10
+            return this.isCompleted;
         }
     
         return false;

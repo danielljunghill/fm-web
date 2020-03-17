@@ -6,16 +6,18 @@
 
 import { multiplyTableLinks } from './TaskGroupLinks';
 import { AttemptStore } from './AttemptStore';
-
+import { Timer } from './Time'
 
 let attemptStore = new AttemptStore()
 
 export class MainModel
 {
-    constructor()
+    constructor(store)
     {
-        this.start = multiplyTableLinks(attemptStore)
+        this.start = multiplyTableLinks(store)
         this.selectedItem = this.start;
+        this.store = store;
+        this.timer = new Timer();
            
     }
 
@@ -25,21 +27,28 @@ export class MainModel
         //hämta första task. Kankse ska vara egen function
         this.selectedItem = taskGroup;
         //kontrollera taskgroup.ComponentName
-        console.log('task ' + this.task)      
+ 
     }
 
     nextTask(answer)
     {
-        console.log(answer + ' answer')
+       
+        //HÄMTA TASK
         let task = this.selectedItem.task;
-        task.attempt(answer)
+        this.timer.stop();
+        //KONTROLLERA ATTEMPT
+        let attempt = task.attempt(answer)
+        //LAGRA ATTEMPT
+        this.store.add(attempt);
+        console.log(attempt);
         //här borde attempt sparas
         let nextTask = this.selectedItem.getNextTask()
         if(nextTask.endOfTasks)
         {
             this.selectedItem = this.start;
             return;
-        }  
+        } 
+        this.timer.start(); 
     }
  
 
@@ -50,7 +59,7 @@ export class MainModel
 
 }
 
-let data = new MainModel()
+let data = new MainModel(attemptStore)
 export default function getModelInstance()
 {
     return data;

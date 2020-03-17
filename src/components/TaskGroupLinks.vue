@@ -12,9 +12,7 @@
 
 <script>
 import getModelInstance from '../model/main-model.js'
-
-
- let data = getModelInstance()
+let data = getModelInstance()
 
   export default {
     name: 'TaskGroupLinks',
@@ -23,7 +21,7 @@ import getModelInstance from '../model/main-model.js'
         selectTaskGroup(link)
         {
             data.setTaskGroup(link);
-            console.log('taskgroup ' + data.selectedItem.ComponentName);
+          
         }
     }
 

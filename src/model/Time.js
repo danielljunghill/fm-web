@@ -1,4 +1,4 @@
-export default class Timer 
+export class Timer 
 {
     constructor()
     {
@@ -40,6 +40,7 @@ export default class Timer
             return;
         }
         this.started = false;  
+        console.log('clear inteval')
         clearInterval(this.interval);
     }
 

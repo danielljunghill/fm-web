@@ -1,27 +1,49 @@
 <template>
   <div>
     Task
+
     <p>{{ task.A }}</p>
     <p>{{ task.B }}</p>
-    <p>{{ task.Answer }}</p>
-    <!-- <input 
+    <p>{{ answer }}</p>
+    <p><input 
                     v-bind:class="{hide:true}"
                     id='answer-question-input' 
                     type="text" 
-                    v-on:keyup.enter="verifyAnswer" 
-                    v-model="task.Answer"
-                    autocomplete="off"/> -->
-    
+                    v-on:keyup.enter="nextTask" 
+                    v-model="answer"
+                    autocomplete="off"/></p>
+    <p><button v-on:click="nextTask">nextTask</button></p>
   </div>
  
 </template>
 
 <script>
 
+import getModelInstance from '../model/main-model.js'
+
+let data = getModelInstance()
+
   export default {
     name: 'Task',
     props: {
       task: {},
+    },
+  
+    data: function() { return { answer:'', model: data}},
+    methods:
+    {
+        nextTask:function()
+        {
+        
+            function setNext(state)
+            {
+                console.log('answer in task vue '  + state.answer);
+                state.model.nextTask(state.answer);
+                state.answer = '';
+            }
+            setNext(this);
+            //Timer.flow(() =>{ return },() => setNext(getModelInstance()),500) 
+        }
     }
   }
 </script>

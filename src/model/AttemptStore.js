@@ -16,7 +16,7 @@ export class AttemptStore
         console.log(`attempt.taskGroupId ${attempt.taskGroupId}`);
         if(!this.store.has(attempt.taskGroupId))
         {
-            this.store.set(attempt.taskGroupId, new Attempts());
+            this.store.set(attempt.taskGroupId, new Attempts(false));
         }
         this.store.get(attempt.taskGroupId).add(attempt);
     }

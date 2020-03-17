@@ -2,7 +2,7 @@
 //import { Attempts } from './Attempts.js'
 import { Attempt } from './Attempt.js'
 import { Component } from './Component.js'
-import Timer from './Time.js';
+import { Timer } from './Time.js'
 
 
 export class Task extends Component
@@ -16,8 +16,10 @@ export class Task extends Component
         this.taskGroupId = taskGroupId;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
-        //this.timer = new Timer();
-        //this.timer.start();
+        this.timer = new Timer();
+        this.timer.start();
+
+  
    
     }
     static Create(id,taskGroupId,roundId)
@@ -27,9 +29,7 @@ export class Task extends Component
 
     attempt()
     {
-        
-       
-        //this.timer.stopAndReset();
+      
         let attempt = new Attempt(this.taskId,this.taskGroupId, this.roundId ,true);
         this.Attempts.push(attempt);
         return attempt;
