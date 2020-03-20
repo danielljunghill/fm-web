@@ -31,27 +31,39 @@ export class MainModel
  
     }
 
-    nextTask(answer)
+
+    nextTask(answer, newTaskInit)
     {
-       
-        //HÄMTA TASK
-        let task = this.selectedItem.task;
-        let seconds = this.timer.seconds;
-        this.timer.stopAndReset();
-        //KONTROLLERA ATTEMPT
-        let attempt = task.attempt(answer,seconds);
-        //LAGRA ATTEMPT
-        this.store.add(attempt);
-        console.log(attempt);
-        //här borde attempt sparas
-        let nextTask = this.selectedItem.getNextTask()
-        if(nextTask.endOfTasks)
+        function answerTaskFn(state,answer)
         {
-            this.selectedItem = this.start;
-            return;
-        } 
-        this.timer.start(); 
+            //HÄMTA TASK
+            let task = state.selectedItem.task;
+            let seconds = state.timer.seconds;
+            state.timer.stop();
+            //KONTROLLERA ATTEMPT
+            let attempt = task.attempt(answer,seconds);
+            //LAGRA ATTEMPT
+            state.store.add(attempt);
+  
+        }
+
+        function nextTaskFn(state)
+        { 
+            let nextTask = state.selectedItem.getNextTask()
+            if(nextTask.endOfTasks)
+            {
+                state.selectedItem = state.start;
+                return;
+            } 
+            newTaskInit();
+            state.timer.reset();
+            state.timer.start(); 
+
+        }
+        Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),20)
     }
+
+ 
  
 
     // setTaskGroupLinks(links)

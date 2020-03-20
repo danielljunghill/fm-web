@@ -2,7 +2,9 @@
 //import { Attempts } from './Attempts.js'
 import { Attempt } from './Attempt.js'
 import { Component } from './Component.js'
-import { Timer } from './Time.js'
+
+
+const TaskState = {"initializing":1, "started":2}
 
 
 export class Task extends Component
@@ -14,13 +16,9 @@ export class Task extends Component
         this.Attempts = []
         this.taskId = taskId;
         this.taskGroupId = taskGroupId;
+        this.state = TaskState.initializing;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
-        this.timer = new Timer();
-        this.timer.start();
-
-  
-   
     }
     static Create(id,taskGroupId,roundId)
     {
@@ -30,7 +28,7 @@ export class Task extends Component
     attempt()
     {
       
-        let attempt = new Attempt(this.taskId,this.taskGroupId, this.roundId ,true);
+        let attempt = new Attempt(this.taskId, this.taskGroupId, this.roundId);
         this.Attempts.push(attempt);
         return attempt;
     }

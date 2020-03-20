@@ -14,6 +14,7 @@ export class MultiplyQuestion extends Task
         super('Task',id(a,b),taskGroupId,roundId)
         this.A = a;
         this.B = b; 
+        
     }
 
 

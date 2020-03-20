@@ -12,7 +12,7 @@
 
 <script>
 import getModelInstance from '../model/main-model.js'
-let data = getModelInstance()
+ let data = getModelInstance()
 
   export default {
     name: 'TaskGroupLinks',
@@ -38,8 +38,12 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+  display: block;
+  margin: 0 20px;
+}
+li:hover 
+{
+    background-color: gray;
 }
 a {
   color: #42b983;
