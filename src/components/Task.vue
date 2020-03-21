@@ -4,7 +4,7 @@
     <table id='wrap-table' >
       <tr>
         <td>
-              <table   id='question-table'>
+              <table id='question-table'>
                   <tr>
   
                     <td><div class='display-text'>{{ task.A }}</div></td>
@@ -20,6 +20,7 @@
                     <tr>
                       <td colspan="7">
                         <input ref="nextTask"  
+
                                 v-show="task.state == 1"
                                 v-bind:class="{hide:true}"
                                 id='answer-question-input' 
@@ -30,7 +31,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="7"><button v-show="task.state == 1" v-on:click="nextTask" id='answer-question-button'>Svara</button></td>
+                      <td colspan="7">
+                      <button
+                      v-bind:disabled = "answer == ''"
+                      default
+                      v-show="task.state == 1" 
+                      v-on:click="nextTask" 
+                      id='answer-question-button'>Svara</button></td>
                     </tr>
             </table>
         </td>
@@ -59,10 +66,13 @@ let data = getModelInstance()
     {
         nextTask:function()
         {
-            function resetAnswer(state)
+            if(this.answer == '')
+            {
+                return;
+            }
+           function resetAnswer(state)
             {
                 state.answer = '';
-                state.$refs.nextTask.focus(); //.answer-question-input.focus()
             }
             this.model.nextTask(this.answer,() => resetAnswer(this))
            
