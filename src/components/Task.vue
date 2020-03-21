@@ -1,8 +1,6 @@
 <template>
   <div class="center-div">
-  
   <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}" >
-
     <table id='wrap-table' >
       <tr>
         <td>
@@ -13,7 +11,10 @@
                     <td><div class='display-text'>*</div></td>
                     <td><div class='display-text'>{{ task.B }}</div></td>
                     <td><div class='display-text'>=</div></td>
-                    <td class='display-text'><div class='display-text'>{{ answer }}</div></td>
+                    <td>
+                      <div class='display-text' v-if="answer==''">?</div>
+                      <div class='display-text' v-else>{{ answer }}</div>
+                    </td>
                     <td rowspan=3></td>
                   <tr>
                     <tr>
@@ -40,10 +41,7 @@
     </table>
   </div>
   </div>
-
- 
 </template>
-
 <script>
 
 import getModelInstance from '../model/main-model.js'
@@ -75,12 +73,17 @@ let data = getModelInstance()
         }
       
     },
+    mounted: function()
+    {
+      this.setFocus();
+    }
+    ,
     updated: function()
     {
         console.log('updated')
         if(this.answer == '')
         {
-          this.$refs.nextTask.focus();
+          this.setFocus();
         }
     }
   }
@@ -207,8 +210,6 @@ td:hover {
 
 #wrap-table  {
     border-color: transparent;
-    
-
 
 }
 

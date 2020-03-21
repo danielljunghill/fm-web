@@ -3,13 +3,18 @@ import { TaskGroup } from "./TaskGroup.js";
 
 export class TaskGroupLink
 {
-    constructor(taskGroupId,isActive,dependentOnTaskGroupId,attemptStore)
+    constructor(description,
+        taskGroupId,
+        isActive,
+        dependentOnTaskGroupId,
+        attemptStore)
     {
         //lägg till kontrakt som anger att isActive eller
         this.TaskGroupId = taskGroupId;
         this.IsActive = isActive;
         this.dependentOnTaskGroupId = dependentOnTaskGroupId;
         this.attemptStore = attemptStore;
+        this.description = description
     }
 
     Create()
@@ -19,7 +24,7 @@ export class TaskGroupLink
 
     isActive()
     {
-       console.log('check if link is active')
+       console.log('check if link is active ' + this.IsActive)
         if(this.IsActive)
             return true;
 
@@ -31,7 +36,7 @@ export class TaskGroupLink
         let state = this.attemptStore.get(this.dependentOnTaskGroupId)
       
         let result = state.isCompleted;
- 
+        console.log(result);
         return result;
     }
 

@@ -4,9 +4,9 @@ import { TaskGroupLink  } from './TaskGroupLink.js'
 
 export class MultiplyTableLink extends TaskGroupLink
 {
-    constructor(tableNr,prevTableId,store)
+    constructor(description,tableNr,prevTableId,store)
     {
-        super(`MultiplyTable.[${tableNr}].Link`,tableNr == 1,prevTableId,store)
+        super(description,`MultiplyTable.[${tableNr}].Link`,tableNr == 1,prevTableId,store)
         this.TableNr = tableNr;
     }
 
