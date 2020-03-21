@@ -12,7 +12,7 @@
                     <td><div class='display-text'>{{ task.B }}</div></td>
                     <td><div class='display-text'>=</div></td>
                     <td>
-                      <div class='display-text' v-if="answer==''">?</div>
+                      <div class='display-text' v-if="answer.trim()==''">?</div>
                       <div class='display-text' v-else>{{ answer }}</div>
                     </td>
                     <td rowspan=3></td>
@@ -66,7 +66,7 @@ let data = getModelInstance()
     {
         nextTask:function()
         {
-            if(this.answer == '')
+            if(this.answer.trim() == '')
             {
                 return;
             }
