@@ -1,34 +1,46 @@
 <template>
   <div class="center-div">
-  <div id='question-table'>
-    <table>
+  
+  <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}" >
+
+    <table id='wrap-table' >
       <tr>
-        <td v-if = "model.timer.seconds > 0" colspan=4>Consumer time: {{ model.timer.seconds }}</td>
+        <td>
+              <table   id='question-table'>
+                  <tr>
+  
+                    <td><div class='display-text'>{{ task.A }}</div></td>
+                    <td><div class='display-text'>*</div></td>
+                    <td><div class='display-text'>{{ task.B }}</div></td>
+                    <td><div class='display-text'>=</div></td>
+                    <td class='display-text'><div class='display-text'>{{ answer }}</div></td>
+                    <td rowspan=3></td>
+                  <tr>
+                    <tr>
+                      <td colspan="7">
+                        <input ref="nextTask"  
+                                v-show="task.state == 1"
+                                v-bind:class="{hide:true}"
+                                id='answer-question-input' 
+                                type="text" 
+                                v-on:keyup.enter="nextTask" 
+                                v-model="answer"
+                                autocomplete="off"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="7"><button v-show="task.state == 1" v-on:click="nextTask" id='answer-question-button'>Svara</button></td>
+                    </tr>
+            </table>
+        </td>
+        <td width=100px><div v-if = "model.timer.seconds > 0" 
+           v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}"
+           v-show="task.state == 1">{{ model.timer.seconds }}</div></td>
       </tr>
-      <tr>
-        <td>{{ task.A }}</td>
-        <td>*</td>
-        <td>{{ task.B }}</td>
-        <td>=</td>
-        <td>{{ answer }}</td>
-      <tr>
-        <tr>
-          <td colspan="4">
-            <input 
-                    v-bind:class="{hide:true}"
-                    id='answer-question-input' 
-                    type="text" 
-                    v-on:keyup.enter="nextTask" 
-                    v-model="answer"
-                    autocomplete="off"/>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="4"><button v-on:click="nextTask" id='answer-question-button'>nextTask</button></td>
-        </tr>
     </table>
   </div>
   </div>
+
  
 </template>
 
@@ -52,19 +64,23 @@ let data = getModelInstance()
             function resetAnswer(state)
             {
                 state.answer = '';
+                state.$refs.nextTask.focus(); //.answer-question-input.focus()
             }
-            console.log(' answer ' + this.answer)
             this.model.nextTask(this.answer,() => resetAnswer(this))
            
-       
-        //     function setNext(state)
-        //     {
-        //         console.log('answer in task vue '  + state.answer);
-        //         state.model.nextTask(state.answer);
-        //         state.answer = '';
-        //     }
-          
-        //     Timer.flow(() =>{ return },() => setNext(this),500) 
+        },
+        setFocus:function()
+        {
+             this.$refs.nextTask.focus();
+        }
+      
+    },
+    updated: function()
+    {
+        console.log('updated')
+        if(this.answer == '')
+        {
+          this.$refs.nextTask.focus();
         }
     }
   }
@@ -72,7 +88,69 @@ let data = getModelInstance()
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+span{
+  background: white;
+  color:black;
+  padding:10px
+}
 
+.correct span {
+    background: white;
+    color:black;
+    padding:10px
+}
+
+.answer span {
+    background: white;
+    color:black;
+    padding:10px
+}
+
+.hide {
+    display:none;
+
+}
+
+.greenBorder {
+    border: 2px solid green;
+    display:inline-block;
+}
+
+.grayBorder {
+    border: 1px solid gray;
+    display:inline-block;
+}
+
+.redBorder {
+    border: 2px solid red;
+    display:inline-block;
+}
+
+
+table {
+    align-self: center;
+}
+
+td.deactive {
+    color: gray;
+}
+
+/* td {
+    border: 1px solid black; 
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 0px;
+} */
+
+td:active
+{
+    border: 3px solid black; 
+}
+
+td:hover {
+    background-color:rgb(163, 169, 187);
+  }
 .button {
   border: none;
   border-radius: 2px;
@@ -81,6 +159,7 @@ let data = getModelInstance()
 .button-close {
   background-color: red;
 }
+
 #answer-table td {
     border-color: transparent;
     width: 50px;
@@ -107,6 +186,7 @@ let data = getModelInstance()
 
 #question-table  {
     border-color: transparent;
+    width: 600 px;
 
 
 }
@@ -125,15 +205,41 @@ let data = getModelInstance()
 
 }
 
-div.display-text {
-    font-size: 40px;
+#wrap-table  {
+    border-color: transparent;
+    
+
+
+}
+
+#wrap-table td:hover {
+    background-color:transparent;
+
+}
+
+#wrap-table td {
+    border-color: transparent;
+    border: 1px transparent; 
+    text-align: center;
+
+}
+
+
+.display-text {
+    font-size: 30px;
 }
  
-div.display-time {
-    font-size: 30px;
-    color: blue
+.display-time {
+    font-size: 50px;
+    color: green
 }
-div.display-error-text
+
+.display-time-red {
+    font-size: 50px;
+    color: red
+}
+
+.display-error-text
 {
     text-decoration: line-through;
     font-size: 40px;

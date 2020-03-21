@@ -43,6 +43,7 @@ export class MainModel
             //KONTROLLERA ATTEMPT
             let attempt = task.attempt(answer,seconds);
             //LAGRA ATTEMPT
+        
             state.store.add(attempt);
   
         }
@@ -55,12 +56,13 @@ export class MainModel
                 state.selectedItem = state.start;
                 return;
             } 
-            newTaskInit();
+            
             state.timer.reset();
             state.timer.start(); 
+            newTaskInit();
 
         }
-        Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),20)
+        Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),1000)
     }
 
  

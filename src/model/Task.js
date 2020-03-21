@@ -4,7 +4,8 @@ import { Attempt } from './Attempt.js'
 import { Component } from './Component.js'
 
 
-const TaskState = {"initializing":1, "started":2}
+
+export const TaskState = {"notAnswered":1, "answeredCorrect":2, "answeredCorrectWihTimeError":3,"answeredWithError":4 }
 
 
 export class Task extends Component
@@ -16,7 +17,7 @@ export class Task extends Component
         this.Attempts = []
         this.taskId = taskId;
         this.taskGroupId = taskGroupId;
-        this.state = TaskState.initializing;
+        this.state = TaskState.notAnswered;
         //this.id = `${taskGroupId}.[${taskId}]`
         this.roundId = roundId
     }

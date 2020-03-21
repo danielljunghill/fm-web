@@ -1,4 +1,5 @@
 import { Task } from './Task.js'
+import { TaskState } from './Task.js'
 import { Attempt } from './Attempt.js'
 
 
@@ -14,6 +15,7 @@ export class MultiplyQuestion extends Task
         super('Task',id(a,b),taskGroupId,roundId)
         this.A = a;
         this.B = b; 
+        this.timelimit = 5
         
     }
 
@@ -24,8 +26,20 @@ export class MultiplyQuestion extends Task
     attempt(input,elapsedSeconds)
     {
        
-        let correct = ((this.A * this.B) == input) && elapsedSeconds < 5;
- 
+        let correct = ((this.A * this.B) == input) 
+        if(correct)
+        {
+            this.state = TaskState.answeredCorrect
+            if(elapsedSeconds > 5)
+            {
+                this.state = TaskState.answeredCorrectWihTimeError
+            }
+        }
+        else
+        {
+            
+            this.state = TaskState.answeredWithError     
+        }
         let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId , correct);
         this.Attempts.push(attempt);
         return attempt;
