@@ -1,7 +1,7 @@
 
 //import { Attempts } from './Attempts.js'
-import { Attempt } from './Attempt.js'
-import { Component } from './Component.js'
+import { Attempt } from './attempt.js'
+import { Component } from './component.js'
 
 
 

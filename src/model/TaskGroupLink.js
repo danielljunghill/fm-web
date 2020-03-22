@@ -1,4 +1,4 @@
-import { TaskGroup } from "./TaskGroup.js";
+import { TaskGroup } from "./taskGroup.js";
 
 
 export class TaskGroupLink

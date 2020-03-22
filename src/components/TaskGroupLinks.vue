@@ -5,7 +5,7 @@
         <template v-for="link in selectedItem.Links" >
                 <Link v-bind:taskGroupLink="link" v-bind:key="link.TableNr"/>
         </template>
-    
+         <div v-on:click="toggleLanguage">Toggle language</div>
   </div>
 
 </template>
@@ -14,7 +14,10 @@
 import getModelInstance from '../model/main-model.js'
 let data = getModelInstance()
 
- import TaskGroupLink  from './TaskGroupLink.vue'
+import getTranslator from '../model/language/words.js'
+let translator = getTranslator()
+
+import TaskGroupLink  from './TaskGroupLink.vue'
 
 export default {
   name: 'TaskGroupLinks',
@@ -27,6 +30,10 @@ export default {
       {
           data.setTaskGroup(link);
         
+      },
+      toggleLanguage()
+      {
+          translator.toggleLanguage()
       }
   }
 
@@ -44,7 +51,7 @@ export default {
     margin-top: -50px;
     margin-left: -50px;
     width: 50%;
-    height: 50%
+    height: 50% 
 }​
 
 h3 {

@@ -1,6 +1,6 @@
-import { MultiplyQuestion } from './MultiplyQuestion.js'
-import { TaskGroup } from './TaskGroup.js'
-import { createUUID } from './Math.js'
+import { MultiplyQuestion } from './multiplyQuestion.js'
+import { TaskGroup } from './taskGroup.js'
+import { createUUID } from './math.js'
 
 function createMultiplyTableId(tableNr)
 {

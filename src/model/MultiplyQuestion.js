@@ -1,6 +1,6 @@
-import { Task } from './Task.js'
-import { TaskState } from './Task.js'
-import { Attempt } from './Attempt.js'
+import { Task } from './task.js'
+import { TaskState } from './task.js'
+import { Attempt } from './attempt.js'
 
 
 function id(a,b)

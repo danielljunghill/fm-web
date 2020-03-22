@@ -1,5 +1,5 @@
 
-import { Attempts } from "./Attempts.js"
+import { Attempts } from "./attempts.js"
 
 
 //vid alla svar rätt skall nästa

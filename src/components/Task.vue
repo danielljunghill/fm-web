@@ -47,21 +47,25 @@
       </tr>
     </table>
   </div>
+     <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
   </div>
 </template>
 <script>
 
 import getModelInstance from '../model/main-model.js'
+import  getTranslator from '../model/language/words.js'
 
 let data = getModelInstance()
-
+let translator = getTranslator()
+console.log('kkk111')
+console.log(translator.getWord('Go_back'))
   export default {
     name: 'Task',
     props: {
       task: {},
     },
   
-    data: function() { return { answer:'', model: data}},
+    data: function() { return { answer:'', model: data, text: translator}},
     methods:
     {
         nextTask:function()
@@ -80,6 +84,11 @@ let data = getModelInstance()
         setFocus:function()
         {
              this.$refs.nextTask.focus();
+        },
+        goBack:function()
+        {
+            
+            this.model.goBack();
         }
       
     },
@@ -90,7 +99,6 @@ let data = getModelInstance()
     ,
     updated: function()
     {
-        console.log('updated')
         if(this.answer == '')
         {
           this.setFocus();
@@ -237,7 +245,7 @@ td:hover {
 
 
 .display-text {
-    font-size: 30px;
+    font-size: 40px;
 }
  
 .display-time {

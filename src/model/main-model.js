@@ -4,9 +4,9 @@
 // }
 
 
-import { multiplyTableLinks } from './TaskGroupLinks';
-import { AttemptStore } from './AttemptStore';
-import { Timer } from './Time'
+import { multiplyTableLinks } from './taskGroupLinks.js';
+import { AttemptStore } from './attemptStore.js';
+import { Timer } from './time'
 
 let attemptStore = new AttemptStore()
 
@@ -66,7 +66,11 @@ export class MainModel
     }
 
  
- 
+    goBack()
+    {
+       
+        this.selectedItem = this.start;
+    }
 
     // setTaskGroupLinks(links)
     // {

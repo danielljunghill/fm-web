@@ -1,5 +1,5 @@
 // import { MultiplyTables } from './MultiplyTables.js'
-import { multiplyTableLinks } from './TaskGroupLinks.js'
+import { multiplyTableLinks } from './taskGroupLinks.js'
 import { MultiplyTable } from './MultiplyTable.js';
 
 export class State

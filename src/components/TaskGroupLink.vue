@@ -1,13 +1,14 @@
 <template>
 
-
-  <div v-if="taskGroupLink.isActive()" class="active" v-on:click="selected">
-        {{ taskGroupLink.description}}
+  <div>
+      <div v-if="taskGroupLink.isActive()" class="active" v-on:click="selected">
+            {{ taskGroupLink.description}}
+      </div>
+      <div v-else class="inactive">
+            {{ taskGroupLink.description}}
+      </div>
+   
   </div>
-  <div v-else class="inactive">
-        {{ taskGroupLink.description}}
-  </div>
-
 </template>
 
 <script>
@@ -23,7 +24,6 @@ let data = getModelInstance()
       selected()
       {
           data.setTaskGroup(this.taskGroupLink);
-        
       }
   }
 

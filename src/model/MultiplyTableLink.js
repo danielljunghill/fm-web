@@ -1,5 +1,5 @@
-import { MultiplyTable } from './MultiplyTable.js'
-import { TaskGroupLink  } from './TaskGroupLink.js'
+import { MultiplyTable } from './multiplyTable.js'
+import { TaskGroupLink  } from './taskGroupLink.js'
 
 
 export class MultiplyTableLink extends TaskGroupLink
