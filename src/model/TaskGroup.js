@@ -15,7 +15,7 @@ export class TaskGroup extends Component
 {
     constructor(taskGroupId,tasks)
     {   
-        super('TaskGroup',)
+        super('TaskGroup')
         this.tasks = tasks;
         this.position = 0;
         this.taskGroupId = taskGroupId;   
@@ -55,5 +55,12 @@ export class TaskGroup extends Component
     }
 
 }
+
+// function getRoundId(taskGroupId)
+// {
+// }
+
+//hämta roundid och
+
 
 
