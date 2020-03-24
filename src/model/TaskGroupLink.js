@@ -24,17 +24,18 @@ export class TaskGroupLink
 
     isActive()
     {
-       console.log('check if link is active ' + this.IsActive)
+       //console.log('check if link is active ' + this.IsActive)
         if(this.IsActive)
             return true;
 
         if(!this.attemptStore.has(this.dependentOnTaskGroupId))
         {
-            console.log('is not in attemptstore ' + this.dependentOnTaskGroupId)
+            //console.log('is not in attemptstore ' + this.dependentOnTaskGroupId)
             return false;
         }
         let state = this.attemptStore.get(this.dependentOnTaskGroupId)
-        console.log('state.isCompleted ' + state.isCompleted)
+    
+        console.log('state.isCompleted wqeqweqweqwe' + state.isCompleted)
         let result = state.isCompleted;
 
         return result;

@@ -1,10 +1,10 @@
 
-import { TaskAttemptStore } from "./taskAttemptStore.js"
+import { AttemptPerRoundStore } from "./attemptPerRoundStore.js"
 
 
 //vid alla svar rätt skall nästa
 //link aktiveras
-export class TaskGroupAttemptStore
+export class AttemptPerTaskGroup
 {
     constructor()
     {
@@ -17,7 +17,7 @@ export class TaskGroupAttemptStore
         console.log(`attempt.taskGroupId ${attempt.taskGroupId}`);
         if(!this.store.has(attempt.taskGroupId))
         {
-            this.store.set(attempt.taskGroupId, new TaskAttemptStore(false));
+            this.store.set(attempt.taskGroupId, new AttemptPerRoundStore(false));
         }
         this.store.get(attempt.taskGroupId).add(attempt);
     }

@@ -5,7 +5,7 @@
 
 
 import { multiplyTableLinks } from './taskGroupLinks.js';
-import { TaskGroupAttemptStore } from './taskGroupAttemptStore.js';
+import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time'
 // import { getNextTask } from './selectTask'
 
@@ -83,7 +83,7 @@ export class MainModel
 
 }
 
-let taskGroupStore = new TaskGroupAttemptStore()
+let taskGroupStore = new AttemptPerTaskGroup()
 let data = new MainModel(taskGroupStore)
 export default function getModelInstance()
 {

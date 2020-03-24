@@ -1,7 +1,6 @@
-// import { Attempt } from './attempt.js'
-//  import { NextTaskResult } from './task.js'
 
- class TaskAttempts
+
+ class AttemptPerTaskStore
 {
     constructor()
     {
@@ -45,7 +44,7 @@
     }
 }
 
-export class TaskAttemptStore
+export class AttemptPerRoundStore
 {
     constructor(isCompleted)
     {
@@ -56,10 +55,10 @@ export class TaskAttemptStore
 
     add(attempt)
     {
-        console.log('add attempts')
+  
         if(!this.attemptMap.has(attempt.roundId))
         {
-            this.attemptMap.set(attempt.roundId,new TaskAttempts());
+            this.attemptMap.set(attempt.roundId,new AttemptPerTaskStore());
         }
         let map = this.attemptMap.get(attempt.roundId)
         map.add(attempt)
@@ -80,14 +79,14 @@ export class TaskAttemptStore
         return false;
     }
 
-    getAttempts(roundId)
+    getAllAttemptsForRound(roundId)
     {
         if(this.attemptMap.has(roundId))
             return this.attemptMap.get(roundId)
         return null;
     }
 
-    tryGetRoundId()
+    tryGetLastRoundId()
     {
         let keys =  this.attemptMap.keys; 
         if(keys.length == 0)
