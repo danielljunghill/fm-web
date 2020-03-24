@@ -5,10 +5,11 @@
 
 
 import { multiplyTableLinks } from './taskGroupLinks.js';
-import { AttemptStore } from './attemptStore.js';
+import { TaskGroupAttemptStore } from './taskGroupAttemptStore.js';
 import { Timer } from './time'
+// import { getNextTask } from './selectTask'
 
-let attemptStore = new AttemptStore()
+
 
 export class MainModel
 {
@@ -24,7 +25,9 @@ export class MainModel
     setTaskGroup(taskGroupLink)
     {   
         let taskGroup  = taskGroupLink.CreateTaskGroup();
+        this.roundId = taskGroup.roundId
         //hämta första task. Kankse ska vara egen function
+        this.timer.reset();
         this.timer.start();
         this.selectedItem = taskGroup;
         //kontrollera taskgroup.ComponentName
@@ -37,6 +40,7 @@ export class MainModel
         function answerTaskFn(state,answer)
         {
             //HÄMTA TASK
+           
             let task = state.selectedItem.task;
             let seconds = state.timer.seconds;
             state.timer.stop();
@@ -79,7 +83,8 @@ export class MainModel
 
 }
 
-let data = new MainModel(attemptStore)
+let taskGroupStore = new TaskGroupAttemptStore()
+let data = new MainModel(taskGroupStore)
 export default function getModelInstance()
 {
     return data;

@@ -60,16 +60,12 @@ export class Translators
 
 }
 
-let goBack = [{language:'en', value:'Go back'}, {language:'sv', value:'Gå tillbaka'}]
 let translator = new Translators()
+let goBack = [{language:'en', value:'Go back'}, {language:'sv', value:'Gå tillbaka'}]
 translator.addWord(new WordTranslator('Go_back',goBack))
-console.log('asdasdsdadasdas')
-console.log(translator.getWord('Go_back'))
-
 
 export default function getTranslator()
 {
-    console.log(translator)
     return translator;
 }
 

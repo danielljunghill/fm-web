@@ -30,14 +30,16 @@ export class TaskGroupLink
 
         if(!this.attemptStore.has(this.dependentOnTaskGroupId))
         {
-          
+            console.log('is not in attemptstore ' + this.dependentOnTaskGroupId)
             return false;
         }
         let state = this.attemptStore.get(this.dependentOnTaskGroupId)
-      
+        console.log('state.isCompleted ' + state.isCompleted)
         let result = state.isCompleted;
-        console.log(result);
+
         return result;
     }
 
 }
+
+

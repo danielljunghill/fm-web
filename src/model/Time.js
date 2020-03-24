@@ -40,7 +40,6 @@ export class Timer
             return;
         }
         this.started = false;  
-        console.log('clear inteval')
         clearInterval(this.interval);
     }
 

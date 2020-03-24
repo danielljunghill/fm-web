@@ -1,7 +1,7 @@
 // import { Attempt } from './attempt.js'
 //  import { NextTaskResult } from './task.js'
 
-export class TaskAttempts
+ class TaskAttempts
 {
     constructor()
     {
@@ -17,11 +17,23 @@ export class TaskAttempts
     
     }
 
-    has(taskId)
+    
+    correctTaskCount()
     {
-        return this.map.has(taskId)
+        function getTaskStatusFromAttempts(attempts)
+        {
+            let am = attempts.map((attempt) => attempt.correct) 
+            let len = Array.from(am).includes(true);
+            let result = (len > 0);     
+            return  result
+        }
+     
+        let statusCheck = this.values().map((attempts) => getTaskStatusFromAttempts(attempts))
+    
+        return statusCheck.filter((x) => x).length 
     }
 
+    
     get(taskId)
     {
         return this.map.get(taskId)
@@ -33,30 +45,35 @@ export class TaskAttempts
     }
 }
 
-export class Attempts
+export class TaskAttemptStore
 {
     constructor(isCompleted)
     {
        this.attemptMap = new Map();
        this.isCompleted = isCompleted;
+      
     }
 
     add(attempt)
     {
+        console.log('add attempts')
         if(!this.attemptMap.has(attempt.roundId))
         {
             this.attemptMap.set(attempt.roundId,new TaskAttempts());
         }
         let map = this.attemptMap.get(attempt.roundId)
-        console.log(map)
         map.add(attempt)
         //
         if(this.isCompleted)
             return true;
-        console.log(map.values())
-        if(map.values().filter(a => a.correct).length == 10)
+
+        let taskAttemptForThisRound = this.attemptMap.get(attempt.roundId)    
+        let nrOfCompletedTasks = taskAttemptForThisRound.correctTaskCount();
+     
+        if(nrOfCompletedTasks == 10)
         {
-            this.isCompleted  = map.get(attempt.roundId).length == 10
+      
+            this.isCompleted  = true
             return this.isCompleted;
         }
     

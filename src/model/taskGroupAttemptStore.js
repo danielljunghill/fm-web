@@ -1,14 +1,15 @@
 
-import { Attempts } from "./attempts.js"
+import { TaskAttemptStore } from "./taskAttemptStore.js"
 
 
 //vid alla svar rätt skall nästa
 //link aktiveras
-export class AttemptStore
+export class TaskGroupAttemptStore
 {
     constructor()
     {
         this.store = new Map();
+        this.isCompleted = true;
     }
 
     add(attempt)
@@ -16,7 +17,7 @@ export class AttemptStore
         console.log(`attempt.taskGroupId ${attempt.taskGroupId}`);
         if(!this.store.has(attempt.taskGroupId))
         {
-            this.store.set(attempt.taskGroupId, new Attempts(false));
+            this.store.set(attempt.taskGroupId, new TaskAttemptStore(false));
         }
         this.store.get(attempt.taskGroupId).add(attempt);
     }
@@ -34,5 +35,7 @@ export class AttemptStore
     {
         return this.store.has(taskGroupId);
     }
+
+
 
 }

@@ -48,6 +48,7 @@
     </table>
   </div>
      <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
+  
   </div>
 </template>
 <script>

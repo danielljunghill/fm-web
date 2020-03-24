@@ -7,7 +7,7 @@
       <div v-else class="inactive">
             {{ taskGroupLink.description}}
       </div>
-   
+      
   </div>
 </template>
 
