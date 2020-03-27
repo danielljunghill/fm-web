@@ -4,15 +4,17 @@ import { TaskGroupLink  } from './taskGroupLink.js'
 
 export class MultiplyTableLink extends TaskGroupLink
 {
-    constructor(description,tableNr,prevTableId,store)
+    constructor(description,tableNr,prevTableId,taskGroupAttemptStore)
     {
-        super(description,`MultiplyTable.[${tableNr}].Link`,tableNr == 1,prevTableId,store)
+        console.log('opa')
+        console.log(taskGroupAttemptStore)
+        super(description,`MultiplyTable.[${tableNr}].Link`,tableNr == 1,prevTableId,taskGroupAttemptStore)
         this.TableNr = tableNr;
     }
 
     CreateTaskGroup()
     {
-        console.log(`this.tableNr ${this.TableNr}`)
-        return new MultiplyTable(this.TableNr);
+       
+        return new MultiplyTable(this.TableNr,this.attemptStore);
     }
 }

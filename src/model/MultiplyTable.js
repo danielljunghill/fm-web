@@ -1,21 +1,21 @@
 import { MultiplyQuestion } from './multiplyQuestion.js'
 import { TaskGroup } from './taskGroup.js'
-import { createUUID } from './math.js'
+
+
 
 function createMultiplyTableId(tableNr)
 {
     return `MultiplyTable[${tableNr}]`;
 }
 
-function createMultiplyQuestions(tableNr)
+function createMultiplyQuestions(tableNr,roundId)
 {
     let questions = [];
-    let roundId = createUUID();
     let i = {};
-    console.log( `tablenr ${tableNr}`)
-    for(i = 1; i <= 1; i++)
+
+    for(i = 1; i <= 3; i++)
     {   
-        console.log(i)
+    
         let question = new MultiplyQuestion(tableNr,i,createMultiplyTableId(tableNr),roundId);
         questions.push(question);
     }
@@ -25,9 +25,11 @@ function createMultiplyQuestions(tableNr)
 
 export class MultiplyTable extends TaskGroup
 {
-    constructor(tableNr)
+    constructor(tableNr,taskGroupAttemptStore)
     {
-        super(createMultiplyTableId(tableNr), createMultiplyQuestions(tableNr)); 
+        console.log(taskGroupAttemptStore)
+        super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
+        this.tasks = createMultiplyQuestions(tableNr,this.roundId);
 
     }
 

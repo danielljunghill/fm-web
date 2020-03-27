@@ -17,7 +17,7 @@ export class MainModel
     {
         this.start = multiplyTableLinks(store)
         this.selectedItem = this.start;
-        this.store = store;
+        this.taskGroupStore = taskGroupStore;
         this.timer = new Timer();
            
     }
@@ -29,9 +29,11 @@ export class MainModel
         //hämta första task. Kankse ska vara egen function
         this.timer.reset();
         this.timer.start();
+
+        taskGroup.getNextTask()
+
         this.selectedItem = taskGroup;
-        //kontrollera taskgroup.ComponentName
- 
+      
     }
 
 
@@ -50,7 +52,7 @@ export class MainModel
             let attempt = task.attempt(answer,seconds);
             //LAGRA ATTEMPT
             let taskIds = taskGroup.tasks.map((task) => task.taskId);
-            state.store.add(attempt,taskIds);
+            state.taskGroupStore.add(attempt,taskIds);
   
         }
 

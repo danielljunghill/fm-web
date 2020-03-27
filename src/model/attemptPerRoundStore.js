@@ -16,21 +16,6 @@
     
     }
 
-    
-    // getSuccesfullTaskId()
-    // {
-    //     //one and only one attempt for
-    //     function getStatusFromAttempts(attempts)
-    //     {
-    //         let arr = attempts.map((attempt) => attempt.correct)
-    //         let isCompleted = Array.from(arr).includes(true) && !Array.from(arr).includes(false) 
-    //         return  isCompleted
-    //     }
-     
-    //     let statusCheck = this.attemptesPerTask.values().map((attempts) => getStatusFromAttempts(attempts))
-        
-    //     return statusCheck.filter((x) => x).length 
-    // }
 
     /// Task has only correct answers
     taskHasOnlyCorrectAnswers(taskId)
@@ -61,6 +46,12 @@
 
 
 
+    answeredTasks()
+    {
+        return Array.from(this.attemptesPerTask.keys())
+    }
+
+
     get(taskId)
     {
         return this.map.get(taskId)
@@ -83,9 +74,7 @@ export class AttemptPerRoundStore
 
     add(attempt,taskIds)
     {
-        console.log(attempt)
-        console.log(taskIds)
-       
+        
         let roundId = attempt.roundId
         if(!this.attemptsPerRound.has(roundId))
         {
@@ -97,33 +86,38 @@ export class AttemptPerRoundStore
         if(this.isCompleted)
             return true;
 
-
         this.isCompleted = !taskIds.map((taskId) => attemptsPerRound.taskHasOnlyCorrectAnswers(taskId)).includes(false)
-
-        // let taskAttemptForThisRound = this.attemptsPerRound.get(attempt.roundId)    
-        // let nrOfCompletedTasks = taskAttemptForThisRound.getSuccesfullTaskId();
-     
-        // if(nrOfCompletedTasks == 10)
-        // {
-      
-        //     this.isCompleted  = true
-        //     return this.isCompleted;
-        // }
     
         return this.isCompleted;
     }
 
-    getAllAttemptsForRound(roundId)
-    {
-        if(this.attemptsPerRound.has(roundId))
-            return this.attemptsPerRound.get(roundId)
-        return null;
-    }
+    // getAllAttemptsForRound(roundId)
+    // {
+    //     if(this.attemptsPerRound.has(roundId))
+    //         return this.attemptsPerRound.get(roundId)
+    //     return null;
+    // }
 
     hasOneOrManySuccessfullRounds(taskIds)
     {
         Array.from(this.attemptsPerRound.values().map((attemptPerTaskStore) => attemptPerTaskStore.tasksHasOnlyCorrectAnswers(taskIds))).includes(true);
     }
+
+    getAllAnsweredTaskIdsForRound(roundId)
+    {
+        if(!this.attemptsPerRound.has(roundId))
+            return [];
+        
+        return this.attemptsPerRound.get(roundId).answeredTasks();
+
+    }
+
+    // isTaskAnsweredForRound(roundId,taskId)
+    // {
+    //     this.attemptsPerRound.has(roundId)
+    //         return this.attemptsPerRound.get(roundId).taskHasAttempt(taskId)
+    //     return false;
+    // }
 
     current()
     {

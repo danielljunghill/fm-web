@@ -1,4 +1,5 @@
 import { Component } from './component.js'
+import { createUUID } from './math.js'
 
 export class NextTaskResult
 {
@@ -13,15 +14,16 @@ export class NextTaskResult
 
 export class TaskGroup extends Component
 {
-    constructor(taskGroupId,tasks)
+    constructor(taskGroupId,tasks,taskGroupAttempsStore)
     {   
         super('TaskGroup')
-        console.log('tthe tasks')
-        console.log(tasks)
         this.tasks = tasks;
         this.position = 0;
         this.taskGroupId = taskGroupId;   
-        this.task = this.getNextTask().task
+        this.roundId = createUUID()
+        //Attemptstore borde brytas ut
+        this.taskGroupAttempsStore = taskGroupAttempsStore
+        //this.task = this.getNextTask().task
        
     }
     
@@ -37,32 +39,36 @@ export class TaskGroup extends Component
 
     getNextTask()
     {
-        if(this.tasks.length == 0)
-        {
+        
+        let answeredTaskIds = new Set(this.taskGroupAttempsStore.getAnsweredTaskForRound(this.taskGroupId, this.roundId))
+        let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
+       
+        if (notAnswered.length == 0)
             return new NextTaskResult(null,true);
-        }
-        if(this.position >= this.tasks.length)
-        {
-            return new NextTaskResult(null,true);
-        }
-        let result = this.tasks[this.position];
-        this.position++;
-        this.task = result;
-        return new NextTaskResult(result,false);
+        this.task =  notAnswered[0];
+        return new NextTaskResult(notAnswered[0],false);
+        // if(this.tasks.length == 0)
+        // {
+        //     return new NextTaskResult(null,true);
+        // }
+        // if(this.position >= this.tasks.length)
+        // {
+        //     return new NextTaskResult(null,true);
+        // }
+        // let result = this.tasks[this.position];
+        // this.position++;
+        // this.task = result;
+        // return new NextTaskResult(result,false);
     }
 
-    isActive()
-    {
-        return true;// !(this.dependentOn.map((d) => d.completed()).includes(false))
-    }
+    // isActive()
+    // {
+    //     return true;// !(this.dependentOn.map((d) => d.completed()).includes(false))
+    // }
 
 }
 
-// function getRoundId(taskGroupId)
-// {
-// }
 
-//hämta roundid och
 
 
 

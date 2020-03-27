@@ -30,19 +30,9 @@ export class Task extends Component
     {
       
         let attempt = new Attempt(this.taskId, this.taskGroupId, this.roundId);
-        //this.Attempts.push(attempt);
         return attempt;
     }
 
-    // completed()
-    // {
-    //     this.Attempts;
-    //     if(this.Attempts.length == 0)
-    //     {
-    //         return false;
-    //     }
-    //     return this.Attempts[this.Attempts.length - 1].correct;
-    // }
 
 
 }

@@ -58,8 +58,7 @@ import  getTranslator from '../model/language/words.js'
 
 let data = getModelInstance()
 let translator = getTranslator()
-console.log('kkk111')
-console.log(translator.getWord('Go_back'))
+
   export default {
     name: 'Task',
     props: {

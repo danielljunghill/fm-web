@@ -8,43 +8,61 @@ export class AttemptPerTaskGroup
 {
     constructor()
     {
-        this.store = new Map();
+        this.roundStoresPerTaskGroup = new Map();
         //this.isCompleted = true;
     }
 
     add(attempt,taskids)
     {
-        console.log(`attempt.taskGroupId ${attempt.taskGroupId}`);
-        if(!this.store.has(attempt.taskGroupId))
+        
+        if(!this.roundStoresPerTaskGroup.has(attempt.taskGroupId))
         {
-            this.store.set(attempt.taskGroupId, new AttemptPerRoundStore(false));
+            this.roundStoresPerTaskGroup.set(attempt.taskGroupId, new AttemptPerRoundStore(false));
         }
-        this.store.get(attempt.taskGroupId).add(attempt,taskids);
+        this.roundStoresPerTaskGroup.get(attempt.taskGroupId).add(attempt,taskids);
     }
 
     get(taskGroupId)
     {
-        if(this.store.has(taskGroupId))
+        if(this.roundStoresPerTaskGroup.has(taskGroupId))
         {
-            return this.store.get(taskGroupId);
+            return this.roundStoresPerTaskGroup.get(taskGroupId);
         }
         return null;
     }
 
     has(taskGroupId)
     {
-        return this.store.has(taskGroupId);
+        return this.roundStoresPerTaskGroup.has(taskGroupId);
     }
 
     isCompleted(taskGroupId)
     {   
 
-        console.log('sCompleted(taskGroupId) ' + taskGroupId) 
-        if(!this.store.has(taskGroupId))
+        if(!this.roundStoresPerTaskGroup.has(taskGroupId))
             return false;
-        return this.store.get(taskGroupId).isCompleted;
+        return this.roundStoresPerTaskGroup.get(taskGroupId).isCompleted;
     }
 
+    
+    getSuccessfullTaskForRound()
+    {
+
+    }
+
+
+    getAnsweredTaskForRound(taskGroupId,roundId)
+    {
+        if(!this.roundStoresPerTaskGroup.has(taskGroupId))
+            return [];
+        console.log('round exists')
+        
+        let roundStore = this.roundStoresPerTaskGroup.get(taskGroupId);
+   
+        let answeredTasks = roundStore.getAllAnsweredTaskIdsForRound(roundId);
+        console.log(answeredTasks)
+        return answeredTasks
+    }
 
 
 }

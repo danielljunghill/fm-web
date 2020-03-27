@@ -1,5 +1,6 @@
 import { MultiplyTableLink } from "./multiplyTableLink.js"
 import { Component } from './component.js'
+
 export class TaskGroupLinks extends Component
 {
     constructor(componentName,links)
