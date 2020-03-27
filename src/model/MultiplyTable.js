@@ -13,7 +13,7 @@ function createMultiplyQuestions(tableNr)
     let roundId = createUUID();
     let i = {};
     console.log( `tablenr ${tableNr}`)
-    for(i = 1; i <= 10; i++)
+    for(i = 1; i <= 1; i++)
     {   
         console.log(i)
         let question = new MultiplyQuestion(tableNr,i,createMultiplyTableId(tableNr),roundId);

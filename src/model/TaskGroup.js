@@ -16,6 +16,8 @@ export class TaskGroup extends Component
     constructor(taskGroupId,tasks)
     {   
         super('TaskGroup')
+        console.log('tthe tasks')
+        console.log(tasks)
         this.tasks = tasks;
         this.position = 0;
         this.taskGroupId = taskGroupId;   

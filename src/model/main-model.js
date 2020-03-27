@@ -41,14 +41,16 @@ export class MainModel
         {
             //HÄMTA TASK
            
-            let task = state.selectedItem.task;
+            let taskGroup = state.selectedItem;
+            let task = taskGroup.task;
+         
             let seconds = state.timer.seconds;
             state.timer.stop();
             //KONTROLLERA ATTEMPT
             let attempt = task.attempt(answer,seconds);
             //LAGRA ATTEMPT
-        
-            state.store.add(attempt);
+            let taskIds = taskGroup.tasks.map((task) => task.taskId);
+            state.store.add(attempt,taskIds);
   
         }
 

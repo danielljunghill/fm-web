@@ -9,17 +9,17 @@ export class AttemptPerTaskGroup
     constructor()
     {
         this.store = new Map();
-        this.isCompleted = true;
+        //this.isCompleted = true;
     }
 
-    add(attempt)
+    add(attempt,taskids)
     {
         console.log(`attempt.taskGroupId ${attempt.taskGroupId}`);
         if(!this.store.has(attempt.taskGroupId))
         {
             this.store.set(attempt.taskGroupId, new AttemptPerRoundStore(false));
         }
-        this.store.get(attempt.taskGroupId).add(attempt);
+        this.store.get(attempt.taskGroupId).add(attempt,taskids);
     }
 
     get(taskGroupId)
@@ -34,6 +34,15 @@ export class AttemptPerTaskGroup
     has(taskGroupId)
     {
         return this.store.has(taskGroupId);
+    }
+
+    isCompleted(taskGroupId)
+    {   
+
+        console.log('sCompleted(taskGroupId) ' + taskGroupId) 
+        if(!this.store.has(taskGroupId))
+            return false;
+        return this.store.get(taskGroupId).isCompleted;
     }
 
 

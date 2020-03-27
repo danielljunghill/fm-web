@@ -4,35 +4,63 @@
 {
     constructor()
     {
-        this.map = new Map()
+        this.attemptesPerTask = new Map()
     }
     add(attempt)
     {
-        if(!this.map.has(attempt.taskId))
+        if(!this.attemptesPerTask.has(attempt.taskId))
         {
-            this.map.set(attempt.taskId,[])
+            this.attemptesPerTask.set(attempt.taskId,[])
         }
-        this.map.get(attempt.taskId).push(attempt)
+        this.attemptesPerTask.get(attempt.taskId).push(attempt)
     
     }
 
     
-    correctTaskCount()
-    {
-        function getTaskStatusFromAttempts(attempts)
-        {
-            let am = attempts.map((attempt) => attempt.correct) 
-            let len = Array.from(am).includes(true);
-            let result = (len > 0);     
-            return  result
-        }
+    // getSuccesfullTaskId()
+    // {
+    //     //one and only one attempt for
+    //     function getStatusFromAttempts(attempts)
+    //     {
+    //         let arr = attempts.map((attempt) => attempt.correct)
+    //         let isCompleted = Array.from(arr).includes(true) && !Array.from(arr).includes(false) 
+    //         return  isCompleted
+    //     }
      
-        let statusCheck = this.values().map((attempts) => getTaskStatusFromAttempts(attempts))
-    
-        return statusCheck.filter((x) => x).length 
+    //     let statusCheck = this.attemptesPerTask.values().map((attempts) => getStatusFromAttempts(attempts))
+        
+    //     return statusCheck.filter((x) => x).length 
+    // }
+
+    /// Task has only correct answers
+    taskHasOnlyCorrectAnswers(taskId)
+    {
+        if(!this.taskHasAttempt(taskId))
+             return false;
+        let arr = this.attemptesPerTask.get(taskId).map((attempt) => attempt.correct)
+        return Array.from(arr).includes(true) && !Array.from(arr).includes(false) 
+
+    }
+    /// Task has correct asnswers
+    taskHasCorrectAnswers(taskId)
+    {
+        if(!this.taskHasAttempt(taskId))
+            return false;
+        let arr = this.attemptesPerTaskget(taskId).map((attempt) => attempt.correct)
+        return Array.from(arr).includes(true) 
     }
 
-    
+    /// task has answers
+    taskHasAttempt(taskId)
+    {
+        if(!this.attemptesPerTask.has(taskId))
+            return false;
+        return (this.attemptesPerTask.get(taskId).length > 0)
+         
+    }
+
+
+
     get(taskId)
     {
         return this.map.get(taskId)
@@ -48,74 +76,54 @@ export class AttemptPerRoundStore
 {
     constructor(isCompleted)
     {
-       this.attemptMap = new Map();
+       this.attemptsPerRound = new Map();
        this.isCompleted = isCompleted;
       
     }
 
-    add(attempt)
+    add(attempt,taskIds)
     {
-  
-        if(!this.attemptMap.has(attempt.roundId))
+        console.log(attempt)
+        console.log(taskIds)
+       
+        let roundId = attempt.roundId
+        if(!this.attemptsPerRound.has(roundId))
         {
-            this.attemptMap.set(attempt.roundId,new AttemptPerTaskStore());
+            this.attemptsPerRound.set(roundId,new AttemptPerTaskStore());
         }
-        let map = this.attemptMap.get(attempt.roundId)
-        map.add(attempt)
-        //
+        let attemptsPerRound = this.attemptsPerRound.get(roundId)
+        attemptsPerRound.add(attempt)
+        
         if(this.isCompleted)
             return true;
 
-        let taskAttemptForThisRound = this.attemptMap.get(attempt.roundId)    
-        let nrOfCompletedTasks = taskAttemptForThisRound.correctTaskCount();
+
+        this.isCompleted = !taskIds.map((taskId) => attemptsPerRound.taskHasOnlyCorrectAnswers(taskId)).includes(false)
+
+        // let taskAttemptForThisRound = this.attemptsPerRound.get(attempt.roundId)    
+        // let nrOfCompletedTasks = taskAttemptForThisRound.getSuccesfullTaskId();
      
-        if(nrOfCompletedTasks == 10)
-        {
+        // if(nrOfCompletedTasks == 10)
+        // {
       
-            this.isCompleted  = true
-            return this.isCompleted;
-        }
+        //     this.isCompleted  = true
+        //     return this.isCompleted;
+        // }
     
-        return false;
+        return this.isCompleted;
     }
 
     getAllAttemptsForRound(roundId)
     {
-        if(this.attemptMap.has(roundId))
-            return this.attemptMap.get(roundId)
+        if(this.attemptsPerRound.has(roundId))
+            return this.attemptsPerRound.get(roundId)
         return null;
     }
 
-    tryGetLastRoundId()
+    hasOneOrManySuccessfullRounds(taskIds)
     {
-        let keys =  this.attemptMap.keys; 
-        if(keys.length == 0)
-            return { roundId: '', empty: true}
-        return { roundId: keys[keys.length - 1], empty: false }
+        Array.from(this.attemptsPerRound.values().map((attemptPerTaskStore) => attemptPerTaskStore.tasksHasOnlyCorrectAnswers(taskIds))).includes(true);
     }
-
-    // getNextTask(roundId,tasks)
-    // {
-    //     // function isComplete1(tasks)
-    //     // {
-    //     //     let taskMap = new Map(tasks.map((task) => [task.taskId,task]))
-    
-    //     // }
-    
-    //     // function isComplete(task,attempts)
-    //     // {
-    //     //     let taskMap = new Map(tasks.map((task) => [task.taskId,task]))
-    //     // }
-
-    //     let attempts = this.attemptMap.get(roundId)
-    //     if(attempts == undefined)
-    //         return NextTaskResult(tasks[0],true);
-    //     //hämta nästa task task som inte är klara
-    //     let mapAttempts = new Map(attempts.map((attempt) => attempt))
-        
-    
-    // }
-
 
     current()
     {
