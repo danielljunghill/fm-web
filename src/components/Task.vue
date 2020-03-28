@@ -8,7 +8,7 @@
                   <tr>
   
                     <td><div class='display-text'>{{ task.A }}</div></td>
-                    <td><div class='display-text'>*</div></td>
+                    <td><canvas ref="sign" width="20px" height="20px"></canvas></td>
                     <td><div class='display-text'>{{ task.B }}</div></td>
                     <td><div class='display-text'>=</div></td>
                     <td>
@@ -55,7 +55,7 @@
 
 import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
-
+import Designer from '../model/drawing/draw.js'
 let data = getModelInstance()
 let translator = getTranslator()
 
@@ -95,6 +95,9 @@ let translator = getTranslator()
     mounted: function()
     {
       this.setFocus();
+      let designer = new Designer(this.$refs.sign)
+      designer.drawX(20,20)
+
     }
     ,
     updated: function()
@@ -109,6 +112,11 @@ let translator = getTranslator()
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+canvas {
+  width: 20 px;
+  height: 20 px;
+}
 span{
   background: white;
   color:black;
