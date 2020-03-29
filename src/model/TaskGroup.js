@@ -1,5 +1,6 @@
 import { Component } from './component.js'
 import { createUUID } from './math.js'
+import { randomInteger } from './math.js'
 
 export class NextTaskResult
 {
@@ -37,34 +38,52 @@ export class TaskGroup extends Component
         return true;
     }
 
+    getNotAnsweredTasks()
+    {
+        let answeredTaskIds = new Set(this.taskGroupAttempsStore.getAnsweredTaskForRound(this.taskGroupId, this.roundId))
+
+        let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
+
+        return notAnswered;
+    }
+
     getNextTask()
     {
         
-        let answeredTaskIds = new Set(this.taskGroupAttempsStore.getAnsweredTaskForRound(this.taskGroupId, this.roundId))
-        let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
+        let notAnswered = this.getNotAnsweredTasks();
        
         if (notAnswered.length == 0)
             return new NextTaskResult(null,true);
-        this.task =  notAnswered[0];
-        return new NextTaskResult(notAnswered[0],false);
-        // if(this.tasks.length == 0)
-        // {
-        //     return new NextTaskResult(null,true);
-        // }
-        // if(this.position >= this.tasks.length)
-        // {
-        //     return new NextTaskResult(null,true);
-        // }
-        // let result = this.tasks[this.position];
-        // this.position++;
-        // this.task = result;
-        // return new NextTaskResult(result,false);
+        //måste sätta nästa task i taskgroup
+        //då this.task styr vilken task som visas i Task.vue
+        let nextTask = notAnswered[0];
+        this.task = nextTask;
+
+        return new NextTaskResult(nextTask,false);
+  
     }
 
-    // isActive()
-    // {
-    //     return true;// !(this.dependentOn.map((d) => d.completed()).includes(false))
-    // }
+
+    getNextTaskRandomOrder()
+    {
+        let notAnswered = this.getNotAnsweredTasks();
+
+        if (notAnswered.length == 0)
+            return new NextTaskResult(null,true);
+
+        let nextIndex = randomInteger(0,notAnswered.length - 1);
+        
+        //måste sätta nästa task i taskgroup
+        //då this.task styr vilken task som visas i Task.vue
+        let nextTask =  notAnswered[nextIndex];
+
+        this.task = nextTask;
+
+        return new NextTaskResult(nextTask,false);
+
+    }
+
+ 
 
 }
 

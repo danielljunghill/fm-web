@@ -62,7 +62,9 @@ export class Translators
 
 let translator = new Translators()
 let goBack = [{language:'en', value:'Go back'}, {language:'sv', value:'Gå tillbaka'}]
+let answer = [{language:'en', value:'Answer'}, {language:'sv', value:'Svara'}]
 translator.addWord(new WordTranslator('Go_back',goBack))
+translator.addWord(new WordTranslator('Answer',answer))
 
 export default function getTranslator()
 {

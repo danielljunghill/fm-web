@@ -37,7 +37,7 @@
                       default
                       v-show="task.state == 1" 
                       v-on:click="nextTask" 
-                      id='answer-question-button'>Svara</button></td>
+                      id='answer-question-button'>{{ text.getWord('Answer') }}</button></td>
                     </tr>
             </table>
         </td>

@@ -30,7 +30,7 @@ export class MainModel
         this.timer.reset();
         this.timer.start();
 
-        taskGroup.getNextTask()
+        taskGroup.getNextTaskRandomOrder()
 
         this.selectedItem = taskGroup;
       
@@ -58,7 +58,7 @@ export class MainModel
 
         function nextTaskFn(state)
         { 
-            let nextTask = state.selectedItem.getNextTask()
+            let nextTask = state.selectedItem.getNextTaskRandomOrder()
             if(nextTask.endOfTasks)
             {
                 state.selectedItem = state.start;

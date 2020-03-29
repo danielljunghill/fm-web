@@ -18,10 +18,6 @@ let translator = getTranslator()
 
 import TaskGroupLink  from './TaskGroupLink.vue'
 
-//drawing
-
-import Designer from '../model/drawing/draw.js'
-
 export default {
   name: 'TaskGroupLinks',
   components: {
@@ -58,7 +54,7 @@ export default {
     margin-top: -50px;
     margin-left: -50px;
     width: 50%;
-    height: 50% 
+    height: 50%
 }​
 
 h3 {
