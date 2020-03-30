@@ -28,15 +28,15 @@ export class TaskGroup extends Component
        
     }
     
-    completed()
-    {
-        //kontrollera om samtliga tasks (questions) är klara
-        if(this.tasks.map((x) => x.completed()).includes(false))
-        { 
-            return false;
-        }
-        return true;
-    }
+    // completed()
+    // {
+    //     //kontrollera om samtliga tasks (questions) är klara
+    //     if(this.tasks.map((x) => x.completed()).includes(false))
+    //     { 
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
     getNotAnsweredTasks()
     {
@@ -45,6 +45,17 @@ export class TaskGroup extends Component
         let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
 
         return notAnswered;
+    }
+
+    getNonSuccessfullTassk()
+    { 
+        
+        let successfullTasks = new Set(this.taskGroupAttempsStore.getSuccessfullTaskForRound(this.taskGroupId, this.roundId))
+
+        let notSuccessfull = Array.from(this.tasks.filter((task) => !successfullTasks.has(task.taskId)))
+
+        return notSuccessfull;
+
     }
 
     getNextTask()

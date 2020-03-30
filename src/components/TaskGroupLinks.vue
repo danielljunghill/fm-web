@@ -45,20 +45,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .center-div
 {
     position: absolute;
-    top: 25%;
-    left: 25%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 50%;
-    height: 50%
-}​
+    top:25%;
+    left:25%;
+    margin-top:-50px;
+    margin-left:-50px;
+    width:50%;
+    height:50% 
+}
 
 h3 {
-  margin: 40px 0 0;
+  margin:40px 0 0;
 }
 
 ul {

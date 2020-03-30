@@ -1,9 +1,16 @@
 <template>
 
   <div>
-      <div v-if="taskGroupLink.isActive()" class="active" v-on:click="selected">
-            {{ taskGroupLink.description}}
+      <div v-if="taskGroupLink.isActive() && !taskGroupLink.isCompleted()" 
+          class='active'
+          v-on:click="selected">
+          {{ taskGroupLink.description}}
       </div>
+      <div v-else-if="taskGroupLink.isCompleted()"
+           class='completed'
+                v-on:click="selected">
+            {{ taskGroupLink.description}}
+      </div> 
       <div v-else class="inactive">
             {{ taskGroupLink.description}}
       </div>
@@ -42,6 +49,32 @@ let data = getModelInstance()
   box-sizing: border-box;
   float: left;
   font-size: 30px;
+}
+
+.completed {
+  background-color: lightgrey;
+  color: green;
+  width: 150px;
+  border: 2px solid green;
+  padding: 50px;
+  margin: 20px;
+  box-sizing: border-box;
+  float: left;
+  font-size: 30px;
+
+}
+
+.completed:hover {
+  background-color: green;
+  color: white;
+  width: 150px;
+  border: 2px solid green;
+  padding: 50px;
+  margin: 20px;
+  box-sizing: border-box;
+  float: left;
+  font-size: 30px;
+
 }
 
 .inactive {

@@ -51,6 +51,19 @@
         return Array.from(this.attemptesPerTask.keys())
     }
 
+    successfullTasks()
+    {
+        let correctAttempts = 
+            this.attemptesPerTask
+            .values
+            .filter((attempt) => attempt.correct)
+            .map((attempt) => attempt.taskId)
+   
+       
+        return [...new Set(correctAttempts)]
+      
+    }
+
 
     get(taskId)
     {
@@ -91,12 +104,6 @@ export class AttemptPerRoundStore
         return this.isCompleted;
     }
 
-    // getAllAttemptsForRound(roundId)
-    // {
-    //     if(this.attemptsPerRound.has(roundId))
-    //         return this.attemptsPerRound.get(roundId)
-    //     return null;
-    // }
 
     hasOneOrManySuccessfullRounds(taskIds)
     {
@@ -109,15 +116,15 @@ export class AttemptPerRoundStore
             return [];
         
         return this.attemptsPerRound.get(roundId).answeredTasks();
+    }
+
+    getAllSuccessfullTaskIdsForRound(roundId){
+        if(!this.attemptsPerRound.has(roundId))
+            return [];
+        return this.attemptsPerRound.get(roundId).successfullTasks();
 
     }
 
-    // isTaskAnsweredForRound(roundId,taskId)
-    // {
-    //     this.attemptsPerRound.has(roundId)
-    //         return this.attemptsPerRound.get(roundId).taskHasAttempt(taskId)
-    //     return false;
-    // }
 
     current()
     {

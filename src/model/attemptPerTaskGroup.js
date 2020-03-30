@@ -45,8 +45,13 @@ export class AttemptPerTaskGroup
     }
 
     
-    getSuccessfullTaskForRound()
+    getSuccessfullTaskForRound(taskGroupId,roundId)
     {
+        if(!this.roundStoresPerTaskGroup.has(taskGroupId))
+            return [];  
+        let roundStore = this.roundStoresPerTaskGroup.get(taskGroupId);   
+        let successfullTasks = roundStore.getSuccessfullTaskForRound(roundId);
+        return successfullTasks;
 
     }
 
@@ -54,13 +59,9 @@ export class AttemptPerTaskGroup
     getAnsweredTaskForRound(taskGroupId,roundId)
     {
         if(!this.roundStoresPerTaskGroup.has(taskGroupId))
-            return [];
-        console.log('round exists')
-        
-        let roundStore = this.roundStoresPerTaskGroup.get(taskGroupId);
-   
+            return [];      
+        let roundStore = this.roundStoresPerTaskGroup.get(taskGroupId);  
         let answeredTasks = roundStore.getAllAnsweredTaskIdsForRound(roundId);
-        console.log(answeredTasks)
         return answeredTasks
     }
 

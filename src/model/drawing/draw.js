@@ -11,7 +11,7 @@ export default class Designer
     drawX(x,y)
     {
         this.context.beginPath();
-        this.canvas.lineWidth = 10;
+        this.canvas.lineWidth = 40;
         let w = this.canvas.offsetWidth
         let h = this.canvas.offsetHeight
         console.log(h)
@@ -21,11 +21,25 @@ export default class Designer
 
         this.context.moveTo(x,0)
         this.context.lineTo(0,y)
-        // this.context.moveTo(x - 20, y - 20);
-        // this.context.lineTo(x + 20, y + 20);
-    
-        // this.context.moveTo(x + 20, y - 20);
-        // this.context.lineTo(x - 20, y + 20);
+
         this.context.stroke();
     }
+
+
+    drawRaster()
+    {
+        this.context.beginPath();
+        let i = {};
+        let x = 15
+        let y = 10
+        for(i = 1; i <= 10; i++)
+        {
+            this.context.moveTo(0, i * y)
+            this.context.lineTo(x * i, 0)
+        }
+        this.context.strokeStyle = "gray";
+        
+        this.context.stroke();
+    }
+
 }

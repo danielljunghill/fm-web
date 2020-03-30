@@ -8,7 +8,7 @@ export class MultiplyTableLink extends TaskGroupLink
     {
         console.log('opa')
         console.log(taskGroupAttemptStore)
-        super(description,`MultiplyTable.[${tableNr}].Link`,tableNr == 1,prevTableId,taskGroupAttemptStore)
+        super(description,`MultiplyTable[${tableNr}]`,tableNr == 1,prevTableId,taskGroupAttemptStore)
         this.TableNr = tableNr;
     }
 

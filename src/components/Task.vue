@@ -12,7 +12,9 @@
                     <td><div class='display-text'>{{ task.B }}</div></td>
                     <td><div class='display-text'>=</div></td>
                     <td>
-                      <div class='display-text' v-if="answer.trim()==''">?</div>
+                      <div class='display-text' v-if="answer.trim()==''">
+                        <canvas ref='raster'  width="50px" height="50px"></canvas>
+                      </div>
                       <div class='display-text' v-else>{{ answer }}</div>
                     </td>
                     <td rowspan=3></td>
@@ -89,7 +91,8 @@ let translator = getTranslator()
         {
             
             this.model.goBack();
-        }
+        },
+     
       
     },
     mounted: function()
@@ -97,6 +100,8 @@ let translator = getTranslator()
       this.setFocus();
       let designer = new Designer(this.$refs.sign)
       designer.drawX(20,20)
+      designer = new Designer(this.$refs.raster)
+      designer.drawRaster()
 
     }
     ,
@@ -105,6 +110,9 @@ let translator = getTranslator()
         if(this.answer == '')
         {
           this.setFocus();
+          let designer = new Designer(this.$refs.raster)
+          designer.drawRaster()
+
         }
     }
   }
@@ -253,7 +261,7 @@ td:hover {
 
 
 .display-text {
-    font-size: 40px;
+    font-size: 50px;
 }
  
 .display-time {
