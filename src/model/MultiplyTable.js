@@ -13,7 +13,7 @@ function createMultiplyQuestions(tableNr,roundId)
     let questions = [];
     let i = {};
 
-    for(i = 1; i <= 3; i++)
+    for(i = 1; i <= 10; i++)
     {   
     
         let question = new MultiplyQuestion(tableNr,i,createMultiplyTableId(tableNr),roundId);

@@ -8,15 +8,5 @@ export function createUUID() {
  export function randomInteger(min,max)
   {
       let value = Math.random() * (max - min + 1) + min;
-      let t = Math.floor(+value);
-      return t;
+      return Math.floor(+value);
   }
-  //a + b * c
-export let multiply =
-    function(a)
-      {
-          return function(b) // BUG: )
-          {
-              return a * b;
-          }
-      }

@@ -44,7 +44,7 @@ export class AttemptPerTaskGroup
         return this.roundStoresPerTaskGroup.get(taskGroupId).isCompleted;
     }
 
-    
+    //hämta task som är bsevarade och har åtminstore ett korrekt attempt
     getSuccessfullTaskForRound(taskGroupId,roundId)
     {
         if(!this.roundStoresPerTaskGroup.has(taskGroupId))
@@ -55,7 +55,7 @@ export class AttemptPerTaskGroup
 
     }
 
-
+    //hämta tasks som är besvarade
     getAnsweredTaskForRound(taskGroupId,roundId)
     {
         if(!this.roundStoresPerTaskGroup.has(taskGroupId))

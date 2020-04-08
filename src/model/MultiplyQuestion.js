@@ -8,6 +8,7 @@ function id(a,b)
     return `[${a}.*.${b}]`;
 }
 
+
 export class MultiplyQuestion extends Task
 {
     constructor(a,b,taskGroupId,roundId)
@@ -15,18 +16,14 @@ export class MultiplyQuestion extends Task
         super('Task',id(a,b),taskGroupId,roundId)
         this.A = a;
         this.B = b; 
-        this.timelimit = 5
-        
+        this.timelimit = 5       
     }
-
-
-
   //current Attempts
 
     attempt(input,elapsedSeconds)
     {
-       
-        let correct = ((this.A * this.B) == input) 
+        let correctAnswer = this.A * this.B
+        let correct = (correctAnswer == input) 
         if(correct)
         {
             this.state = TaskState.answeredCorrect
@@ -37,11 +34,10 @@ export class MultiplyQuestion extends Task
         }
         else
         {
-            
             this.state = TaskState.answeredWithError     
         }
         correct = correct && (this.state == TaskState.answeredCorrect)
-        let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId , correct);
+        let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId ,input,correctAnswer, correct,elapsedSeconds);
         //this.Attempts.push(attempt);
         return attempt;
     }

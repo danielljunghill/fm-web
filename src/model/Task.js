@@ -1,9 +1,7 @@
 
 //import { Attempts } from './Attempts.js'
-import { Attempt } from './attempt.js'
+
 import { Component } from './component.js'
-
-
 
 export const TaskState = {"notAnswered":1, "answeredCorrect":2, "answeredCorrectWihTimeError":3,"answeredWithError":4 }
 
@@ -26,11 +24,13 @@ export class Task extends Component
         new Task('Task',id, taskGroupId, roundId)
     }
 
+    //
     attempt()
     {
-      
-        let attempt = new Attempt(this.taskId, this.taskGroupId, this.roundId);
-        return attempt;
+        // let correctAnswer =''
+        // let correct = true
+        // let attempt = new Attempt(this.taskId, this.taskGroupId, this.roundId,answer,correctAnswer,correct,duration);
+        return {};
     }
 
 

@@ -1,12 +1,11 @@
 <template>
   <div class="center-div">
-  <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}" >
+  <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}">
     <table id='wrap-table' >
       <tr>
         <td>
-              <table id='question-table'>
+              <table id='question-table'> 
                   <tr>
-  
                     <td><div class='display-text'>{{ task.A }}</div></td>
                     <td><canvas ref="sign" width="20px" height="20px"></canvas></td>
                     <td><div class='display-text'>{{ task.B }}</div></td>
@@ -18,8 +17,8 @@
                       <div class='display-text' v-else>{{ answer }}</div>
                     </td>
                     <td rowspan=3></td>
-                  <tr>
-                    <tr>
+                  <tr v-show="task.state == 1">
+                    <!-- <tr> -->
                       <td colspan="7">
                         <input ref="nextTask"  
 
@@ -32,7 +31,7 @@
                                 autocomplete="off"/>
                       </td>
                     </tr>
-                    <tr>
+                    <tr v-show="task.state == 1">
                       <td colspan="7">
                       <button
                       v-bind:disabled = "answer == ''"
@@ -149,8 +148,9 @@ span{
 }
 
 .greenBorder {
-    border: 2px solid green;
+    border:2px  white;/*2px solid green;*/
     display:inline-block;
+   
 }
 
 .grayBorder {
@@ -159,7 +159,7 @@ span{
 }
 
 .redBorder {
-    border: 2px solid red;
+    border:2px white; /*2px solid red;*/
     display:inline-block;
 }
 
@@ -224,8 +224,6 @@ td:hover {
 #question-table  {
     border-color: transparent;
     width: 600 px;
-
-
 }
 
 #question-table td:hover {

@@ -7,8 +7,24 @@
 import { multiplyTableLinks } from './taskGroupLinks.js';
 import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time'
+import { getDb,addAttemptToDb } from './attemptDb'
 // import { getNextTask } from './selectTask'
 
+let db
+async function createAttemptDb()
+{
+    console.log('trying to create db')
+    db = await getDb()
+    console.log(db)
+}
+createAttemptDb()
+
+async function addAttemptToStore(attempt)
+{
+    console.log('add attempt to store');
+    await addAttemptToDb(attempt);
+    console.log('added attempt')
+}
 
 
 export class MainModel
@@ -53,6 +69,8 @@ export class MainModel
             //LAGRA ATTEMPT
             let taskIds = taskGroup.tasks.map((task) => task.taskId);
             state.taskGroupStore.add(attempt,taskIds);
+            addAttemptToStore(attempt)
+
   
         }
 
@@ -89,6 +107,19 @@ export class MainModel
 
 let taskGroupStore = new AttemptPerTaskGroup()
 let data = new MainModel(taskGroupStore)
+// function createDb() {
+//         return new Promise(resolve =>
+//             {
+//                 setTimeout(() => {
+//                     resolve('resolved')
+//                 },2000);
+                
+//             });
+// }
+
+//console.log(getDbPromise)
+//getDbPromise.then(function(db) { console.log('attemptDb is set',db) })
+
 export default function getModelInstance()
 {
     return data;
