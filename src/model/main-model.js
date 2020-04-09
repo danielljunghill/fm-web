@@ -65,8 +65,8 @@ export class MainModel
         function answerTaskFn(state,answer)
         {
             //HÄMTA TASK
-            let attempts = state.dbStore.attemptsPerRound(state.selectedItem.roundId)
-            console.log(attempts)
+            
+            
             let taskGroup = state.selectedItem;
             let task = taskGroup.task;
          
@@ -81,9 +81,12 @@ export class MainModel
   
         }
 
-        function nextTaskFn(state)
+        async function nextTaskFn(state)
         { 
-           
+            let attempts = await state.dbStore.answeredTaskIdsPerRound(state.selectedItem.roundId)
+            console.log(attempts)
+            let taskids = await state.dbStore.succesfullTaskIdsPerRound(state.selectedItem.roundId)
+            console.log(taskids)
             let nextTask = state.selectedItem.getNextTaskRandomOrder()
             if(nextTask.endOfTasks)
             {

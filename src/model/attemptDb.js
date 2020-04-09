@@ -133,9 +133,8 @@ function addAttempt(attempt)
 //     })
 
 // }
-
-export function getAttemptsPerRound(roundId)
-    {
+function getAttemptsPerRound(roundId)
+{
         return new Promise((resolve) =>{
             let transaction = attemptsDb.transaction("attempts"); // readonly
             let attempts = transaction.objectStore("attempts");
@@ -152,7 +151,7 @@ export function getAttemptsPerRound(roundId)
             };
         })
     
-    }
+}
 
 
 export  class AttemptStore
@@ -180,11 +179,22 @@ export  class AttemptStore
     {
         await getDb()
         let attempts = await getAttemptsPerRound(roundId)
-        console.log(attempts)
         return attempts;
 
     }
 
+    async  answeredTaskIdsPerRound(roundId)
+    {
+        let attempts = await this.attemptsPerRound(roundId)
+        let result = [...new Set(attempts.map((attempt) => attempt.taskId))]
+        return result;
+    }
+
+    async succesfullTaskIdsPerRound(roundId)
+    {
+        let attempts = await this.attemptsPerRound(roundId)
+        return [...new Set(attempts.filter((attempt) => attempt.correct).map((attempt) => attempt.taskId))]
+    }
 
   
 }
