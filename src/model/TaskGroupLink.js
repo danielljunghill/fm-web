@@ -19,13 +19,13 @@ export class TaskGroupLink
 
     Create()
     {
-        console.log(this.attemptStore)
+      
         return new TaskGroup(this.taskGroupId,[],this.attemptStore)
     }
 
     isCompleted()
     {
-        console.log('is completed ' + this.taskGroupId)
+        
         let result = this.attemptStore.isCompleted(this.taskGroupId)
       
         return result
@@ -40,9 +40,9 @@ export class TaskGroupLink
         {
             return false;
         }
-        console.log(this.dependentOnTaskGroupId);
+     
         let iscompleted = this.attemptStore.isCompleted(this.dependentOnTaskGroupId)
-        console.log(iscompleted)
+  
         let result = iscompleted;
 
         return result;

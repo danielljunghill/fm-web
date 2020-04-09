@@ -7,34 +7,38 @@
 import { multiplyTableLinks } from './taskGroupLinks.js';
 import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time'
-import { getDb,addAttemptToDb,getAttemptsFromDb ,getAttemptsPerRound} from './attemptDb'
+import { AttemptStore } from './attemptDb'
 // import { getNextTask } from './selectTask'
 
 
-async function createAttemptDb()
-{
-    console.log('trying to create db')
-    await getDb()
-}
-createAttemptDb()
+// async function createAttemptDb()
+// {
+//     console.log('trying to create db')
+//     await getDb()
+// }
+// createAttemptDb()
 
-async function addAttemptToStore(attempt)
-{
-    console.log('add attempt to store');
-    await addAttemptToDb(attempt);
-    console.log('added attempt')
-}
+// async function addAttemptToStore(attempt)
+// {
+//     console.log('add attempt to store');
+//     await addAttemptToDb(attempt);
+//     console.log('added attempt')
+// }
 
-async function getAttemptForRound(roundId)
-{
-    await getAttemptsPerRound(roundId)
-}
+// async function getAttemptForRound(roundId)
+// {
+//     await getAttemptsPerRound(roundId)
+// }
+
+
+    
 
 export class MainModel
 {
     constructor(store)
     {
         this.start = multiplyTableLinks(store)
+        this.dbStore =  new AttemptStore()
         this.selectedItem = this.start;
         this.taskGroupStore = taskGroupStore;
         this.timer = new Timer();
@@ -61,7 +65,8 @@ export class MainModel
         function answerTaskFn(state,answer)
         {
             //HÄMTA TASK
-           
+            let attempts = state.dbStore.attemptsPerRound(state.selectedItem.roundId)
+            console.log(attempts)
             let taskGroup = state.selectedItem;
             let task = taskGroup.task;
          
@@ -72,16 +77,13 @@ export class MainModel
             //LAGRA ATTEMPT
             let taskIds = taskGroup.tasks.map((task) => task.taskId);
             state.taskGroupStore.add(attempt,taskIds);
-            addAttemptToStore(attempt);
-
-            let storedAttempts = getAttemptsFromDb();
-            console.log(storedAttempts)
+            state.dbStore.add(attempt).then();
   
         }
 
         function nextTaskFn(state)
         { 
-            let attempts = getAttemptForRound(state.selectedItem.roundId)
+           
             let nextTask = state.selectedItem.getNextTaskRandomOrder()
             if(nextTask.endOfTasks)
             {
@@ -100,7 +102,6 @@ export class MainModel
  
     goBack()
     {
-       
         this.selectedItem = this.start;
     }
 
