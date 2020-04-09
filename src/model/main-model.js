@@ -7,15 +7,14 @@
 import { multiplyTableLinks } from './taskGroupLinks.js';
 import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time'
-import { getDb,addAttemptToDb } from './attemptDb'
+import { getDb,addAttemptToDb,getAttemptsFromDb ,getAttemptsPerRound} from './attemptDb'
 // import { getNextTask } from './selectTask'
 
-let db
+
 async function createAttemptDb()
 {
     console.log('trying to create db')
-    db = await getDb()
-    console.log(db)
+    await getDb()
 }
 createAttemptDb()
 
@@ -26,6 +25,10 @@ async function addAttemptToStore(attempt)
     console.log('added attempt')
 }
 
+async function getAttemptForRound(roundId)
+{
+    await getAttemptsPerRound(roundId)
+}
 
 export class MainModel
 {
@@ -69,13 +72,16 @@ export class MainModel
             //LAGRA ATTEMPT
             let taskIds = taskGroup.tasks.map((task) => task.taskId);
             state.taskGroupStore.add(attempt,taskIds);
-            addAttemptToStore(attempt)
+            addAttemptToStore(attempt);
 
+            let storedAttempts = getAttemptsFromDb();
+            console.log(storedAttempts)
   
         }
 
         function nextTaskFn(state)
         { 
+            let attempts = getAttemptForRound(state.selectedItem.roundId)
             let nextTask = state.selectedItem.getNextTaskRandomOrder()
             if(nextTask.endOfTasks)
             {
