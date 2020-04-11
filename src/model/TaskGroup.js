@@ -1,6 +1,7 @@
 import { Component } from './component.js'
 import { createUUID } from './math.js'
 import { randomInteger } from './math.js'
+import { Attemptstore } from ''
 
 export class NextTaskResult
 {
@@ -28,15 +29,15 @@ export class TaskGroup extends Component
        
     }
     
-    // completed()
-    // {
-    //     //kontrollera om samtliga tasks (questions) är klara
-    //     if(this.tasks.map((x) => x.completed()).includes(false))
-    //     { 
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    completed()
+    {
+        //kontrollera om samtliga tasks (questions) är klara
+        if(this.tasks.map((x) => x.completed()).includes(false))
+        { 
+            return false;
+        }
+        return true;
+    }
 
     getNotAnsweredTasks()
     {
@@ -47,7 +48,7 @@ export class TaskGroup extends Component
         return notAnswered;
     }
 
-    getNonSuccessfullTassk()
+    getNonSuccessfullTasks()
     { 
         
         let successfullTasks = new Set(this.taskGroupAttempsStore.getSuccessfullTaskForRound(this.taskGroupId, this.roundId))
