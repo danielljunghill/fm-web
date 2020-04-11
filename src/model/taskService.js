@@ -9,15 +9,16 @@ export class NextTaskResult
         
     }
 }
-/// Hämta attempts som är korrekta
-function taskIdsFromSuccessfullAttempts(attempts)
-{
-    taskIdsFromAttempts(attempts.filter(function(attempt) { attempt.correct}))
-}
+
 /// mappa om attempts till taskIds
 function taskIdsFromAttempts(attempts)
 {
     return new Set(attempts.map((attempt) => attempt.taskId))
+}
+/// Hämta attempts som är korrekta
+function taskIdsFromSuccessfullAttempts(attempts)
+{
+    taskIdsFromAttempts(attempts.filter(function(attempt) { attempt.correct}))
 }
 // filterera taskId med hjälp av taskId set
 function filterTask(taskIdSet)
@@ -40,7 +41,7 @@ export function getTasks(taskStore)
     }
 }
 
-function getNextTasInSortedOrder(tasks)
+function selectNextTaskInSortedOrder(tasks)
 {
     if (tasks.length == 0)
         return new NextTaskResult(null,true);
@@ -50,7 +51,7 @@ function getNextTasInSortedOrder(tasks)
     return new NextTaskResult(nextTask,false);
 }
 
-function getNextTasInRandomOrder(tasks)
+function selectNextTaskInRandomOrder(tasks)
 {
     if (tasks.length == 0)
         return new NextTaskResult(null,true);
@@ -61,117 +62,53 @@ function getNextTasInRandomOrder(tasks)
     return new NextTaskResult(nextTask,false);
 }
 
+async function getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+{
+    let tasks = await getTasksAsync(taskGroupId)
+    let attempts = await attemptStore.getAttemptsPerRound(roundId)
+    let filter = filterTask(taskIdsFromAttempts(attempts))
+    let notAnswerdTasks = tasks.filter(filter)
+    return notAnswerdTasks
 
-/// Hämta ny task utifrån förusättningen att 
-/// task är utförds när den är besvarad oavsett svarsresultat (attempt)
-///
+}
+
+async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+{
+    let tasks = await getTasksAsync(taskGroupId)
+    let attempts = await attemptStore.getAttemptsPerRound(roundId)
+    let filter = filterTask(taskIdsFromSuccessfullAttempts(attempts))
+    let notSuccessfullTasks = tasks.filter(filter)
+    return notSuccessfullTasks
+}
+
+
 export async function getNextNotAsweredTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
 {
-    let tasks = await getTasksAsync(taskGroupId)
-    let attempts = await attemptStore.getAttemptsPerRound(roundId)
-    let filter = filterTask(taskIdsFromAttempts(attempts))
-    let notanswerdTasks = tasks.filter(filter)
-    return getNextTasInSortedOrder(notanswerdTasks)
-
-
-
+    let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+    let tasksInSortedOrder =  selectNextTaskInSortedOrder(notAnswerdTasks)
+    return tasksInSortedOrder
 }
 
-/// Hämta ny task utifrån förusättningen att 
-/// task är utförds när den är besvarad oavsett svarsresultat (attempt)
-///
 export async function getNextNotAsweredTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
 {
-    let tasks = await getTasksAsync(taskGroupId)
-    let attempts = await attemptStore.getAttemptsPerRound(roundId)
-    let filter = filterTask(taskIdsFromAttempts(attempts))
-    tasks.filter(filter)
+    let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+    let tasksInSortedOrder =  selectNextTaskInRandomOrder(notAnswerdTasks)
+    return tasksInSortedOrder
 }
 
-
-
-
-class TaskService
+export async function getNextNotSuccessfullTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
 {
-    constructor(store)
-    {
-        this.store = store
-    }
-
-    async getTasks(taskGroupId)
-    {
-        //gör detta med decorator
-        let tasks = await this.store.getTasks(taskGroupId)
-        return tasks;
-    }
-
-    async getNextNotAsweredTaskInSortedOrder(round)
-    {
-        let tasks = await this.getTasks(round.taskGroupId)
-        let attempts = await this.store.getAttemptsPerRound(roundId)
-        let filter = filterTask(taskIdsFromAttempts(attempts))
-        tasks.filter(filter)
-        
-    }
-
-
-    async getNextNotAsweredTaskInRandomOrder(round)
-    {
-        await store.getAttemptsPerRound(roundId)
-    }
-
-    async getNextNotSuccessfullTaskInSortedOrder(round)
-    {
-        await store.getAttemptsPerRound(roundId)
-    }
-
-
-    async getNextNotSuccessfullTaskInRandomOrder(round)
-    {
-        await store.getAttemptsPerRound(roundId)
-    }
-
-
-
-
-  
-
-
-
-    static Create()
-    {
-        return new AttemptStore();
-    }
-
-    async add(attempt)
-    {
-        await getDb()
-        await addAttempt(attempt)
-    }
-
-    async attemptsPerRound(roundId)
-    {
-        await getDb()
-        let attempts = await getAttemptsPerRound(roundId)
-        return attempts;
-
-    }
-
-    async  answeredTaskIdsPerRound(roundId)
-    {
-        let attempts = await this.attemptsPerRound(roundId)
-        let result = [...new Set(attempts.map((attempt) => attempt.taskId))]
-        return result;
-    }
-
-    async succesfullTaskIdsPerRound(roundId)
-    {
-        let attempts = await this.attemptsPerRound(roundId)
-        return [...new Set(attempts.filter((attempt) => attempt.correct).map((attempt) => attempt.taskId))]
-    }
-
-
-
-
-
+    let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+    let tasksInSortedOrder =  selectNextTaskInSortedOrder(notSuccessfullTasks)
+    return tasksInSortedOrder
 }
+
+export async function getNextNotSuccessfullTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+{
+    let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+    let tasksInSortedOrder =  selectNextTaskInRandomOrder(notSuccessfullTasks)
+    return tasksInSortedOrder
+}
+
+
+
