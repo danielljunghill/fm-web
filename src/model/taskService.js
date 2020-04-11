@@ -82,33 +82,52 @@ async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptS
 }
 
 
-export async function getNextNotAsweredTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+
+export function getNextTask(roundId,taskGroupId)
 {
-    let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-    let tasksInSortedOrder =  selectNextTaskInSortedOrder(notAnswerdTasks)
-    return tasksInSortedOrder
+    
+    return async function(getNotCompletedTasksAsync)
+    {
+        let notCompleted = await getNotCompletedTasksAsync(roundId,taskGroupId)
+        return function(selectNextTask)
+        {
+            return selectNextTask(notCompleted)
+        }
+
+    }
 }
 
-export async function getNextNotAsweredTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-{
-    let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-    let tasksInSortedOrder =  selectNextTaskInRandomOrder(notAnswerdTasks)
-    return tasksInSortedOrder
-}
 
-export async function getNextNotSuccessfullTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-{
-    let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-    let tasksInSortedOrder =  selectNextTaskInSortedOrder(notSuccessfullTasks)
-    return tasksInSortedOrder
-}
 
-export async function getNextNotSuccessfullTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-{
-    let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-    let tasksInSortedOrder =  selectNextTaskInRandomOrder(notSuccessfullTasks)
-    return tasksInSortedOrder
-}
+// // 
+// export async function getNextNotAsweredTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+// {
+//     let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+//     let tasksInSortedOrder =  selectNextTaskInSortedOrder(notAnswerdTasks)
+//     return tasksInSortedOrder
+// }
+
+// export async function getNextNotAsweredTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+// {
+//     let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+//     let tasksInSortedOrder =  selectNextTaskInRandomOrder(notAnswerdTasks)
+//     return tasksInSortedOrder
+// }
+
+// export async function getNextNotSuccessfullTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+// {
+//     let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+//     let tasksInSortedOrder =  selectNextTaskInSortedOrder(notSuccessfullTasks)
+//     return tasksInSortedOrder
+// }
+
+// export async function getNextNotSuccessfullTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
+// {
+//     let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+//     let tasksInSortedOrder =  selectNextTaskInRandomOrder(notSuccessfullTasks)
+//     return tasksInSortedOrder
+// }
+
 
 
 
