@@ -3,12 +3,12 @@ import { TaskGroup } from './taskGroup.js'
 
 
 
-function createMultiplyTableId(tableNr)
+export function createMultiplyTableId(tableNr)
 {
     return `MultiplyTable[${tableNr}]`;
 }
 
-function createMultiplyQuestions(tableNr,roundId)
+export function createMultiplyQuestions(tableNr,roundId)
 {
     let questions = [];
     let i = {};

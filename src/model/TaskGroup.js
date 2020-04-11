@@ -1,7 +1,27 @@
 import { Component } from './component.js'
 import { createUUID } from './math.js'
 import { randomInteger } from './math.js'
-import { Attemptstore } from ''
+import { createMultiplyQuestions } from './multiplyTable'
+
+export function taskGroup(name,id,type)
+{
+    return { name: name, id: id, type: type}
+}
+
+export async function getTasks(taskGroup)
+{
+    if(taskGroup == null)
+        throw 'taskGroup not provided'
+
+    if(taskGroup.type == 'MultiplyTable')
+    {
+        return createMultiplyQuestions(taskGroup.name)
+    }
+    throw `could not recognize taskgroupid ${taskGroup}`
+
+}
+
+
 
 export class NextTaskResult
 {

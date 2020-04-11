@@ -1,38 +1,15 @@
-// export default function main_model()
-// {
-//     return { name: 'daniel', age: 12 };
-// }
-
 
 import { multiplyTableLinks } from './taskGroupLinks.js';
 import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
-import { Timer } from './time'
-import { AttemptStore } from './attemptDb'
-// import { getNextTask } from './selectTask'
+import { Timer } from './time';
+import { AttemptStore } from './attemptDb';
+// import { getTasks } from './taskService'
 
-
-// async function createAttemptDb()
+// async function getTasksFromStore(taksGroupId)
 // {
-//     console.log('trying to create db')
-//     await getDb()
+
 // }
-// createAttemptDb()
-
-// async function addAttemptToStore(attempt)
-// {
-//     console.log('add attempt to store');
-//     await addAttemptToDb(attempt);
-//     console.log('added attempt')
-// }
-
-// async function getAttemptForRound(roundId)
-// {
-//     await getAttemptsPerRound(roundId)
-// }
-
-
     
-
 export class MainModel
 {
     constructor(store)
@@ -48,6 +25,7 @@ export class MainModel
     setTaskGroup(taskGroupLink)
     {   
         let taskGroup  = taskGroupLink.CreateTaskGroup();
+        console.log(taskGroup.taskGroupId)
         this.roundId = taskGroup.roundId
         //hämta första task. Kankse ska vara egen function
         this.timer.reset();
@@ -85,8 +63,8 @@ export class MainModel
         { 
             let attempts = await state.dbStore.answeredTaskIdsPerRound(state.selectedItem.roundId)
             console.log(attempts)
-            let taskids = await state.dbStore.succesfullTaskIdsPerRound(state.selectedItem.roundId)
-            console.log(taskids)
+            // let taskids = await state.dbStore.succesfullTaskIdsPerRound(state.selectedItem.roundId)
+            // console.log(taskids)
             let nextTask = state.selectedItem.getNextTaskRandomOrder()
             if(nextTask.endOfTasks)
             {

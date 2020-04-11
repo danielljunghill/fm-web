@@ -1,4 +1,5 @@
 import { MultiplyTableLink } from "./multiplyTableLink.js"
+import { createMultiplyTableId  } from "./multiplyTable"
 import { Component } from './component.js'
 
 export class TaskGroupLinks extends Component
@@ -24,7 +25,7 @@ export function multiplyTableLinks(store)
     for(i = 1; i <= 10; i++)
     {   
         let prev = i - 1;
-        let link = new MultiplyTableLink(i,i,`MultiplyTable[${prev}]`,store);
+        let link = new MultiplyTableLink(i,i,createMultiplyTableId(prev),store);
         links.push(link);
     }  
     return  TaskGroupLinks.Create(links);

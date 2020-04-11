@@ -4,13 +4,13 @@ import { TaskGroup } from "./taskGroup.js";
 export class TaskGroupLink
 {
     constructor(description,
-        taskGroupId,
+        taskGroup,
         isActive,
         dependentOnTaskGroupId,
         attemptStore)
     {
         //lägg till kontrakt som anger att isActive eller
-        this.taskGroupId = taskGroupId;
+        this.taskGroup = taskGroup;
         this.IsActive = isActive;
         this.dependentOnTaskGroupId = dependentOnTaskGroupId;
         this.attemptStore = attemptStore;
@@ -20,13 +20,13 @@ export class TaskGroupLink
     Create()
     {
       
-        return new TaskGroup(this.taskGroupId,[],this.attemptStore)
+        return new TaskGroup(this.taskGroup.id,[],this.attemptStore)
     }
 
     isCompleted()
     {
         
-        let result = this.attemptStore.isCompleted(this.taskGroupId)
+        let result = this.attemptStore.isCompleted(this.taskGroup.id)
       
         return result
     }

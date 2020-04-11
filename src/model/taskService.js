@@ -1,4 +1,4 @@
-import { randomInteger } from './math.js'
+import { randomInteger } from './math'
 
 export class NextTaskResult
 {
@@ -26,16 +26,16 @@ function filterTask(taskIdSet)
     return function(taskId) { !taskIdSet.has(taskId)}
 }
 
-export function getTasks(taskStore)
+export function getTasks(getTasksFromStore)
 {
     let taskForTaskGroup = new Map()
-    async function getTaskAsync(taskGroupId)
+    return async function getTaskAsync(taskGroupId)
     {
         if(taskForTaskGroup.has(taskGroupId))
         {
             return taskForTaskGroup.get(taskGroupId)
         }
-        let tasks = await taskStore.getTasks(taskGroupId)
+        let tasks = await getTasksFromStore(taskGroupId)
         taskForTaskGroup.set(taskGroupId,tasks)
         return tasks
     }
