@@ -8,7 +8,8 @@
 
 import TaskGroupLinks from './TaskGroupLinks.vue'
 import getModelInstance from '../model/main-model.js'
-import TaskGroup  from './TaskGroup.vue'
+//import TaskGroup  from './TaskGroup.vue'
+import Task from './Task.vue'
 
 let data = getModelInstance()
 
@@ -17,7 +18,7 @@ export default {
     components:
     {
         'TaskGroupLinks': TaskGroupLinks,
-        'TaskGroup': TaskGroup,
+        'Task': Task,
 
     },
     data: function()  { return data },

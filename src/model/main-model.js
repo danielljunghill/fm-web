@@ -34,6 +34,7 @@ export class MainModel
         let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
         let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)
         console.log(nextTask)
+        this.selectedItem = nextTask.task
 
      
         // let taskGroup  = taskGroupLink.CreateTaskGroup();

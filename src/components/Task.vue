@@ -58,15 +58,16 @@ import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
 import Designer from '../model/drawing/draw.js'
 let data = getModelInstance()
+let task = data.selectedItem;
 let translator = getTranslator()
 
   export default {
     name: 'Task',
-    props: {
-      task: {},
-    },
+    // props: {
+    //   task: {},
+    // },
   
-    data: function() { return { answer:'', model: data, text: translator}},
+    data: function() { return { answer:'', task: task,model: data, text: translator}},
     methods:
     {
         nextTask:function()
