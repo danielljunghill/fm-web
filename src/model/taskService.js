@@ -13,7 +13,8 @@ export class NextTaskResult
 /// mappa om attempts till taskIds
 function taskIdsFromAttempts(attempts)
 {
-    return new Set(attempts.map((attempt) => attempt.taskId))
+    console.log(attempts)
+    return new Set(Array.from(attempts.map((attempt) => attempt.taskId)))
 }
 /// Hämta attempts som är korrekta
 function taskIdsFromSuccessfullAttempts(attempts)
@@ -23,7 +24,11 @@ function taskIdsFromSuccessfullAttempts(attempts)
 // filterera taskId med hjälp av taskId set
 function filterTask(taskIdSet)
 {
-    return function(taskId) { !taskIdSet.has(taskId)}
+    return function(task) { 
+        console.log(taskIdSet)
+        console.log('')
+        return !taskIdSet.has(task.id
+            )}
 }
 
 export function getTasks(getTasksFromStore)
@@ -41,7 +46,7 @@ export function getTasks(getTasksFromStore)
     }
 }
 
-function selectNextTaskInSortedOrder(tasks)
+export function selectNextTaskInSortedOrder(tasks)
 {
     if (tasks.length == 0)
         return new NextTaskResult(null,true);
@@ -51,7 +56,7 @@ function selectNextTaskInSortedOrder(tasks)
     return new NextTaskResult(nextTask,false);
 }
 
-function selectNextTaskInRandomOrder(tasks)
+export function selectNextTaskInRandomOrder(tasks)
 {
     if (tasks.length == 0)
         return new NextTaskResult(null,true);
@@ -62,17 +67,29 @@ function selectNextTaskInRandomOrder(tasks)
     return new NextTaskResult(nextTask,false);
 }
 
-async function getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+export function getNotAnsweredTasks(getTasksAsync,attemptStore)
 {
-    let tasks = await getTasksAsync(taskGroupId)
-    let attempts = await attemptStore.getAttemptsPerRound(roundId)
-    let filter = filterTask(taskIdsFromAttempts(attempts))
-    let notAnswerdTasks = tasks.filter(filter)
-    return notAnswerdTasks
+    return async function(roundId,taskGroup)
+    {
+        
+        let tasks = await getTasksAsync(taskGroup)
+        console.log('got tasks async')
+        console.log(tasks)
+        let attempts = await attemptStore.attemptsPerRound(roundId)
+        console.log(attempts)
+        let taskids = taskIdsFromAttempts(attempts)
+        console.log(taskids)
+        let filter = filterTask(taskids)
+        let notAnswerdTasks = tasks.filter(filter)
+        console.log('notAnswerdTasks')
+        console.log(notAnswerdTasks)
+        return notAnswerdTasks
+    }
+
 
 }
 
-async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
+export async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
 {
     let tasks = await getTasksAsync(taskGroupId)
     let attempts = await attemptStore.getAttemptsPerRound(roundId)
@@ -83,12 +100,12 @@ async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptS
 
 
 
-export function getNextTask(roundId,taskGroupId)
+export function getNextTask(roundId,taskGroup)
 {
     
     return async function(getNotCompletedTasksAsync)
     {
-        let notCompleted = await getNotCompletedTasksAsync(roundId,taskGroupId)
+        let notCompleted = await getNotCompletedTasksAsync(roundId,taskGroup)
         return function(selectNextTask)
         {
             return selectNextTask(notCompleted)

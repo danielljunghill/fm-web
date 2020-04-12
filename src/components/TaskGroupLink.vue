@@ -20,7 +20,7 @@
 
 <script>
 import getModelInstance from '../model/main-model.js'
-let data = getModelInstance()
+let modelInstance = getModelInstance()
 
   export default {
     name: 'TaskGroupLink',
@@ -30,7 +30,8 @@ let data = getModelInstance()
   methods:{
       selected()
       {
-          data.setTaskGroup(this.taskGroupLink);
+          console.log(this.taskGroupLink.taskGroup)
+          modelInstance.startRound(this.taskGroupLink.taskGroup);
       }
   }
 

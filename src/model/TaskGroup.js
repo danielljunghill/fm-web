@@ -8,7 +8,7 @@ export function taskGroup(name,id,type)
     return { name: name, id: id, type: type}
 }
 
-export async function getTasks(taskGroup)
+export async function getTasksForGroup(taskGroup)
 {
     if(taskGroup == null)
         throw 'taskGroup not provided'
@@ -17,6 +17,8 @@ export async function getTasks(taskGroup)
     {
         return createMultiplyQuestions(taskGroup.name)
     }
+    console.log('error terror ' + taskGroup)
+    console.log(taskGroup)
     throw `could not recognize taskgroupid ${taskGroup}`
 
 }

@@ -1,6 +1,9 @@
 import { TaskGroup } from "./taskGroup.js";
 
 
+//skicka in taskgroup i metod för att skapa taskgroup i component.
+
+
 export class TaskGroupLink
 {
     constructor(description,
@@ -10,6 +13,7 @@ export class TaskGroupLink
         attemptStore)
     {
         //lägg till kontrakt som anger att isActive eller
+        console.log(taskGroup)
         this.taskGroup = taskGroup;
         this.IsActive = isActive;
         this.dependentOnTaskGroupId = dependentOnTaskGroupId;

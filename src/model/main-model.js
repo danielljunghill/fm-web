@@ -3,12 +3,12 @@ import { multiplyTableLinks } from './taskGroupLinks.js';
 import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time';
 import { AttemptStore } from './attemptDb';
-// import { getTasks } from './taskService'
+import { getTasksForGroup } from './taskGroup'
+import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder } from './taskService'
+import { createUUID } from './math'
 
-// async function getTasksFromStore(taksGroupId)
-// {
-
-// }
+let getTasksAsync = getTasks(getTasksForGroup)
+let attemptStore = new AttemptStore()
     
 export class MainModel
 {
@@ -22,18 +22,30 @@ export class MainModel
            
     }
 
-    setTaskGroup(taskGroupLink)
+    async startRound(taskGroup)
     {   
-        let taskGroup  = taskGroupLink.CreateTaskGroup();
-        console.log(taskGroup.taskGroupId)
-        this.roundId = taskGroup.roundId
-        //hämta första task. Kankse ska vara egen function
-        this.timer.reset();
-        this.timer.start();
+        console.log('start round')
+        //roundId,taskGroupId,getTasksAsync,attemptStore
+        console.log(taskGroup)
+        let roundId = createUUID()
+        let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
+        console.log(getAvailableTasks)
 
-        taskGroup.getNextTaskRandomOrder()
+        let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
+        let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)
+        console.log(nextTask)
 
-        this.selectedItem = taskGroup;
+     
+        // let taskGroup  = taskGroupLink.CreateTaskGroup();
+        // console.log(taskGroup.taskGroupId)
+        // this.roundId = taskGroup.roundId
+        // //hämta första task. Kankse ska vara egen function
+        // this.timer.reset();
+        // this.timer.start();
+
+        // taskGroup.getNextTaskRandomOrder()
+
+        // this.selectedItem = taskGroup;
       
     }
 
