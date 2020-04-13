@@ -32,6 +32,7 @@ let attemptsDb;
                 let store = attemptsDb.createObjectStore("attempts", { keyPath: "id", autoIncrement:true } )
                 console.log('create index')
                 store.createIndex('round', 'roundId', { unique: false });
+                store.createIndex('taskGroup', 'taskGroupId', { unique: false });
                 console.log('index created')
             }
             
@@ -153,6 +154,27 @@ function getAttemptsPerRound(roundId)
     
 }
 
+function getAttemptsPerTaskGroup(taskGroupId)
+{
+        return new Promise((resolve) =>{
+            let transaction = attemptsDb.transaction("attempts"); // readonly
+            let attempts = transaction.objectStore("attempts");
+            let attemptsPerRound = attempts.index("taskGroup");
+        
+            let request = attemptsPerRound.getAll(roundId);
+        
+            request.onsuccess = function() {
+                if (request.result !== undefined) {
+                    resolve(request.result); // array of books with price=10
+                } else {
+                    resolve([])
+                }
+            };
+        })
+    
+}
+
+
 
 export  class AttemptStore
 {
@@ -194,6 +216,13 @@ export  class AttemptStore
     {
         let attempts = await this.attemptsPerRound(roundId)
         return [...new Set(attempts.filter((attempt) => attempt.correct).map((attempt) => attempt.taskId))]
+    }
+
+    async attemptsPerTaskGroup(taskGroupId)
+    {
+        await getDb()
+        let attempts = await getAttemptsPerTaskGroup(taskGroupId)
+        return attempts
     }
 
   

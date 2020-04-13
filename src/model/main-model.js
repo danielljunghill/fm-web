@@ -9,6 +9,11 @@ import { createUUID } from './math'
 
 let getTasksAsync = getTasks(getTasksForGroup)
 let attemptStore = new AttemptStore()
+
+function round(taskGroup)
+{
+    return { id:createUUID(), taskGroup: taskGroup }
+}
     
 export class MainModel
 {
@@ -19,75 +24,84 @@ export class MainModel
         this.selectedItem = this.start;
         this.taskGroupStore = taskGroupStore;
         this.timer = new Timer();
+        this.round = {}
            
+    }
+
+    async getNextTask()
+    {
+        let roundId = this.round.id
+        let taskGroup = this.round.taskGroup
+        console.log('taskgroup')
+        console.log(roundId)
+        console.log(taskGroup)
+        let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
+        let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
+        let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)   
+        return nextTask
     }
 
     async startRound(taskGroup)
     {   
-        console.log('start round')
+       
         //roundId,taskGroupId,getTasksAsync,attemptStore
-        console.log(taskGroup)
-        let roundId = createUUID()
-        let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
-        console.log(getAvailableTasks)
-
-        let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
-        let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)
-        console.log(nextTask)
+        this.round = round(taskGroup)
+        let nextTask = await this.getNextTask()
+        if(nextTask.endOfTasks)
+        {
+            this.selectedItem = this.start
+            return 
+        }
+      
         this.selectedItem = nextTask.task
 
-     
-        // let taskGroup  = taskGroupLink.CreateTaskGroup();
-        // console.log(taskGroup.taskGroupId)
-        // this.roundId = taskGroup.roundId
-        // //hämta första task. Kankse ska vara egen function
-        // this.timer.reset();
-        // this.timer.start();
-
-        // taskGroup.getNextTaskRandomOrder()
-
-        // this.selectedItem = taskGroup;
-      
     }
 
 
     nextTask(answer, newTaskInit)
     {
-        function answerTaskFn(state,answer)
+        async function answerTaskFn(state,answer)
         {
             //HÄMTA TASK
-            
-            
-            let taskGroup = state.selectedItem;
-            let task = taskGroup.task;
-         
+            let task = state.selectedItem
             let seconds = state.timer.seconds;
             state.timer.stop();
             //KONTROLLERA ATTEMPT
             let attempt = task.attempt(answer,seconds);
-            //LAGRA ATTEMPT
-            let taskIds = taskGroup.tasks.map((task) => task.taskId);
-            state.taskGroupStore.add(attempt,taskIds);
-            state.dbStore.add(attempt).then();
+            console.log('attempt')
+            await state.dbStore.add(attempt)
+            let nextTask = await state.getNextTask()
+            if(nextTask.endOfTasks)
+            {
+                state.selectedItem = state.start
+                return 
+            }
+            console.log(nextTask.task)
+            state.selectedItem = nextTask.task
+            state.timer.reset();
+            state.timer.start(); 
+            console.log('init next task')
+            newTaskInit(state.selectedItem);
+            
   
         }
 
         async function nextTaskFn(state)
         { 
-            let attempts = await state.dbStore.answeredTaskIdsPerRound(state.selectedItem.roundId)
-            console.log(attempts)
+            //let attempts = await state.dbStore.answeredTaskIdsPerRound(state.selectedItem.roundId)
+            console.log(state)
             // let taskids = await state.dbStore.succesfullTaskIdsPerRound(state.selectedItem.roundId)
             // console.log(taskids)
-            let nextTask = state.selectedItem.getNextTaskRandomOrder()
-            if(nextTask.endOfTasks)
-            {
-                state.selectedItem = state.start;
-                return;
-            } 
+     
+            // if(nextTask.endOfTasks)
+            // {
+            //     state.selectedItem = state.start;
+            //     return;
+            // } 
             
-            state.timer.reset();
-            state.timer.start(); 
-            newTaskInit();
+            // state.timer.reset();
+            // state.timer.start(); 
+            // newTaskInit();
 
         }
         Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),1000)

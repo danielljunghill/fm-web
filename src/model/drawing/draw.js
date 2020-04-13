@@ -12,10 +12,9 @@ export default class Designer
     {
         this.context.beginPath();
         this.canvas.lineWidth = 40;
-        let w = this.canvas.offsetWidth
-        let h = this.canvas.offsetHeight
-        console.log(h)
-        console.log(w)
+        // let w = this.canvas.offsetWidth
+        // let h = this.canvas.offsetHeight
+  
         this.context.moveTo(0,0)
         this.context.lineTo(x,y)
 

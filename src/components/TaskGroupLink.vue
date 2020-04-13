@@ -30,6 +30,7 @@ let modelInstance = getModelInstance()
   methods:{
       selected()
       {
+          console.log('selected')
           console.log(this.taskGroupLink.taskGroup)
           modelInstance.startRound(this.taskGroupLink.taskGroup);
       }

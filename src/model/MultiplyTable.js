@@ -27,7 +27,7 @@ export class MultiplyTable extends TaskGroup
 {
     constructor(tableNr,taskGroupAttemptStore)
     {
-        console.log(taskGroupAttemptStore)
+        
         super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
         this.tasks = createMultiplyQuestions(tableNr,this.roundId);
 

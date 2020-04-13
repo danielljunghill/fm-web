@@ -58,7 +58,9 @@ import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
 import Designer from '../model/drawing/draw.js'
 let data = getModelInstance()
-let task = data.selectedItem;
+
+console.log('get task')
+console.log(data.selectedItem)
 let translator = getTranslator()
 
   export default {
@@ -67,7 +69,7 @@ let translator = getTranslator()
     //   task: {},
     // },
   
-    data: function() { return { answer:'', task: task,model: data, text: translator}},
+    data: function() { return { answer:'', task: data.selectedItem,model: data, text: translator}},
     methods:
     {
         nextTask:function()
@@ -76,11 +78,14 @@ let translator = getTranslator()
             {
                 return;
             }
-           function resetAnswer(state)
+           function resetAnswer(state,task)
             {
                 state.answer = '';
+                console.log('state task')
+                console.log(task)
+                state.task = task
             }
-            this.model.nextTask(this.answer,() => resetAnswer(this))
+            this.model.nextTask(this.answer,(task) => resetAnswer(this,task))
            
         },
         setFocus:function()

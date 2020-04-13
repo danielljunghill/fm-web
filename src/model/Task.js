@@ -22,6 +22,7 @@ export class Task extends Component
     static Create(id,taskGroupId,roundId)
     {
         new Task('Task',id, taskGroupId, roundId)
+        
     }
 
     //

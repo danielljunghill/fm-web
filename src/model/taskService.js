@@ -10,10 +10,10 @@ export class NextTaskResult
     }
 }
 
+
 /// mappa om attempts till taskIds
 function taskIdsFromAttempts(attempts)
 {
-    console.log(attempts)
     return new Set(Array.from(attempts.map((attempt) => attempt.taskId)))
 }
 /// Hämta attempts som är korrekta
@@ -25,23 +25,21 @@ function taskIdsFromSuccessfullAttempts(attempts)
 function filterTask(taskIdSet)
 {
     return function(task) { 
-        console.log(taskIdSet)
-        console.log('')
-        return !taskIdSet.has(task.id
-            )}
+
+        return !taskIdSet.has(task.taskId)}
 }
 
 export function getTasks(getTasksFromStore)
 {
     let taskForTaskGroup = new Map()
-    return async function getTaskAsync(taskGroupId)
+    return async function getTaskAsync(roundId,taskGroup)
     {
-        if(taskForTaskGroup.has(taskGroupId))
-        {
-            return taskForTaskGroup.get(taskGroupId)
-        }
-        let tasks = await getTasksFromStore(taskGroupId)
-        taskForTaskGroup.set(taskGroupId,tasks)
+        // if(taskForTaskGroup.has(taskGroupId))
+        // {
+        //     return taskForTaskGroup.get(taskGroupId)
+        // }
+        let tasks = await getTasksFromStore(roundId,taskGroup)
+        taskForTaskGroup.set(taskGroup.id,tasks)
         return tasks
     }
 }
@@ -71,17 +69,15 @@ export function getNotAnsweredTasks(getTasksAsync,attemptStore)
 {
     return async function(roundId,taskGroup)
     {
-        
-        let tasks = await getTasksAsync(taskGroup)
-        console.log('got tasks async')
-        console.log(tasks)
+       
+        let tasks = await getTasksAsync(roundId,taskGroup)
         let attempts = await attemptStore.attemptsPerRound(roundId)
+        console.log('attempts')
         console.log(attempts)
         let taskids = taskIdsFromAttempts(attempts)
-        console.log(taskids)
         let filter = filterTask(taskids)
         let notAnswerdTasks = tasks.filter(filter)
-        console.log('notAnswerdTasks')
+        console.log('not answered')
         console.log(notAnswerdTasks)
         return notAnswerdTasks
     }

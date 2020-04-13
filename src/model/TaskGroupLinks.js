@@ -25,6 +25,7 @@ export function multiplyTableLinks(store)
     for(i = 1; i <= 10; i++)
     {   
         let prev = i - 1;
+        
         let link = new MultiplyTableLink(i,i,createMultiplyTableId(prev),store);
         links.push(link);
     }  

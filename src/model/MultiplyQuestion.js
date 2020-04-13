@@ -37,6 +37,7 @@ export class MultiplyQuestion extends Task
             this.state = TaskState.answeredWithError     
         }
         correct = correct && (this.state == TaskState.answeredCorrect)
+   
         let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId ,input,correctAnswer, correct,elapsedSeconds);
         //this.Attempts.push(attempt);
         return attempt;

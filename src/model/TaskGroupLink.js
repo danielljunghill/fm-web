@@ -13,7 +13,7 @@ export class TaskGroupLink
         attemptStore)
     {
         //lägg till kontrakt som anger att isActive eller
-        console.log(taskGroup)
+       
         this.taskGroup = taskGroup;
         this.IsActive = isActive;
         this.dependentOnTaskGroupId = dependentOnTaskGroupId;
