@@ -44,27 +44,7 @@ let attemptsDb;
 }
 
 
-
-
-
-// *************************** Add attempts ************************************//
-
-// export function addAttemptToDb(attempt)
-// {
-//     return new Promise((resolve) => {
-//         let transaction = attemptsDb.transaction(['attempts'],'readwrite')
-//         transaction.oncomplete = e => {
-//             resolve(e);
-//         };
-
-//         let store = transaction.objectStore('attempts');
-//         store.add(attempt)
-
-
-//     })
-// }
-
-
+// *************************** Add Attempt to Database ************************************//'
 function addAttempt(attempt)
 {
     return new Promise((resolve) => {
@@ -81,59 +61,8 @@ function addAttempt(attempt)
     })
 }
 
+// *************************** get Attempts per round ************************************//'
 
-
-
-
-// *************************** Get attempts ************************************//
-
-// export function getAttemptsFromDb()
-// {
-//     return new Promise((resolve) => {
-
-//         console.log('hämta attempts')
-//         //hämtade attempts
-//         let attempts = [];
-//         let transaction = attemptsDb.transaction(['attempts'],'readonly')
-//         //returnera attempts
-//         transaction.oncomplete = e => {
-//             console.log('returnera attempts',e)
-//             resolve(attempts);
-//         };
-
-//         let store = transaction.objectStore('attempts');
-//         store.openCursor().onsuccess = e => {
-//             let cursor = e.target.result;
-//             if (cursor)
-//             {
-//                 console.log('add attempts')
-//                 attempts.push(cursor.value)
-//                 cursor.continue();
-//             }
-//         }
-
-//     })
-// }
-
-// export function getAttemptsPerRound(roundId)
-// {
-//     return new Promise((resolve) =>{
-//         let transaction = attemptsDb.transaction("attempts"); // readonly
-//         let attempts = transaction.objectStore("attempts");
-//         let attemptsPerRound = attempts.index("round");
-    
-//         let request = attemptsPerRound.getAll(roundId);
-    
-//         request.onsuccess = function() {
-//             if (request.result !== undefined) {
-//                 resolve(request.result); // array of books with price=10
-//             } else {
-//                 resolve([])
-//             }
-//         };
-//     })
-
-// }
 function getAttemptsPerRound(roundId)
 {
         return new Promise((resolve) =>{
@@ -154,6 +83,9 @@ function getAttemptsPerRound(roundId)
     
 }
 
+
+// *************************** get Attempts per taskgroup ************************************//'
+
 function getAttemptsPerTaskGroup(taskGroupId)
 {
         return new Promise((resolve) =>{
@@ -161,7 +93,7 @@ function getAttemptsPerTaskGroup(taskGroupId)
             let attempts = transaction.objectStore("attempts");
             let attemptsPerRound = attempts.index("taskGroup");
         
-            let request = attemptsPerRound.getAll(roundId);
+            let request = attemptsPerRound.getAll(taskGroupId);
         
             request.onsuccess = function() {
                 if (request.result !== undefined) {

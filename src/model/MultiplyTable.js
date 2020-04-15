@@ -8,7 +8,7 @@ export function createMultiplyTableId(tableNr)
     return `MultiplyTable[${tableNr}]`;
 }
 
-export function createMultiplyQuestions(tableNr,roundId)
+export function createMultiplyQuestions(tableNr)
 {
     let questions = [];
     let i = {};
@@ -16,7 +16,7 @@ export function createMultiplyQuestions(tableNr,roundId)
     for(i = 1; i <= 10; i++)
     {   
     
-        let question = new MultiplyQuestion(tableNr,i,createMultiplyTableId(tableNr),roundId);
+        let question = new MultiplyQuestion(tableNr,i);
         questions.push(question);
     }
     
@@ -29,7 +29,7 @@ export class MultiplyTable extends TaskGroup
     {
         
         super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
-        this.tasks = createMultiplyQuestions(tableNr,this.roundId);
+        this.tasks = createMultiplyQuestions(tableNr);
 
     }
 

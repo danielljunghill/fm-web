@@ -8,16 +8,15 @@ export function taskGroup(name,id,type)
     return { name: name, id: id, type: type}
 }
 
-export async function getTasksForGroup(roundId, taskGroup)
+export async function getTasksForGroup(taskGroup)
 {
-    if(roundId == null)
-        throw 'round is not available'
+
     if(taskGroup == null)
         throw 'taskGroup is not available'
 
     if(taskGroup.type == 'MultiplyTable')
     {
-        return createMultiplyQuestions(taskGroup.name,roundId)
+        return createMultiplyQuestions(taskGroup.name)
     }
 
     throw `could not recognize taskgroupid ${taskGroup}`

@@ -4,11 +4,14 @@ import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
 import { Timer } from './time';
 import { AttemptStore } from './attemptDb';
 import { getTasksForGroup } from './taskGroup'
-import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder } from './taskService'
+import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder} from './taskService'
 import { createUUID } from './math'
+//import { TaskStore } from './taskGroupDb'
 
 let getTasksAsync = getTasks(getTasksForGroup)
 let attemptStore = new AttemptStore()
+//let taskStore = new TaskStore()
+//let attemptsPerTaskGroup = getTaskGroupStatus(attemptStore)
 
 function round(taskGroup)
 {
@@ -28,13 +31,15 @@ export class MainModel
            
     }
 
+    static async setup()
+    {
+
+    }
+
     async getNextTask()
     {
         let roundId = this.round.id
         let taskGroup = this.round.taskGroup
-        console.log('taskgroup')
-        console.log(roundId)
-        console.log(taskGroup)
         let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
         let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
         let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)   
@@ -67,8 +72,8 @@ export class MainModel
             let seconds = state.timer.seconds;
             state.timer.stop();
             //KONTROLLERA ATTEMPT
-            let attempt = task.attempt(answer,seconds);
-            console.log('attempt')
+            let attempt = task.attempt(answer,seconds,state.round);
+
             await state.dbStore.add(attempt)
             let nextTask = await state.getNextTask()
             if(nextTask.endOfTasks)
@@ -76,11 +81,11 @@ export class MainModel
                 state.selectedItem = state.start
                 return 
             }
-            console.log(nextTask.task)
+        
             state.selectedItem = nextTask.task
             state.timer.reset();
             state.timer.start(); 
-            console.log('init next task')
+    
             newTaskInit(state.selectedItem);
             
   
@@ -88,21 +93,7 @@ export class MainModel
 
         async function nextTaskFn(state)
         { 
-            //let attempts = await state.dbStore.answeredTaskIdsPerRound(state.selectedItem.roundId)
             console.log(state)
-            // let taskids = await state.dbStore.succesfullTaskIdsPerRound(state.selectedItem.roundId)
-            // console.log(taskids)
-     
-            // if(nextTask.endOfTasks)
-            // {
-            //     state.selectedItem = state.start;
-            //     return;
-            // } 
-            
-            // state.timer.reset();
-            // state.timer.start(); 
-            // newTaskInit();
-
         }
         Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),1000)
     }
@@ -113,27 +104,10 @@ export class MainModel
         this.selectedItem = this.start;
     }
 
-    // setTaskGroupLinks(links)
-    // {
-    //     this.selectedItem = links;
-    // }
-
 }
 
 let taskGroupStore = new AttemptPerTaskGroup()
 let data = new MainModel(taskGroupStore)
-// function createDb() {
-//         return new Promise(resolve =>
-//             {
-//                 setTimeout(() => {
-//                     resolve('resolved')
-//                 },2000);
-                
-//             });
-// }
-
-//console.log(getDbPromise)
-//getDbPromise.then(function(db) { console.log('attemptDb is set',db) })
 
 export default function getModelInstance()
 {

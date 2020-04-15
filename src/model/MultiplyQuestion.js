@@ -11,16 +11,16 @@ function id(a,b)
 
 export class MultiplyQuestion extends Task
 {
-    constructor(a,b,taskGroupId,roundId)
+    constructor(a,b)
     {
-        super('Task',id(a,b),taskGroupId,roundId)
+        super('Task',id(a,b))
         this.A = a;
         this.B = b; 
         this.timelimit = 5       
     }
   //current Attempts
 
-    attempt(input,elapsedSeconds)
+    attempt(input,elapsedSeconds,round)
     {
         let correctAnswer = this.A * this.B
         let correct = (correctAnswer == input) 
@@ -37,8 +37,8 @@ export class MultiplyQuestion extends Task
             this.state = TaskState.answeredWithError     
         }
         correct = correct && (this.state == TaskState.answeredCorrect)
-   
-        let attempt = new Attempt(this.taskId,this.taskGroupId,this.roundId ,input,correctAnswer, correct,elapsedSeconds);
+        let taskGroupId = round.taskGroup.id
+        let attempt = new Attempt(this.taskId,taskGroupId,round.id,input,correctAnswer, correct,elapsedSeconds);
         //this.Attempts.push(attempt);
         return attempt;
     }

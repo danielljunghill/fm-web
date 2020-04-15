@@ -1,4 +1,5 @@
 import { randomInteger } from './math'
+import {groupBy } from './collections'
 
 export class NextTaskResult
 {
@@ -32,13 +33,13 @@ function filterTask(taskIdSet)
 export function getTasks(getTasksFromStore)
 {
     let taskForTaskGroup = new Map()
-    return async function getTaskAsync(roundId,taskGroup)
+    return async function getTaskAsync(taskGroup)
     {
         // if(taskForTaskGroup.has(taskGroupId))
         // {
         //     return taskForTaskGroup.get(taskGroupId)
         // }
-        let tasks = await getTasksFromStore(roundId,taskGroup)
+        let tasks = await getTasksFromStore(taskGroup)
         taskForTaskGroup.set(taskGroup.id,tasks)
         return tasks
     }
@@ -69,16 +70,19 @@ export function getNotAnsweredTasks(getTasksAsync,attemptStore)
 {
     return async function(roundId,taskGroup)
     {
-       
-        let tasks = await getTasksAsync(roundId,taskGroup)
+        
+        let tasks = await getTasksAsync(taskGroup)
+        console.log('tasks')
+        console.log(tasks)
         let attempts = await attemptStore.attemptsPerRound(roundId)
-        console.log('attempts')
-        console.log(attempts)
+
         let taskids = taskIdsFromAttempts(attempts)
+        console.log('taskids')
+        console.log(taskids)
         let filter = filterTask(taskids)
+
         let notAnswerdTasks = tasks.filter(filter)
-        console.log('not answered')
-        console.log(notAnswerdTasks)
+
         return notAnswerdTasks
     }
 
@@ -108,6 +112,19 @@ export function getNextTask(roundId,taskGroup)
         }
 
     }
+}
+
+export function getTaskGroupStatus(attemptStore)
+    {
+        return async function(taskGroupId)
+        {
+            let attempts = await attemptStore.attemptsPerTaskGroup(taskGroupId)
+            console.log('getTaskGroupStatus')
+            console.log(attempts)
+            let attemptsPerRound = groupBy(attempts,'roundId')
+            return Object.values(attemptsPerRound)
+        }
+
 }
 
 
