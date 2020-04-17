@@ -1,6 +1,7 @@
 import { Task } from './task.js'
 import { TaskState } from './task.js'
 import { Attempt } from './attempt.js'
+import { task} from './taskGroupDb.js'
 
 
 function id(a,b)
@@ -11,12 +12,12 @@ function id(a,b)
 
 export class MultiplyQuestion extends Task
 {
-    constructor(a,b)
+    constructor(task)
     {
-        super('Task',id(a,b))
-        this.A = a;
-        this.B = b; 
-        this.timelimit = 5       
+        super('Task',task)
+        this.A = task.question.A;
+        this.B = task.question.B; 
+        this.timelimit = 5    
     }
   //current Attempts
 

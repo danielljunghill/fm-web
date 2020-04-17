@@ -1,52 +1,50 @@
 import { Component } from './component.js'
-import { createUUID } from './math.js'
-import { randomInteger } from './math.js'
-import { createMultiplyQuestions } from './multiplyTable'
 
-export function taskGroup(name,id,type)
-{
-    return { name: name, id: id, type: type}
-}
 
-export async function getTasksForGroup(taskGroup)
-{
+// export function taskGroup(name,id,type, isActive)
+// {
+//     return { name: name, id: id, type: type, isActive: isActive}
+// }
 
-    if(taskGroup == null)
-        throw 'taskGroup is not available'
+// export async function getTasksForGroup(taskGroup)
+// {
 
-    if(taskGroup.type == 'MultiplyTable')
-    {
-        return createMultiplyQuestions(taskGroup.name)
-    }
+//     if(taskGroup == null)
+//         throw 'taskGroup is not available'
 
-    throw `could not recognize taskgroupid ${taskGroup}`
+//     if(taskGroup.type == 'MultiplyTable')
+//     {
+//         return createMultiplyQuestions(taskGroup.name)
+//     }
 
-}
+//     throw `could not recognize taskgroupid ${taskGroup}`
+
+// }
 
 
 
-export class NextTaskResult
-{
-    constructor(task,endOfTasks)
-    {
-        this.task = task;
-        this.endOfTasks = endOfTasks;
+// export class NextTaskResult
+// {
+//     constructor(task,endOfTasks)
+//     {
+//         this.task = task;
+//         this.endOfTasks = endOfTasks;
         
-    }
-}
+//     }
+// }
 
 
 export class TaskGroup extends Component
 {
-    constructor(taskGroupId,tasks,taskGroupAttempsStore)
+    constructor(taskGroupId,tasks)
     {   
         super('TaskGroup')
         this.tasks = tasks;
         this.position = 0;
         this.taskGroupId = taskGroupId;   
-        this.roundId = createUUID()
+        // this.roundId = createUUID()
         //Attemptstore borde brytas ut
-        this.taskGroupAttempsStore = taskGroupAttempsStore
+        // this.taskGroupAttempsStore = taskGroupAttempsStore
         //this.task = this.getNextTask().task
        
     }
@@ -54,66 +52,69 @@ export class TaskGroup extends Component
     completed()
     {
         //kontrollera om samtliga tasks (questions) är klara
-        if(this.tasks.map((x) => x.completed()).includes(false))
-        { 
-            return false;
-        }
+        // if(this.tasks.map((x) => x.completed()).includes(false))
+        // { 
+        //     return false;
+        // }
+        // return true;
         return true;
     }
 
     getNotAnsweredTasks()
     {
-        let answeredTaskIds = new Set(this.taskGroupAttempsStore.getAnsweredTaskForRound(this.taskGroupId, this.roundId))
+        // let answeredTaskIds = new Set(this.taskGroupAttempsStore.getAnsweredTaskForRound(this.taskGroupId, this.roundId))
 
-        let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
+        // let notAnswered = Array.from(this.tasks.filter((task) => !answeredTaskIds.has(task.taskId)))
 
-        return notAnswered;
+        // return notAnswered;
+        return [];
     }
 
     getNonSuccessfullTasks()
     { 
         
-        let successfullTasks = new Set(this.taskGroupAttempsStore.getSuccessfullTaskForRound(this.taskGroupId, this.roundId))
+        // let successfullTasks = new Set(this.taskGroupAttempsStore.getSuccessfullTaskForRound(this.taskGroupId, this.roundId))
 
-        let notSuccessfull = Array.from(this.tasks.filter((task) => !successfullTasks.has(task.taskId)))
+        // let notSuccessfull = Array.from(this.tasks.filter((task) => !successfullTasks.has(task.taskId)))
 
-        return notSuccessfull;
+        // return notSuccessfull;
+        return []
 
     }
 
     getNextTask()
     {
         
-        let notAnswered = this.getNotAnsweredTasks();
+        // let notAnswered = this.getNotAnsweredTasks();
        
-        if (notAnswered.length == 0)
-            return new NextTaskResult(null,true);
-        //måste sätta nästa task i taskgroup
-        //då this.task styr vilken task som visas i Task.vue
-        let nextTask = notAnswered[0];
-        this.task = nextTask;
+        // if (notAnswered.length == 0)
+        //     return new NextTaskResult(null,true);
+        // //måste sätta nästa task i taskgroup
+        // //då this.task styr vilken task som visas i Task.vue
+        // let nextTask = notAnswered[0];
+        // this.task = nextTask;
 
-        return new NextTaskResult(nextTask,false);
+        // return new NextTaskResult(null,false);
   
     }
 
 
     getNextTaskRandomOrder()
     {
-        let notAnswered = this.getNotAnsweredTasks();
+        // let notAnswered = this.getNotAnsweredTasks();
 
-        if (notAnswered.length == 0)
-            return new NextTaskResult(null,true);
+        // if (notAnswered.length == 0)
+        //     return new NextTaskResult(null,true);
 
-        let nextIndex = randomInteger(0,notAnswered.length - 1);
+        // let nextIndex = randomInteger(0,notAnswered.length - 1);
         
-        //måste sätta nästa task i taskgroup
-        //då this.task styr vilken task som visas i Task.vue
-        let nextTask =  notAnswered[nextIndex];
+        // //måste sätta nästa task i taskgroup
+        // //då this.task styr vilken task som visas i Task.vue
+        // let nextTask =  notAnswered[nextIndex];
 
-        this.task = nextTask;
+        // this.task = nextTask;
 
-        return new NextTaskResult(nextTask,false);
+        // return new NextTaskResult(nextTask,false);
 
     }
 

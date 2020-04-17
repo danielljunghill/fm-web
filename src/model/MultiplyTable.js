@@ -3,35 +3,42 @@ import { TaskGroup } from './taskGroup.js'
 
 
 
-export function createMultiplyTableId(tableNr)
-{
-    return `MultiplyTable[${tableNr}]`;
-}
 
-export function createMultiplyQuestions(tableNr)
-{
-    let questions = [];
-    let i = {};
+// export function createMultiplyTableId(tableNr)
+// {
+//     return `MultiplyTable[${tableNr}]`;
+// }
 
-    for(i = 1; i <= 10; i++)
-    {   
+// export function createMultiplyQuestions(tableNr)
+// {
+//     let questions = [];
+//     let i = {};
+
+//     for(i = 1; i <= 10; i++)
+//     {   
     
-        let question = new MultiplyQuestion(tableNr,i);
-        questions.push(question);
-    }
+//         let question = new MultiplyQuestion(tableNr,i);
+//         questions.push(question);
+//     }
     
-    return questions;
-}
+//     return questions;
+// }
 
-export class MultiplyTable extends TaskGroup
-{
-    constructor(tableNr,taskGroupAttemptStore)
-    {
+// export class MultiplyTable extends TaskGroup
+// {
+//     constructor(tableNr,taskGroupAttemptStore)
+//     {
         
-        super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
-        this.tasks = createMultiplyQuestions(tableNr);
+//         super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
+//         this.tasks = createMultiplyQuestions(tableNr);
 
-    }
+//     }
 
-}
+//     static Create(taskgroup)
+//     {
+//         super(createMultiplyTableId(tableNr), [],taskGroupAttemptStore); 
+//         this.tasks = createMultiplyQuestions(tableNr);
+//     }
+
+// }
 

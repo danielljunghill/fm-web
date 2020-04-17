@@ -1,17 +1,18 @@
 
-import { multiplyTableLinks } from './taskGroupLinks.js';
-import { AttemptPerTaskGroup } from './attemptPerTaskGroup.js';
+import { TaskGroupLinks } from './taskGroupLinks.js';
+import { TaskGroupLink } from './taskGroupLink.js';
 import { Timer } from './time';
 import { AttemptStore } from './attemptDb';
-import { getTasksForGroup } from './taskGroup'
 import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder} from './taskService'
 import { createUUID } from './math'
+import { TaskGroupStore } from './taskGroupDb'
+import { MultiplyQuestion } from './multiplyQuestion'
 //import { TaskStore } from './taskGroupDb'
 
-let getTasksAsync = getTasks(getTasksForGroup)
+
 let attemptStore = new AttemptStore()
-//let taskStore = new TaskStore()
-//let attemptsPerTaskGroup = getTaskGroupStatus(attemptStore)
+let taskGroupStore = new TaskGroupStore()
+let getTasksAsync = getTasks(taskGroupStore.getTasksForGroup)
 
 function round(taskGroup)
 {
@@ -20,20 +21,19 @@ function round(taskGroup)
     
 export class MainModel
 {
-    constructor(store)
+    constructor()
     {
-        this.start = multiplyTableLinks(store)
-        this.dbStore =  new AttemptStore()
+        this.start = new TaskGroupLinks('TaskGroupLinks',[])
         this.selectedItem = this.start;
-        this.taskGroupStore = taskGroupStore;
         this.timer = new Timer();
-        this.round = {}
-           
+        this.round = {} 
     }
 
-    static async setup()
+    async getLinks()
     {
-
+        let taskGroups = await taskGroupStore.getTaskGroups()
+        let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
+        this.selectedItem = new TaskGroupLinks('TaskGroupLinks',taskGroupLinks)
     }
 
     async getNextTask()
@@ -43,23 +43,20 @@ export class MainModel
         let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
         let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
         let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)   
+
         return nextTask
     }
 
     async startRound(taskGroup)
     {   
-       
-        //roundId,taskGroupId,getTasksAsync,attemptStore
         this.round = round(taskGroup)
         let nextTask = await this.getNextTask()
         if(nextTask.endOfTasks)
         {
-            this.selectedItem = this.start
+            this.selectedItem = await this.getLinks()
             return 
         }
-      
         this.selectedItem = nextTask.task
-
     }
 
 
@@ -78,11 +75,13 @@ export class MainModel
             let nextTask = await state.getNextTask()
             if(nextTask.endOfTasks)
             {
-                state.selectedItem = state.start
+                state.selectedItem = await this.getLinks()
                 return 
             }
         
-            state.selectedItem = nextTask.task
+            state.selectedItem = new MultiplyQuestion(nextTask.task)
+            console.log('nextTask')
+            console.log(state.selectedItem )
             state.timer.reset();
             state.timer.start(); 
     
@@ -106,8 +105,9 @@ export class MainModel
 
 }
 
-let taskGroupStore = new AttemptPerTaskGroup()
-let data = new MainModel(taskGroupStore)
+
+let data = new MainModel()
+data.getLinks()
 
 export default function getModelInstance()
 {

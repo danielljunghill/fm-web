@@ -6,50 +6,49 @@ import { TaskGroup } from "./taskGroup.js";
 
 export class TaskGroupLink
 {
-    constructor(description,
-        taskGroup,
-        isActive,
-        dependentOnTaskGroupId,
-        attemptStore)
+    constructor(taskGroup)
     {
         //lägg till kontrakt som anger att isActive eller
        
         this.taskGroup = taskGroup;
-        this.IsActive = isActive;
-        this.dependentOnTaskGroupId = dependentOnTaskGroupId;
-        this.attemptStore = attemptStore;
-        this.description = description
+        this.IsActive = true;
+        this.description = taskGroup.name
     }
 
     Create()
     {
       
-        return new TaskGroup(this.taskGroup.id,[],this.attemptStore)
+        return new TaskGroup(this.taskGroup.id,[])
+    }
+
+    static CreateFromTaskGroup(taskGroup)
+    {
+        return new TaskGroupLink(taskGroup)
     }
 
     isCompleted()
     {
-        
-        let result = this.attemptStore.isCompleted(this.taskGroup.id)
+        return true;
+        // let result = this.attemptStore.isCompleted(this.taskGroup.id)
       
-        return result
+        // return result
     }
 
     isActive()
     {
-       
-        if(this.IsActive)
-            return true;
-        if(!this.attemptStore.has(this.dependentOnTaskGroupId))
-        {
-            return false;
-        }
+        return true;
+        // if(this.IsActive)
+        //     return true;
+        // if(!this.attemptStore.has(this.dependentOnTaskGroupId))
+        // {
+        //     return false;
+        // }
      
-        let iscompleted = this.attemptStore.isCompleted(this.dependentOnTaskGroupId)
+        // let iscompleted = this.attemptStore.isCompleted(this.dependentOnTaskGroupId)
   
-        let result = iscompleted;
+        // let result = iscompleted;
 
-        return result;
+        // return result;
     }
 
 }
