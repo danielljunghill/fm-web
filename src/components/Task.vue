@@ -1,6 +1,7 @@
 <template>
   <div class="center-div">
   <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}">
+   
     <table id='wrap-table' >
       <tr>
         <td>

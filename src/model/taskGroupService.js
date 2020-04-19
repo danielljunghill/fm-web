@@ -52,6 +52,7 @@ import { TaskGroupLink } from './taskGroupLink'
         console.log(taskGroup)
         console.log(taskGroup.dependentOnTaskGroups)
         result.IsActive = await isTaskGroupsAllActive(taskGroup.dependentOnTaskGroups)
+        console.log(result.IsActive)
         return result;
     }
 

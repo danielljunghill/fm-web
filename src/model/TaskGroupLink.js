@@ -28,7 +28,7 @@ export class TaskGroupLink
 
     isCompleted()
     {
-        return true;
+        return this.IsActive;
         // let result = this.attemptStore.isCompleted(this.taskGroup.id)
       
         // return result
@@ -36,7 +36,7 @@ export class TaskGroupLink
 
     isActive()
     {
-        return true;
+        return this.IsActive;
         // if(this.IsActive)
         //     return true;
         // if(!this.attemptStore.has(this.dependentOnTaskGroupId))

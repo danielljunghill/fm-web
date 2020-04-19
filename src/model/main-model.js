@@ -38,6 +38,8 @@ export class MainModel
         console.log(links)
         // let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
         let result = new TaskGroupLinks('TaskGroupLinks',links)
+        //TODO: ändra detta bså att den går mot
+        this.start = result;
         // this.start = this.selectedItem 
         return result
     }
@@ -45,6 +47,7 @@ export class MainModel
     async setup()
     {
         this.selectedItem = await this.getLinks()
+   
         return this.selectedItem
     }
 
@@ -68,6 +71,7 @@ export class MainModel
             this.selectedItem = await this.getLinks()
             return 
         }
+        this.timer.start(); 
         this.selectedItem = new MultiplyQuestion(nextTask.task)
     }
 

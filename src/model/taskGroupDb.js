@@ -27,11 +27,23 @@ export class TaskGroupStore
         }
         let taskGroups = [];
         let i = {};
+        function taskGroupDependency(taskGroups)
+        {
+            if(taskGroups.length == 0)
+            {
+                return [];
+            }
+            else
+            {
+                return [ taskGroups[taskGroups.length - 1] ]
+            }
+
+        }
         for(i = 1; i <= 10; i++)
         {   
-            let prev = i - 1;
-            
-            let mt = taskGroup(i,createMultiplyTableId(i),taskGroupTypeMultiplyTable,[createMultiplyTableId(prev)]);
+
+            let denpendentOn = taskGroupDependency(taskGroups)
+            let mt = taskGroup(i,createMultiplyTableId(i),taskGroupTypeMultiplyTable,denpendentOn);
             taskGroups.push(mt);
         }  
         return taskGroups
