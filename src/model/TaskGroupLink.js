@@ -1,4 +1,4 @@
-import { TaskGroup } from "./taskGroup.js";
+// import { TaskGroup } from "./taskGroup.js";
 
 
 //skicka in taskgroup i metod för att skapa taskgroup i component.
@@ -15,11 +15,11 @@ export class TaskGroupLink
         this.description = taskGroup.name
     }
 
-    Create()
-    {
+    // Create()
+    // {
       
-        return new TaskGroup(this.taskGroup.id,[])
-    }
+    //     return new TaskGroup(this.taskGroup.id,[])
+    // }
 
     static CreateFromTaskGroup(taskGroup)
     {

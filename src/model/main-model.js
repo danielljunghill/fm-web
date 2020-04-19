@@ -1,18 +1,20 @@
 
 import { TaskGroupLinks } from './taskGroupLinks.js';
-import { TaskGroupLink } from './taskGroupLink.js';
+// import { TaskGroupLink } from './taskGroupLink.js';
 import { Timer } from './time';
 import { AttemptStore } from './attemptDb';
 import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder} from './taskService'
 import { createUUID } from './math'
 import { TaskGroupStore } from './taskGroupDb'
 import { MultiplyQuestion } from './multiplyQuestion'
+import { getTaskGroupLinks } from './taskGroupService'
 //import { TaskStore } from './taskGroupDb'
 
 
 let attemptStore = new AttemptStore()
 let taskGroupStore = new TaskGroupStore()
 let getTasksAsync = getTasks(taskGroupStore.getTasksForGroup)
+let getLinksFromStore  = getTaskGroupLinks(taskGroupStore,attemptStore)
 
 function round(taskGroup)
 {
@@ -23,7 +25,7 @@ export class MainModel
 {
     constructor()
     {
-        this.start = new TaskGroupLinks('TaskGroupLinks',[])
+        // this.start = new TaskGroupLinks('TaskGroupLinks',[])
         this.selectedItem = this.start;
         this.timer = new Timer();
         this.round = {} 
@@ -31,9 +33,19 @@ export class MainModel
 
     async getLinks()
     {
-        let taskGroups = await taskGroupStore.getTaskGroups()
-        let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
-        this.selectedItem = new TaskGroupLinks('TaskGroupLinks',taskGroupLinks)
+        let links = await getLinksFromStore()
+        console.log('')
+        console.log(links)
+        // let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
+        let result = new TaskGroupLinks('TaskGroupLinks',links)
+        // this.start = this.selectedItem 
+        return result
+    }
+
+    async setup()
+    {
+        this.selectedItem = await this.getLinks()
+        return this.selectedItem
     }
 
     async getNextTask()
@@ -56,7 +68,7 @@ export class MainModel
             this.selectedItem = await this.getLinks()
             return 
         }
-        this.selectedItem = nextTask.task
+        this.selectedItem = new MultiplyQuestion(nextTask.task)
     }
 
 
@@ -71,17 +83,18 @@ export class MainModel
             //KONTROLLERA ATTEMPT
             let attempt = task.attempt(answer,seconds,state.round);
 
-            await state.dbStore.add(attempt)
+            await attemptStore.add(attempt)
             let nextTask = await state.getNextTask()
             if(nextTask.endOfTasks)
             {
-                state.selectedItem = await this.getLinks()
+                state.selectedItem = await state.getLinks()
+                console.log('state.getLinks()')
+                console.log(state.selectedItem)
                 return 
             }
         
             state.selectedItem = new MultiplyQuestion(nextTask.task)
-            console.log('nextTask')
-            console.log(state.selectedItem )
+  
             state.timer.reset();
             state.timer.start(); 
     
@@ -106,12 +119,12 @@ export class MainModel
 }
 
 
-let data = new MainModel()
-data.getLinks()
+let model = new MainModel()
+model.setup()
 
 export default function getModelInstance()
 {
-    return data;
+    return model;
 }
 
 

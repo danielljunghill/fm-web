@@ -1,5 +1,5 @@
 import { randomInteger } from './math'
-import {groupBy } from './collections'
+// import {groupBy } from './collections'
 
 export class NextTaskResult
 {
@@ -10,7 +10,6 @@ export class NextTaskResult
         
     }
 }
-
 
 /// mappa om attempts till taskIds
 function taskIdsFromAttempts(attempts)
@@ -27,7 +26,7 @@ function filterTask(taskIdSet)
 {
     return function(task) { 
 
-        return !taskIdSet.has(task.taskId)}
+        return !taskIdSet.has(task.id)}
 }
 
 export function getTasks(getTasksFromStore)
@@ -40,6 +39,8 @@ export function getTasks(getTasksFromStore)
         //     return taskForTaskGroup.get(taskGroupId)
         // }
         let tasks = await getTasksFromStore(taskGroup)
+        console.log('get tasks')
+        console.log(tasks)
         taskForTaskGroup.set(taskGroup.id,tasks)
         return tasks
     }
@@ -70,19 +71,12 @@ export function getNotAnsweredTasks(getTasksAsync,attemptStore)
 {
     return async function(roundId,taskGroup)
     {
-        
+  
         let tasks = await getTasksAsync(taskGroup)
-        console.log('tasks')
-        console.log(tasks)
         let attempts = await attemptStore.attemptsPerRound(roundId)
-
-        let taskids = taskIdsFromAttempts(attempts)
-        console.log('taskids')
-        console.log(taskids)
+        let taskids = taskIdsFromAttempts(attempts)  
         let filter = filterTask(taskids)
-
         let notAnswerdTasks = tasks.filter(filter)
-
         return notAnswerdTasks
     }
 
@@ -114,49 +108,10 @@ export function getNextTask(roundId,taskGroup)
     }
 }
 
-export function getTaskGroupStatus(attemptStore)
-    {
-        return async function(taskGroupId)
-        {
-            let attempts = await attemptStore.attemptsPerTaskGroup(taskGroupId)
-            console.log('getTaskGroupStatus')
-            console.log(attempts)
-            let attemptsPerRound = groupBy(attempts,'roundId')
-            return Object.values(attemptsPerRound)
-        }
-
-}
 
 
 
-// // 
-// export async function getNextNotAsweredTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-// {
-//     let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-//     let tasksInSortedOrder =  selectNextTaskInSortedOrder(notAnswerdTasks)
-//     return tasksInSortedOrder
-// }
 
-// export async function getNextNotAsweredTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-// {
-//     let notAnswerdTasks = await getNotAnsweredTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-//     let tasksInSortedOrder =  selectNextTaskInRandomOrder(notAnswerdTasks)
-//     return tasksInSortedOrder
-// }
-
-// export async function getNextNotSuccessfullTaskInSortedOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-// {
-//     let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-//     let tasksInSortedOrder =  selectNextTaskInSortedOrder(notSuccessfullTasks)
-//     return tasksInSortedOrder
-// }
-
-// export async function getNextNotSuccessfullTaskInRandomOrder(roundId,taskGroupId,getTasksAsync,attemptStore)
-// {
-//     let notSuccessfullTasks = await getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,attemptStore)
-//     let tasksInSortedOrder =  selectNextTaskInRandomOrder(notSuccessfullTasks)
-//     return tasksInSortedOrder
-// }
 
 
 

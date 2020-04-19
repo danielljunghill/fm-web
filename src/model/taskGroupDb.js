@@ -18,7 +18,7 @@ export class TaskGroupStore
     {
 
     }
-
+    
     async getTaskGroups()
     {
         function createMultiplyTableId(tableNr)

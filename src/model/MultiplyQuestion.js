@@ -1,7 +1,7 @@
 import { Task } from './task.js'
 import { TaskState } from './task.js'
 import { Attempt } from './attempt.js'
-import { task} from './taskGroupDb.js'
+
 
 
 function id(a,b)
@@ -15,8 +15,8 @@ export class MultiplyQuestion extends Task
     constructor(task)
     {
         super('Task',task)
-        this.A = task.question.A;
-        this.B = task.question.B; 
+        this.A = task.question.a;
+        this.B = task.question.b; 
         this.timelimit = 5    
     }
   //current Attempts
@@ -39,7 +39,7 @@ export class MultiplyQuestion extends Task
         }
         correct = correct && (this.state == TaskState.answeredCorrect)
         let taskGroupId = round.taskGroup.id
-        let attempt = new Attempt(this.taskId,taskGroupId,round.id,input,correctAnswer, correct,elapsedSeconds);
+        let attempt = new Attempt(this.task.id,taskGroupId,round.id,input,correctAnswer, correct,elapsedSeconds);
         //this.Attempts.push(attempt);
         return attempt;
     }

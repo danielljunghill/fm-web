@@ -60,7 +60,7 @@ import Designer from '../model/drawing/draw.js'
 let data = getModelInstance()
 
 console.log('get task')
-console.log(data.selectedItem)
+// console.log(data.selectedItem)
 let translator = getTranslator()
 
   export default {

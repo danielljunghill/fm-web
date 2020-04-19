@@ -16,7 +16,6 @@
     
     }
 
-
     /// Task has only correct answers
     taskHasOnlyCorrectAnswers(taskId)
     {
@@ -44,8 +43,6 @@
          
     }
 
-
-
     answeredTasks()
     {
         return Array.from(this.attemptesPerTask.keys())
@@ -58,12 +55,8 @@
             .values
             .filter((attempt) => attempt.correct)
             .map((attempt) => attempt.taskId)
-   
-       
-        return [...new Set(correctAttempts)]
-      
+        return [...new Set(correctAttempts)]     
     }
-
 
     get(taskId)
     {
@@ -74,6 +67,7 @@
     {   
         return Array.from(this.map.values());
     }
+
 }
 
 export class AttemptPerRoundStore
@@ -82,7 +76,6 @@ export class AttemptPerRoundStore
     {
        this.attemptsPerRound = new Map();
        this.isCompleted = isCompleted;
-      
     }
 
     add(attempt,taskIds)
@@ -113,8 +106,7 @@ export class AttemptPerRoundStore
     getAllAnsweredTaskIdsForRound(roundId)
     {
         if(!this.attemptsPerRound.has(roundId))
-            return [];
-        
+            return [];      
         return this.attemptsPerRound.get(roundId).answeredTasks();
     }
 
@@ -122,7 +114,6 @@ export class AttemptPerRoundStore
         if(!this.attemptsPerRound.has(roundId))
             return [];
         return this.attemptsPerRound.get(roundId).successfullTasks();
-
     }
 
 
