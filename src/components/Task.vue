@@ -1,5 +1,5 @@
 <template>
-<div id= "task">
+<div v-if="task.state != 4" id= "task">
     <div>{{ task.A }}</div>
     <div><canvas ref="sign" width="20px" height="20px"></canvas></div>
     <div>{{ task.B }}</div>
@@ -7,9 +7,17 @@
     <div class="answer">
       <input 
           v-model="answer"
-          v-on:keyup.enter="nextTask" 
+          v-on:keyup.enter="answerTaskAsync" 
           ref="nextTask" 
           type="text"/></div>
+</div>
+<div v-else id="task">
+    <div>{{ task.A }}</div>
+    <div><canvas ref="sign" width="20px" height="20px"></canvas></div>
+    <div>{{ task.B }}</div>
+    <div>=</div>
+    <div>{{ answer }}</div>
+    <div class="nextQuestion"><button v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
 </div>
 
      
@@ -21,9 +29,8 @@
 import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
 import Designer from '../model/drawing/draw.js'
+// import TaskState from '../model/task.js'
 let data = getModelInstance()
-
-console.log('get task')
 // console.log(data.selectedItem)
 let translator = getTranslator()
 
@@ -36,6 +43,27 @@ let translator = getTranslator()
     data: function() { return { answer:'', task: data.selectedItem,model: data, text: translator}},
     methods:
     {
+        answerTaskAsync:async function()
+        {
+            if(this.answer.trim() == '')
+            {
+                return;
+            }
+            await this.model.answerTaskAsync(this.answer);
+            if(this.task.state == 4)
+            {
+                //TODO: get a result from answer task that gives correct answer
+                this.answer = this.task.A * this.task.B;
+                return;
+            }
+            await this.nextTaskAsync()
+        },
+        nextTaskAsync:async function()
+        {
+            await this.model.nextTaskAsync()
+            this.answer = '';
+            this.task = this.model.selectedItem
+        },  
         nextTask:function()
         {
             if(this.answer.trim() == '')
@@ -45,8 +73,6 @@ let translator = getTranslator()
            function resetAnswer(state,task)
             {
                 state.answer = '';
-                console.log('state task')
-                console.log(task)
                 state.task = task
             }
             this.model.nextTask(this.answer,(task) => resetAnswer(this,task))
@@ -102,9 +128,30 @@ let translator = getTranslator()
     display:inline-block;
     width: 40px;
     font-size:50px;
-    margin: 10px;
-
+    margin: 10px
   
+}
+
+
+#task .nextQuestion
+{
+    display:block;
+
+}
+
+#task button
+{
+    width: 400px;
+    height: 100px;
+    background: None;
+    font-size:20px;
+    color:white;
+
+    border-width: 2px;
+    border-color:darkred;
+    border-style: solid;
+    border-radius: 10px;
+    background: darkred;
 }
 
 #task .answer
@@ -137,188 +184,4 @@ input:focus {
   border-width: 2px;
 
 }
-/* canvas {
-  width: 20 px;
-  height: 20 px;
-}
-span{
-  background: white;
-  color:black;
-  padding:10px
-}
-
-.correct span {
-    background: white;
-    color:black;
-    padding:10px
-}
-
-.answer span {
-    background: white;
-    color:black;
-    padding:10px
-}
-
-.hide {
-    display:none;
-
-}
-
-.greenBorder {
-    border:2px  white;/*2px solid green;
-    display:inline-block;
-   
-}
-
-.grayBorder {
-    border: 1px solid gray;
-    display:inline-block;
-}
-
-.redBorder {
-    border:2px white; /*2px solid red;
-    display:inline-block;
-}
-
-
-table {
-    align-self: center;
-}
-
-td.deactive {
-    color: gray;
-}
-
- td {
-    border: 1px solid black; 
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-radius: 0px;
-} 
-
-td:active
-{
-    border: 3px solid black; 
-}
-
-td:hover {
-    background-color:rgb(163, 169, 187);
-  }
-.button {
-  border: none;
-  border-radius: 2px;
-}
-
-.button-close {
-  background-color: red;
-}
-
-#answer-table td {
-    border-color: transparent;
-    width: 50px;
-
-}
-
-#answer-question-button {
-    
-        display:inline-block;
-        width:100%;
-        height: 40px;
-    
-}
-
-#answer-question-input {
-    
-    display:inline-block;
-    width:90%;
-    padding:10px;
-    height: 40px;
-    text-align: center;
-
-}
-
-#question-table  {
-    border-color: transparent;
-    width: 600 px;
-}
-
-#question-table td:hover {
-    background-color:transparent;
-
-}
-
-#question-table td {
-    border-color: transparent;
-    border: 1px transparent; 
-    width: 50px;
-    height: 50px;
-    text-align: center;
-
-}
-
-#wrap-table  {
-    border-color: transparent;
-
-}
-
-#wrap-table td:hover {
-    background-color:transparent;
-
-}
-
-#wrap-table td {
-    border-color: transparent;
-    border: 1px transparent; 
-    text-align: center;
-
-}
-
-
-.display-text {
-    font-size: 50px;
-}
- 
-.display-time {
-    font-size: 50px;
-    color: green
-}
-
-.display-time-red {
-    font-size: 50px;
-    color: red
-}
-
-.display-error-text
-{
-    text-decoration: line-through;
-    font-size: 40px;
-    color: gray;
-}
-
-.center-div
-{
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -10%;
-    margin-left: -200px;
-}
-
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
-
 </style>

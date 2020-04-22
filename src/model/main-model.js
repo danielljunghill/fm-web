@@ -71,6 +71,30 @@ export class MainModel
     }
 
 
+    async answerTaskAsync(answer)
+    {
+        let task = this.selectedItem
+        let seconds = this.timer.seconds;
+        this.timer.stop();
+            //KONTROLLERA ATTEMPT
+        let attempt = task.attempt(answer,seconds,this.round);
+        await attemptStore.add(attempt)
+    }
+
+    async nextTaskAsync()
+    {
+        let nextTask = await this.getNextTask()
+        if(nextTask.endOfTasks)
+        {
+            this.selectedItem = await this.getLinks()
+            return 
+        }
+        this.selectedItem = new MultiplyQuestion(nextTask.task)
+    
+        this.timer.reset();
+        this.timer.start(); 
+    }
+
     nextTask(answer, newTaskInit)
     {
         async function answerTaskFn(state,answer)
