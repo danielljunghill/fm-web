@@ -2,14 +2,6 @@ import { Task } from './task.js'
 import { TaskState } from './task.js'
 import { Attempt } from './attempt.js'
 
-
-
-function id(a,b)
-{
-    return `[${a}.*.${b}]`;
-}
-
-
 export class MultiplyQuestion extends Task
 {
     constructor(task)

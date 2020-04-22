@@ -1,5 +1,5 @@
 <template>
-  <div class="center-div">
+  <div id="taskGroupLinks">
         <template v-for="link in selectedItem.Links" >
                 <Link v-bind:taskGroupLink="link" v-bind:key="link.TableNr"/>
         </template>
@@ -44,17 +44,19 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.center-div
+<style>
+
+#taskGroupLinks
 {
-    position: absolute;
-    top:25%;
-    left:25%;
-    margin-top:-50px;
-    margin-left:-50px;
-    width:50%;
-    height:50% 
+    background:white;
+    display: block;
 }
+/* #taskGroupLinks
+{
+    background: chartreuse;
+    display: block;
+}
+
 
 h3 {
   margin:40px 0 0;
@@ -82,6 +84,6 @@ a {
 canvas {
   height: 10 px;
   width: 10 px;
-}
+} */
 
 </style>

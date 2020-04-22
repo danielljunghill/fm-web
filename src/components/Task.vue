@@ -1,57 +1,20 @@
 <template>
-  <div class="center-div">
-  <div v-bind:class="{greenBorder:(task.state == 2 || task.state == 3),redBorder:task.state == 4}">
-   
-    <table id='wrap-table' >
-      <tr>
-        <td>
-              <table id='question-table'> 
-                  <tr>
-                    <td><div class='display-text'>{{ task.A }}</div></td>
-                    <td><canvas ref="sign" width="20px" height="20px"></canvas></td>
-                    <td><div class='display-text'>{{ task.B }}</div></td>
-                    <td><div class='display-text'>=</div></td>
-                    <td>
-                      <div class='display-text' v-if="answer.trim()==''">
-                        <canvas ref='raster'  width="50px" height="50px"></canvas>
-                      </div>
-                      <div class='display-text' v-else>{{ answer }}</div>
-                    </td>
-                    <td rowspan=3></td>
-                  <tr v-show="task.state == 1">
-                    <!-- <tr> -->
-                      <td colspan="7">
-                        <input ref="nextTask"  
+<div id= "task">
+    <div>{{ task.A }}</div>
+    <div><canvas ref="sign" width="20px" height="20px"></canvas></div>
+    <div>{{ task.B }}</div>
+    <div>=</div>
+    <div class="answer">
+      <input 
+          v-model="answer"
+          v-on:keyup.enter="nextTask" 
+          ref="nextTask" 
+          type="text"/></div>
+</div>
 
-                                v-show="task.state == 1"
-                                v-bind:class="{hide:true}"
-                                id='answer-question-input' 
-                                type="text" 
-                                v-on:keyup.enter="nextTask" 
-                                v-model="answer"
-                                autocomplete="off"/>
-                      </td>
-                    </tr>
-                    <tr v-show="task.state == 1">
-                      <td colspan="7">
-                      <button
-                      v-bind:disabled = "answer == ''"
-                      default
-                      v-show="task.state == 1" 
-                      v-on:click="nextTask" 
-                      id='answer-question-button'>{{ text.getWord('Answer') }}</button></td>
-                    </tr>
-            </table>
-        </td>
-        <td width=100px><div v-if = "model.timer.seconds > 0" 
-           v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}"
-           v-show="task.state == 1">{{ model.timer.seconds }}</div></td>
-      </tr>
-    </table>
-  </div>
-     <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
+     
   
-  </div>
+  
 </template>
 <script>
 
@@ -106,8 +69,8 @@ let translator = getTranslator()
       this.setFocus();
       let designer = new Designer(this.$refs.sign)
       designer.drawX(20,20)
-      designer = new Designer(this.$refs.raster)
-      designer.drawRaster()
+      // designer = new Designer(this.$refs.raster)
+      // designer.drawRaster()
 
     }
     ,
@@ -116,8 +79,8 @@ let translator = getTranslator()
         if(this.answer == '')
         {
           this.setFocus();
-          let designer = new Designer(this.$refs.raster)
-          designer.drawRaster()
+          // let designer = new Designer(this.$refs.raster)
+          // designer.drawRaster()
 
         }
     }
@@ -125,9 +88,56 @@ let translator = getTranslator()
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+#task 
+{
+    margin:20% auto;
+    width: 500px;
+    height: 100px
+    
+}
 
-canvas {
+#task div
+{
+    display:inline-block;
+    width: 40px;
+    font-size:50px;
+    margin: 10px;
+
+  
+}
+
+#task .answer
+{
+    display: inline-block;
+    height: 60px;
+    width: 120px;
+
+}
+
+input {
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+    outline: none;
+    outline-width: 0;
+    height: 50px;
+    border-color:lightgray;
+    border-width: 2px;
+    padding: 10px;
+    text-align: center;
+    font-size:40px;
+    width:100px
+
+}
+
+input:focus {
+  border-color: darkgray;
+  border-radius: 0px;
+  border-width: 2px;
+
+}
+/* canvas {
   width: 20 px;
   height: 20 px;
 }
@@ -155,7 +165,7 @@ span{
 }
 
 .greenBorder {
-    border:2px  white;/*2px solid green;*/
+    border:2px  white;/*2px solid green;
     display:inline-block;
    
 }
@@ -166,7 +176,7 @@ span{
 }
 
 .redBorder {
-    border:2px white; /*2px solid red;*/
+    border:2px white; /*2px solid red;
     display:inline-block;
 }
 
@@ -179,13 +189,13 @@ td.deactive {
     color: gray;
 }
 
-/* td {
+ td {
     border: 1px solid black; 
     width: 50px;
     height: 50px;
     text-align: center;
     border-radius: 0px;
-} */
+} 
 
 td:active
 {
@@ -309,6 +319,6 @@ li {
 }
 a {
   color: #42b983;
-}
+} */
 
 </style>

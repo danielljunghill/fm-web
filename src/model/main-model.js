@@ -1,6 +1,5 @@
 
 import { TaskGroupLinks } from './taskGroupLinks.js';
-// import { TaskGroupLink } from './taskGroupLink.js';
 import { Timer } from './time';
 import { AttemptStore } from './attemptDb';
 import { getTasks, getNextTask ,getNotAnsweredTasks, selectNextTaskInRandomOrder} from './taskService'
@@ -8,7 +7,7 @@ import { createUUID } from './math'
 import { TaskGroupStore } from './taskGroupDb'
 import { MultiplyQuestion } from './multiplyQuestion'
 import { getTaskGroupLinks } from './taskGroupService'
-//import { TaskStore } from './taskGroupDb'
+
 
 
 let attemptStore = new AttemptStore()
@@ -34,8 +33,6 @@ export class MainModel
     async getLinks()
     {
         let links = await getLinksFromStore()
-        console.log('')
-        console.log(links)
         // let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
         let result = new TaskGroupLinks('TaskGroupLinks',links)
         //TODO: ändra detta bså att den går mot
@@ -47,7 +44,6 @@ export class MainModel
     async setup()
     {
         this.selectedItem = await this.getLinks()
-   
         return this.selectedItem
     }
 
@@ -58,7 +54,6 @@ export class MainModel
         let getAvailableTasks = getNotAnsweredTasks(getTasksAsync,attemptStore)
         let getNextTaskInOrder =  await getNextTask(roundId,taskGroup)(getAvailableTasks)
         let nextTask = getNextTaskInOrder(selectNextTaskInRandomOrder)   
-
         return nextTask
     }
 
@@ -92,8 +87,6 @@ export class MainModel
             if(nextTask.endOfTasks)
             {
                 state.selectedItem = await state.getLinks()
-                console.log('state.getLinks()')
-                console.log(state.selectedItem)
                 return 
             }
         
@@ -117,6 +110,8 @@ export class MainModel
  
     goBack()
     {
+        this.timer.stop()
+        this.timer.reset()
         this.selectedItem = this.start;
     }
 
