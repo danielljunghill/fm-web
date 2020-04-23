@@ -1,7 +1,7 @@
 <template>
 <div v-if="task.state != 4" id= "task">
     <div>{{ task.A }}</div>
-    <div><canvas ref="sign" width="20px" height="20px"></canvas></div>
+    <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
     <div>{{ task.B }}</div>
     <div>=</div>
     <div class="answer">
@@ -13,11 +13,11 @@
 </div>
 <div v-else id="task">
     <div>{{ task.A }}</div>
-    <div><canvas ref="sign" width="20px" height="20px"></canvas></div>
+    <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
     <div>{{ task.B }}</div>
     <div>=</div>
     <div>{{ answer }}</div>
-    <div class="nextQuestion"><button v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
+    <div class="nextQuestion"><button ref="nextQ" v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
 </div>
 
      
@@ -54,6 +54,7 @@ let translator = getTranslator()
             {
                 //TODO: get a result from answer task that gives correct answer
                 this.answer = this.task.A * this.task.B;
+                this.$refs.nextQ.focus();
                 return;
             }
             await this.nextTaskAsync()
@@ -105,6 +106,8 @@ let translator = getTranslator()
         if(this.answer == '')
         {
           this.setFocus();
+          let designer = new Designer(this.$refs.sign)
+          designer.drawX(20,20)
           // let designer = new Designer(this.$refs.raster)
           // designer.drawRaster()
 
@@ -118,7 +121,7 @@ let translator = getTranslator()
 #task 
 {
     margin:20% auto;
-    width: 500px;
+    width: 550px;
     height: 100px
     
 }
@@ -126,10 +129,20 @@ let translator = getTranslator()
 #task div
 {
     display:inline-block;
-    width: 40px;
+
     font-size:50px;
-    margin: 10px
-  
+    margin: 10px;
+    background: white;
+    text-align: center;
+    background: lightgreen;
+    padding: 10px
+}
+
+
+#task .canvas
+{
+      width: 20px;
+      height: 20px;
 }
 
 
