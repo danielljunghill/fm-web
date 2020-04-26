@@ -48,42 +48,17 @@ export default {
 
 #taskGroupLinks
 {
-    background:white;
-    display: block;
-}
-/* #taskGroupLinks
-{
-    background: chartreuse;
+    
     display: block;
 }
 
-
-h3 {
-  margin:40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: block;
-  margin: 0 20px;
-}
-
-li:hover 
+#taskGroupLinks::after
 {
-    background-color: gray;
+    
+    clear: both;
+    display: block;
+
 }
 
-a {
-  color: #42b983;
-}
-
-canvas {
-  height: 10 px;
-  width: 10 px;
-} */
 
 </style>

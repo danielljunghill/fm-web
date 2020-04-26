@@ -39,8 +39,6 @@ export function getTasks(getTasksFromStore)
         //     return taskForTaskGroup.get(taskGroupId)
         // }
         let tasks = await getTasksFromStore(taskGroup)
-        console.log('get tasks')
-        console.log(tasks)
         taskForTaskGroup.set(taskGroup.id,tasks)
         return tasks
     }

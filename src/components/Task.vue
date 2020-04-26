@@ -1,5 +1,17 @@
 <template>
-<div v-if="task.state != 4" id= "task">
+<div>
+<div class="height"></div>
+<div class="center">
+    <div  v-if = "model.timer.seconds > 0"
+        v-show="task.state == 1"
+        v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}" >
+        {{ model.timer.seconds }}
+    </div>
+    
+</div>
+<div v-if="task.state != 4" id= "task" class="center"> 
+    <div class="taskborder">
+    <!-- <p class="timer" >{{ model.timer.seconds }}</p> -->
     <div>{{ task.A }}</div>
     <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
     <div>{{ task.B }}</div>
@@ -10,17 +22,27 @@
           v-on:keyup.enter="answerTaskAsync" 
           ref="nextTask" 
           type="text"/></div>
+    </div>
+    
 </div>
-<div v-else id="task">
+
+<div v-else id="task" class="center">
+    <div class="taskborder">
     <div>{{ task.A }}</div>
     <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
     <div>{{ task.B }}</div>
     <div>=</div>
     <div>{{ answer }}</div>
     <div class="nextQuestion"><button ref="nextQ" v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
+    </div>
 </div>
 
-     
+<div class="center">
+    <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
+</div> 
+</div> 
+
+  
   
   
 </template>
@@ -120,10 +142,23 @@ let translator = getTranslator()
 <style>
 #task 
 {
-    margin:20% auto;
-    width: 550px;
-    height: 100px
-    
+   
+    width: 100%;
+    height: 100% ; 
+
+}
+
+#task .taskborder
+{
+    border-style: dotted;
+    border-color: grey;
+    border-width: 2px;
+}
+
+#task .timer
+{
+    float: right;
+    height:50px
 }
 
 #task div
@@ -134,8 +169,18 @@ let translator = getTranslator()
     margin: 10px;
     background: white;
     text-align: center;
-    background: lightgreen;
     padding: 10px
+}
+
+.height
+{
+    height: 100px;
+}
+
+.center
+{
+    text-align: center;
+    height: 50px;
 }
 
 
@@ -149,7 +194,11 @@ let translator = getTranslator()
 #task .nextQuestion
 {
     display:block;
-
+    background: white;
+    margin: 0px;
+    align-content: left;
+    margin: 0px;
+    text-align: left;
 }
 
 #task button
@@ -159,13 +208,40 @@ let translator = getTranslator()
     background: None;
     font-size:20px;
     color:white;
-
+    
     border-width: 2px;
     border-color:darkred;
     border-style: solid;
     border-radius: 10px;
     background: darkred;
+
 }
+
+#task button:focus
+{
+    outline: 0 !important;
+    border-color:red;
+    background: red;
+  
+}
+
+#task button:hover
+{
+    width: 400px;
+    height: 100px;
+    background: None;
+    font-size:20px;
+    color:white;
+    outline: 0 !important;
+    border-width: 2px;
+    border-color:red;
+    border-style: solid;
+    border-radius: 10px;
+    background:red;
+    opacity: 0.8;
+
+}
+
 
 #task .answer
 {
@@ -196,5 +272,18 @@ input:focus {
   border-radius: 0px;
   border-width: 2px;
 
+}
+
+.display-time
+{
+    font-size: 50px;
+    color:green;
+    
+}
+
+.display-time-red
+{
+    font-size: 50px;
+    color:red;
 }
 </style>

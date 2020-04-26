@@ -30,12 +30,8 @@ import { TaskGroupLink } from './taskGroupLink'
     {
         let result = true;
         let taskGroup = {}
-        console.log('taskGroup sdfsdf')
-        console.log(taskGroups)
         for (taskGroup of taskGroups)
         {
-            console.log('taskGroup')
-            console.log(taskGroup)
             let active = await getStatus(taskGroup)
             if(!active)
             {

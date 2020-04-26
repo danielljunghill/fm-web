@@ -15,12 +15,6 @@ export class TaskGroupLink
         this.description = taskGroup.name
     }
 
-    // Create()
-    // {
-      
-    //     return new TaskGroup(this.taskGroup.id,[])
-    // }
-
     static CreateFromTaskGroup(taskGroup)
     {
         return new TaskGroupLink(taskGroup)
@@ -29,26 +23,11 @@ export class TaskGroupLink
     isCompleted()
     {
         return this.IsActive;
-        // let result = this.attemptStore.isCompleted(this.taskGroup.id)
-      
-        // return result
     }
 
     isActive()
     {
         return this.IsActive;
-        // if(this.IsActive)
-        //     return true;
-        // if(!this.attemptStore.has(this.dependentOnTaskGroupId))
-        // {
-        //     return false;
-        // }
-     
-        // let iscompleted = this.attemptStore.isCompleted(this.dependentOnTaskGroupId)
-  
-        // let result = iscompleted;
-
-        // return result;
     }
 
 }

@@ -24,7 +24,7 @@ export class MainModel
 {
     constructor()
     {
-        // this.start = new TaskGroupLinks('TaskGroupLinks',[])
+        this.start = new TaskGroupLinks('TaskGroupLinks',[])
         this.selectedItem = this.start;
         this.timer = new Timer();
         this.round = {} 
@@ -33,6 +33,7 @@ export class MainModel
     async getLinks()
     {
         let links = await getLinksFromStore()
+        console.log('getLinks')
         // let taskGroupLinks = taskGroups.map((taskGroup) => new TaskGroupLink(taskGroup))
         let result = new TaskGroupLinks('TaskGroupLinks',links)
         //TODO: ändra detta bså att den går mot
@@ -44,6 +45,7 @@ export class MainModel
     async setup()
     {
         this.selectedItem = await this.getLinks()
+        
         return this.selectedItem
     }
 
@@ -144,7 +146,8 @@ export class MainModel
 
 let model = new MainModel()
 model.setup()
-
+console.log('Model setup')
+console.log(model.selectedItem)
 export default function getModelInstance()
 {
     return model;

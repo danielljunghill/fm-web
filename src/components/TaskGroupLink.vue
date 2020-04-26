@@ -95,7 +95,6 @@ let modelInstance = getModelInstance()
   padding: 50px;
   margin: 20px;
   box-sizing: border-box;
-  float: left;
   color: whitesmoke;
 }
 

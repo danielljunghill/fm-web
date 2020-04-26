@@ -42,21 +42,11 @@ export class TaskGroup extends Component
         this.tasks = tasks;
         this.position = 0;
         this.taskGroupId = taskGroupId;   
-        // this.roundId = createUUID()
-        //Attemptstore borde brytas ut
-        // this.taskGroupAttempsStore = taskGroupAttempsStore
-        //this.task = this.getNextTask().task
        
     }
     
     completed()
     {
-        //kontrollera om samtliga tasks (questions) är klara
-        // if(this.tasks.map((x) => x.completed()).includes(false))
-        // { 
-        //     return false;
-        // }
-        // return true;
         return true;
     }
 
