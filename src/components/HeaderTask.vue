@@ -6,17 +6,14 @@
 
 <script>
 
-import getModelInstance from '../model/main-model.js'
-let data = getModelInstance()
+// import getModelInstance from '../model/main-model.js'
+// let data = getModelInstance()
 
 
  export default {
     name: 'HeaderTask',
-    props: ['item'],
-    mounted: function()
-    {
-        data.addListener((task) => this.item = task)
-    }
+    props: ['item']
+
 
   }
 

@@ -6,11 +6,6 @@
 
 <script>
 
-//  import getModelInstance from '../model/main-model.js'
-
-// let data = getModelInstance()
-
-//  import Task  from './Task.vue'
  export default {
     name: 'HeaderTaskGroupLinks',
     props: ['item']
