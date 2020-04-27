@@ -7,6 +7,7 @@ import { createUUID } from './math'
 import { TaskGroupStore } from './taskGroupDb'
 import { MultiplyQuestion } from './multiplyQuestion'
 import { getTaskGroupLinks } from './taskGroupService'
+import { TaskHistory } from './taskHistory'
 
 
 
@@ -63,11 +64,13 @@ export class MainModel
     {   
         this.round = round(taskGroup)
         let nextTask = await this.getNextTask()
+
         if(nextTask.endOfTasks)
         {
             this.selectedItem = await this.getLinks()
             return 
         }
+
         this.timer.start(); 
         this.selectedItem = new MultiplyQuestion(nextTask.task)
     }
@@ -141,28 +144,11 @@ export class MainModel
         this.selectedItem = this.start;
     }
 
-    // addSelectedItemChangeListeners(listener)
-    // {
-    //     if(this.listeners == null)
-    //     {
-    //         this.listeners = []
-    //     }
-    //     this.listeners.push(listener)
-    // }
-
-    // setSelectedItem(item)
-    // {
-    //     this.selectedItem = item
-    //     if(this.listeners == null)
-    //         return
-        
-    //     for(const listener of this.listeners)
-    //     {
-    //         listener(item)
-    //     }
-
-        
-    // }
+    async viewHistory()
+    {
+        this.selectedItem = new TaskHistory([]);
+      
+    }
 
 }
 

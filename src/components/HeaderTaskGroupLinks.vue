@@ -1,14 +1,28 @@
 <template>
-    <div>
-        TaskGroupLinks {{ item.name }}
+    <div v-on:click="viewHistory">
+        History
     </div>
+    
 </template>
 
 <script>
+import getModelInstance from '../model/main-model.js'
+// import Designer from '../model/drawing/draw.js'
+// import TaskState from '../model/task.js'
+
+// import  getTranslator from '../model/language/words.js'
+let model = getModelInstance()
 
  export default {
     name: 'HeaderTaskGroupLinks',
-    props: ['item']
+    props: ['item'],
+    methods:
+      { 
+          viewHistory:async function()
+          {
+              await model.viewHistory();
+          }
+      }
   }
 
 </script>
