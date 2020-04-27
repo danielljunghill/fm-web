@@ -141,6 +141,29 @@ export class MainModel
         this.selectedItem = this.start;
     }
 
+    addSelectedItemListeners(listener)
+    {
+        if(this.listeners == null)
+        {
+            this.listeners = []
+        }
+        this.listeners.push(listener)
+    }
+
+    setSelectedItem(item)
+    {
+        this.selectedItem = item
+        if(this.listeners == null)
+            return
+        
+        for(const listener of this.listeners)
+        {
+            listener(item)
+        }
+
+        
+    }
+
 }
 
 

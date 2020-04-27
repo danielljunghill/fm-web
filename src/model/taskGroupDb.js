@@ -57,7 +57,14 @@ export class TaskGroupStore
             
             function getMultiplyQuestion(a,b)
             {
-                return { a: a, b: b }
+                return { 
+                    a: a,
+                    b: b,
+                    typeName : function() {
+                        return 'multiplyQuestion';
+                      }
+
+                }
             }
             function id(a,b)
             {

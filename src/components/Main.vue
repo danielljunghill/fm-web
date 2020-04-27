@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="component">
       <component v-bind:is="selectedItem.ComponentName"></component>
   </div>
 </template>
@@ -21,20 +21,17 @@ export default {
         'Task': Task,
 
     },
-    data: function()  { return data },
-    methods:
-    {
-        changeName:function()
-        {
-            data.changeData();
-        }
-    }
-
+    data: function()  { return data }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+#component
+{
+    text-align: center;
+}
 /* h3 {
   margin: 40px 0 0;
 }

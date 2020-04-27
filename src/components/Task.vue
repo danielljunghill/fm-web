@@ -1,16 +1,11 @@
 <template>
 <div>
 <div class="height"></div>
-<div class="center">
-    <div  v-if = "model.timer.seconds > 0"
-        v-show="task.state == 1"
-        v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}" >
-        {{ model.timer.seconds }}
-    </div>
-    
-</div>
+
 <div v-if="task.state != 4" id= "task" class="center"> 
+  
     <div class="taskborder">
+
     <!-- <p class="timer" >{{ model.timer.seconds }}</p> -->
     <div>{{ task.A }}</div>
     <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
@@ -22,6 +17,15 @@
           v-on:keyup.enter="answerTaskAsync" 
           ref="nextTask" 
           type="text"/></div>
+    </div>
+
+      <div class="timer">
+        <div  v-if = "model.timer.seconds > 0"
+            v-show="task.state == 1"
+            v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}" >
+            {{ model.timer.seconds }}
+        </div>
+    
     </div>
     
 </div>
@@ -148,6 +152,8 @@ let translator = getTranslator()
 
 }
 
+
+
 #task .taskborder
 {
     border-style: dotted;
@@ -157,8 +163,9 @@ let translator = getTranslator()
 
 #task .timer
 {
-    float: right;
-    height:50px
+    
+    height:50px;
+    width:50px
 }
 
 #task div
