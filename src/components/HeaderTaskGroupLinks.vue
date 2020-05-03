@@ -1,18 +1,15 @@
 <template>
     <nav id="linkNavigation">
+      <!-- todo add to translator--> 
       <a v-on:click="viewHistory">View History</a>
+       <a v-on:click="viewSettings">Settings</a>
     </nav>
-    <!-- <div v-on:click="viewHistory"> -->
-   
+ 
     
 </template>
 
 <script>
 import getModelInstance from '../model/main-model.js'
-// import Designer from '../model/drawing/draw.js'
-// import TaskState from '../model/task.js'
-
-// import  getTranslator from '../model/language/words.js'
 let model = getModelInstance()
 
  export default {
@@ -23,6 +20,10 @@ let model = getModelInstance()
           viewHistory:async function()
           {
               await model.viewHistory();
+          },
+          viewSettings:async function()
+          {
+              await model.viewSettings();
           }
       }
   }

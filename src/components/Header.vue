@@ -10,6 +10,7 @@ import HeaderTaskGroupLinks from './HeaderTaskGroupLinks.vue'
 import HeaderTask from './HeaderTask.vue'
 import getModelInstance from '../model/main-model.js'
 import HeaderTaskHistory from './HeaderTaskHistory.vue'
+import HeaderSettings from './HeaderSettings.vue'
 //import TaskGroup  from './TaskGroup.vue'
 // import Task from './Task.vue'
 
@@ -21,7 +22,8 @@ export default {
     {
         'TaskGroupLinks': HeaderTaskGroupLinks,
         'Task': HeaderTask,
-        'TaskHistory': HeaderTaskHistory
+        'TaskHistory': HeaderTaskHistory,
+        'Settings': HeaderSettings
 
     },
     data: function()  { return { model : data } },

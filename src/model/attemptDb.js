@@ -141,20 +141,35 @@ function getAttemptsPerCorrectStatus(status)
 }
 
 
+function clear()
+{
+    return new Promise((resolve) =>{
+
+        var transaction = attemptsDb.transaction(["attempts"], "readwrite");
+
+        let store = transaction.objectStore("attempts"); // readonly
+       
+        let clearRequest = store.clear();
+
+        clearRequest.onsuccess = function(event) {
+            resolve()
+          // report the success of our clear operation
+          console.log(`data is cleared from attemptstore ${event}`)
+        };
+    })
+}
+
+
+
+
+
 
 export  class AttemptStore
 {
-    //do not call directly 
-    //call construct from CreateStore
+
     constructor()
     {
-        
-        
-    }
-
-    static Create()
-    {
-        return new AttemptStore();
+ 
     }
 
     async add(attempt)
@@ -198,8 +213,14 @@ export  class AttemptStore
         return attempts
     }
 
+    async clear()
+    {
+        await getDb()
+        await clear()
+    }
+        
+    
 
-  
 }
 
 

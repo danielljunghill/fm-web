@@ -8,6 +8,7 @@ import { TaskGroupStore } from './taskGroupDb'
 import { MultiplyQuestion } from './multiplyQuestion'
 import { getTaskGroupLinks } from './taskGroupService'
 import { getTaskHistory } from './taskHistoryService'
+import { Settings } from './settings.js';
 
 
 
@@ -145,10 +146,20 @@ export class MainModel
         this.selectedItem = this.start;
     }
 
+    async goBackWithRefresh()
+    {
+        this.selectedItem = await this.getLinks();
+    }
+
     async viewHistory()
     {
         this.selectedItem = await getTaskHistoryAsync(false);
       
+    }
+
+    async viewSettings()
+    {
+        this.selectedItem = new Settings(attemptStore) 
     }
 
 }

@@ -11,6 +11,7 @@ import getModelInstance from '../model/main-model.js'
 //import TaskGroup  from './TaskGroup.vue'
 import Task from './Task.vue'
 import TaskHistory from './TaskHistory.vue'
+import Settings from './Settings'
 
 let data = getModelInstance()
 
@@ -20,8 +21,8 @@ export default {
     {
         'TaskGroupLinks': TaskGroupLinks,
         'Task': Task,
-        'TaskHistory': TaskHistory
-
+        'TaskHistory': TaskHistory,
+        'Settings': Settings
     },
     data: function()  { return data }
   }
