@@ -16,7 +16,7 @@ import { TaskGroupLink } from './taskGroupLink'
                 attemptsPerRound
                     .filter((attempts) => attempts.filter((attempt) => attempt.correct).length == nrOfTasks)
                     .length
-             console.log(nrOfCorrectRounds)   
+              
             //antal korrekta lika med antalet tasks
             return nrOfCorrectRounds > 0
         }
@@ -44,11 +44,7 @@ import { TaskGroupLink } from './taskGroupLink'
     return async function(taskGroup)
     {
         let result = new TaskGroupLink(taskGroup)
-        console.log('function(taskGroup)')
-        console.log(taskGroup)
-        console.log(taskGroup.dependentOnTaskGroups)
         result.IsActive = await isTaskGroupsAllActive(taskGroup.dependentOnTaskGroups)
-        console.log(result.IsActive)
         return result;
     }
 

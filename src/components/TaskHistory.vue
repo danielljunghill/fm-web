@@ -1,7 +1,5 @@
 <template>
-
     <div id=history>
-       
         <template v-for="task in history.tasks">
             <div class="taskhistory" v-bind:key="task.task.id">
                     <div>{{ task.task.question.a }}</div>
@@ -9,12 +7,9 @@
                     <div>{{ task.task.question.b }}</div>
                     <div>=</div>
                     <div>{{ task.task.question.a * task.task.question.b }}</div>
-                    
-            </div>
-           
+            </div>     
         </template>
          <div class=taskhistoryend></div>
-         
         <div class="center">
             <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
         </div> 
@@ -25,7 +20,6 @@
 
 import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
-import Designer from '../model/drawing/draw.js'
 import Sign from './Sign'
 
 let data = getModelInstance()

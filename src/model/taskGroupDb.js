@@ -29,8 +29,6 @@ export class TaskGroupStore
     static init()
     {
         let taskStore = new Map();
-        console.log('init')
-      
         function getMultiplyQuestion(a,b)
         {
             return { 
@@ -41,8 +39,7 @@ export class TaskGroupStore
                   }
 
             }
-        }
-        
+        }   
         let j = {}
         let i = {}
         for(j = 1; j <= 10; j++)
@@ -54,8 +51,6 @@ export class TaskGroupStore
                 taskStore.set(mid,mt)
             }
         }
-        console.log('end init')
-       
         return taskStore
     }
 
@@ -74,6 +69,7 @@ export class TaskGroupStore
         }
         let taskGroups = [];
         let i = {};
+       
         function taskGroupDependency(taskGroups)
         {
             if(taskGroups.length == 0)
@@ -93,23 +89,36 @@ export class TaskGroupStore
             let mt = taskGroup(i,createMultiplyTableId(i),taskGroupTypeMultiplyTable,denpendentOn);
             taskGroups.push(mt);
         }  
+        //add all taskgrupp
+        let allGroup = taskGroup('all',createMultiplyTableId('*'),taskGroupTypeMultiplyTable,[])
+        taskGroups.push(allGroup)
+        //add bomben
         return taskGroups
     }
 
 
-     async getTasksForGroup(taskGroup)
+    async getTasksForGroup(taskGroup)
     {
         function getMultiplyQuestions(tableNr,taskStore)
         {
             let tasks = []
             
             let i = {};
-            for(i = 1; i <= 10; i++)
-            {   
-                let mid = id(tableNr,i)
-                let mt = taskStore.get(mid)
-                tasks.push(mt);
+            console.log('tableNr')
+            console.log(tableNr)
+            let to = tableNr == 'all'? 10: tableNr
+            let from  = tableNr == 'all'? 1: tableNr
+            let j = {}
+            for(j = from; j <= to; j++)
+            {
+                for(i = 1; i <= 10; i++)
+                {   
+                    let mid = id(j,i)
+                    let mt = taskStore.get(mid)
+                    tasks.push(mt);
+                }
             }
+      
             return tasks;
 
         }
