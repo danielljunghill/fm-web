@@ -1,7 +1,7 @@
 <template>
-  <div id="component">
+
       <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem"></component>
-  </div>
+
 </template>
 
 <script>
@@ -9,7 +9,7 @@
 import HeaderTaskGroupLinks from './HeaderTaskGroupLinks.vue'
 import HeaderTask from './HeaderTask.vue'
 import getModelInstance from '../model/main-model.js'
-import TaskHistory from './TaskHistory.vue'
+import HeaderTaskHistory from './HeaderTaskHistory.vue'
 //import TaskGroup  from './TaskGroup.vue'
 // import Task from './Task.vue'
 
@@ -21,7 +21,7 @@ export default {
     {
         'TaskGroupLinks': HeaderTaskGroupLinks,
         'Task': HeaderTask,
-        'TaskHistory': TaskHistory
+        'TaskHistory': HeaderTaskHistory
 
     },
     data: function()  { return { model : data } },

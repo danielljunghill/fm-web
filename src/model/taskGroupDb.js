@@ -10,13 +10,60 @@ function task(id, question)
     return { id: id, question: question}
 }
 
+function id(a,b)
+{
+    return `[${a}.*.${b}]`;
+}
+
 const taskGroupTypeMultiplyTable = 'MultiplyTable'
+
 export class TaskGroupStore
 {
 
     constructor()
     {
+        console.log('init TaskGroupStore')
+        this.taskStore = TaskGroupStore.init()
+    }
 
+    static init()
+    {
+        let taskStore = new Map();
+        console.log('init')
+      
+        function getMultiplyQuestion(a,b)
+        {
+            return { 
+                a: a,
+                b: b,
+                typeName : function() {
+                    return 'multiplyQuestion';
+                  }
+
+            }
+        }
+        
+        let j = {}
+        let i = {}
+        for(j = 1; j <= 10; j++)
+        {
+            for(i = 1; i <= 10; i++)
+            {   
+                let mid = id(j,i)
+                let mt = task(mid,getMultiplyQuestion(j,i))
+                taskStore.set(mid,mt)
+            }
+        }
+        console.log('end init')
+       
+        return taskStore
+    }
+
+    async getTask(taskId)
+    {
+        if(this.taskStore.has(taskId))
+            return this.taskStore.get(taskId)
+        throw `Task ${taskId} is not available in taskstore`
     }
     
     async getTaskGroups()
@@ -49,33 +96,18 @@ export class TaskGroupStore
         return taskGroups
     }
 
+
      async getTasksForGroup(taskGroup)
     {
-        function getMultiplyQuestions(tableNr)
+        function getMultiplyQuestions(tableNr,taskStore)
         {
             let tasks = []
             
-            function getMultiplyQuestion(a,b)
-            {
-                return { 
-                    a: a,
-                    b: b,
-                    typeName : function() {
-                        return 'multiplyQuestion';
-                      }
-
-                }
-            }
-            function id(a,b)
-            {
-                return `[${a}.*.${b}]`;
-            }
-
             let i = {};
             for(i = 1; i <= 10; i++)
             {   
                 let mid = id(tableNr,i)
-                let mt = task(mid,getMultiplyQuestion(tableNr,i))
+                let mt = taskStore.get(mid)
                 tasks.push(mt);
             }
             return tasks;
@@ -86,7 +118,7 @@ export class TaskGroupStore
     
         if(taskGroup.type == taskGroupTypeMultiplyTable)
         {
-            return getMultiplyQuestions(taskGroup.name)
+            return getMultiplyQuestions(taskGroup.name,this.taskStore)
         }
     
         throw `could not recognize taskgroupid ${taskGroup}`

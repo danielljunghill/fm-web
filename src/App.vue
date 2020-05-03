@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <header id="header">
-      <div><Header></Header></div>
+      <Header></Header>
   </header>
   <div id="main">
  
@@ -41,7 +41,7 @@ html, body {
     height: 100px;
     width: 100%;
     background: #eee;
-    text-align: center;
+
 
 }
 

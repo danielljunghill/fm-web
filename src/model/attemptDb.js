@@ -1,5 +1,5 @@
 const DB_NAME = 'attemptDb'
-const DB_VERSION = 1
+const DB_VERSION = 4
 
 let attemptsDb;
 
@@ -27,15 +27,29 @@ let attemptsDb;
             console.log('onupgradeneeded')
             console.log(attemptsDb)
             attemptsDb = e.target.result;
-            if (!attemptsDb.objectStoreNames.contains('attempts')) 
+            function getStore()
             {
-                let store = attemptsDb.createObjectStore("attempts", { keyPath: "id", autoIncrement:true } )
-                console.log('create index')
-                store.createIndex('round', 'roundId', { unique: false });
-                store.createIndex('taskGroup', 'taskGroupId', { unique: false });
-                console.log('index created')
+                if(!attemptsDb.objectStoreNames.contains('attempts'))
+                {
+                    return attemptsDb.createObjectStore("attempts", { keyPath: "id", autoIncrement:true } )
+                }
+                var tx = event.target.transaction;
+                return tx.objectStore('attempts');
             }
-            
+            let store = getStore()
+            if(!store.indexNames.contains('round'))
+            {
+                store.createIndex('round', 'roundId', { unique: false });
+            }
+            if(!store.indexNames.contains('taskGroup'))
+            {
+                store.createIndex('taskGroup', 'taskGroupId', { unique: false });
+            }
+            if(!store.indexNames.contains('status'))
+            {
+                store.createIndex('status', 'correct', { unique: false });
+            }
+         
            
         }
 
@@ -107,6 +121,26 @@ function getAttemptsPerTaskGroup(taskGroupId)
 }
 
 
+function getAttemptsPerCorrectStatus(status)
+{
+    return new Promise((resolve) =>{
+        let transaction = attemptsDb.transaction("attempts"); // readonly
+        let attempts = transaction.objectStore("attempts");
+        let attemptsPerStatus = attempts.index("status");
+    
+        let request = attemptsPerStatus.getAll(status);
+    
+        request.onsuccess = function() {
+            if (request.result !== undefined) {
+                resolve(request.result); // array of books with price=10
+            } else {
+                resolve([])
+            }
+        };
+    })
+}
+
+
 
 export  class AttemptStore
 {
@@ -154,6 +188,13 @@ export  class AttemptStore
     {
         await getDb()
         let attempts = await getAttemptsPerTaskGroup(taskGroupId)
+        return attempts
+    }
+
+    async attemptPerStatus(status)
+    {
+        await getDb()
+        let attempts = await getAttemptsPerCorrectStatus(status)
         return attempts
     }
 

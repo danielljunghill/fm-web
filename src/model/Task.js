@@ -27,9 +27,6 @@ export class Task extends Component
     //
     attempt()
     {
-        // let correctAnswer =''
-        // let correct = true
-        // let attempt = new Attempt(this.taskId, this.taskGroupId, this.roundId,answer,correctAnswer,correct,duration);
         return {};
     }
 

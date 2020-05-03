@@ -29,7 +29,7 @@ function filterTask(taskIdSet)
         return !taskIdSet.has(task.id)}
 }
 
-export function getTasks(getTasksFromStore)
+export function getTasks(taskGroupStore)
 {
     let taskForTaskGroup = new Map()
     return async function getTaskAsync(taskGroup)
@@ -38,7 +38,7 @@ export function getTasks(getTasksFromStore)
         // {
         //     return taskForTaskGroup.get(taskGroupId)
         // }
-        let tasks = await getTasksFromStore(taskGroup)
+        let tasks = await taskGroupStore.getTasksForGroup(taskGroup)
         taskForTaskGroup.set(taskGroup.id,tasks)
         return tasks
     }

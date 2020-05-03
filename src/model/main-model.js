@@ -7,14 +7,15 @@ import { createUUID } from './math'
 import { TaskGroupStore } from './taskGroupDb'
 import { MultiplyQuestion } from './multiplyQuestion'
 import { getTaskGroupLinks } from './taskGroupService'
-import { TaskHistory } from './taskHistory'
+import { getTaskHistory } from './taskHistoryService'
 
 
 
 let attemptStore = new AttemptStore()
 let taskGroupStore = new TaskGroupStore()
-let getTasksAsync = getTasks(taskGroupStore.getTasksForGroup)
+let getTasksAsync = getTasks(taskGroupStore)
 let getLinksFromStore  = getTaskGroupLinks(taskGroupStore,attemptStore)
+let getTaskHistoryAsync = getTaskHistory(attemptStore,taskGroupStore)
 
 function round(taskGroup)
 {
@@ -146,7 +147,7 @@ export class MainModel
 
     async viewHistory()
     {
-        this.selectedItem = new TaskHistory([]);
+        this.selectedItem = await getTaskHistoryAsync(false);
       
     }
 
@@ -155,8 +156,6 @@ export class MainModel
 
 let model = new MainModel()
 model.setup()
-console.log('Model setup')
-console.log(model.selectedItem)
 export default function getModelInstance()
 {
     return model;

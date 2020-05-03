@@ -1,13 +1,19 @@
 import { Component } from './component.js'
 
-export class TaskHistory extends Component
+
+
+ export default class TaskHistoryCollection extends Component
 {
     constructor(tasks)
     {       
         super('TaskHistory') 
      //   this.Attempts = []
         this.tasks = tasks;
-  
+        // this.attemptsPerTaskId = groupBy(attempts,'taskId')
+        // console.log(this.attemptsPerTaskId)
 
+ 
     }
+
+    
 }

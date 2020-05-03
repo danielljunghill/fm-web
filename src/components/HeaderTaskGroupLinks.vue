@@ -1,7 +1,9 @@
 <template>
-    <div v-on:click="viewHistory">
-        History
-    </div>
+    <nav id="linkNavigation">
+      <a v-on:click="viewHistory">View History</a>
+    </nav>
+    <!-- <div v-on:click="viewHistory"> -->
+   
     
 </template>
 
@@ -28,7 +30,7 @@ let model = getModelInstance()
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h3 {
   margin: 40px 0 0;
 }
@@ -40,7 +42,31 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+#linkNavigation a {
+  color: darkgreen;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+  margin-top: 50px;
+  padding:5px;
+  font-size: 30px;
+
 }
+
+#linkNavigation a:hover {
+  color: #42b983;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+  margin-top: 50px;
+  padding:5px;
+  font-size: 30px;
+  text-decoration: underline;
+
+}
+
+
+
+
+
 </style>

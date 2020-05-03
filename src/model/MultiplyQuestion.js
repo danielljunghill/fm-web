@@ -30,8 +30,9 @@ export class MultiplyQuestion extends Task
             this.state = TaskState.answeredWithError     
         }
         correct = correct && (this.state == TaskState.answeredCorrect)
+        let intCorrect = correct ? 1 : 0;
         let taskGroupId = round.taskGroup.id
-        let attempt = new Attempt(this.task.id,taskGroupId,round.id,input,correctAnswer, correct,elapsedSeconds);
+        let attempt = new Attempt(this.task.id,taskGroupId,round.id,input,correctAnswer, intCorrect,elapsedSeconds);
         //this.Attempts.push(attempt);
         return attempt;
     }
