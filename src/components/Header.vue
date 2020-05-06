@@ -1,7 +1,5 @@
 <template>
-
       <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem"></component>
-
 </template>
 
 <script>
@@ -35,5 +33,31 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
+.linkNavigation a {
+  color: darkgreen;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+  margin-top: 10px;
+  padding:5px;
+  font-size: 25px;
+  border-style: solid;
+  border-width: 0px 0px 4px 0px;
+  border-color: transparent;
+
+}
+
+.linkNavigation a:hover {
+  color: green;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+  margin-top: 10px;
+  padding:5px;
+  border-style: solid;
+  border-width: 0px 0px 4px 0px;
+  border-color: green;
+
+}
 
 </style>

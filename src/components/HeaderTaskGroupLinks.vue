@@ -1,20 +1,26 @@
 <template>
-    <nav id="linkNavigation">
+    <nav class="linkNavigation">
       <!-- todo add to translator--> 
-      <a v-on:click="viewHistory">View History</a>
-       <a v-on:click="viewSettings">Settings</a>
-    </nav>
- 
-    
+      <a v-on:click="viewHistory">{{ text.getWord('viewHistory') }}</a>
+       <a v-on:click="viewSettings">{{ text.getWord('viewSettings') }}</a>
+    </nav> 
 </template>
 
 <script>
-import getModelInstance from '../model/main-model.js'
-let model = getModelInstance()
 
+
+import getModelInstance from '../model/main-model.js'
+
+import  getTranslator from '../model/language/words.js'
+let model = getModelInstance()
+// console.log(data.selectedItem)
+let translator = getTranslator()
+console.log('translator')
+console.log(translator)
  export default {
     name: 'HeaderTaskGroupLinks',
     props: ['item'],
+    data: function() { return { text : translator } },
     methods:
       { 
           viewHistory:async function()
@@ -43,28 +49,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-#linkNavigation a {
-  color: darkgreen;
-  float: left;
-  margin-left:5px;
-  margin-right:10px;
-  margin-top: 50px;
-  padding:5px;
-  font-size: 30px;
 
-}
-
-#linkNavigation a:hover {
-  color: #42b983;
-  float: left;
-  margin-left:5px;
-  margin-right:10px;
-  margin-top: 50px;
-  padding:5px;
-  font-size: 30px;
-  text-decoration: underline;
-
-}
 
 
 

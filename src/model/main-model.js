@@ -74,7 +74,7 @@ export class MainModel
         }
 
         this.timer.start(); 
-        this.selectedItem = new MultiplyQuestion(nextTask.task)
+        this.selectedItem = new MultiplyQuestion(nextTask.task,nextTask.nrOfTasksInGroup,nextTask.completed)
     }
 
 
@@ -96,7 +96,7 @@ export class MainModel
             this.selectedItem = await this.getLinks()
             return 
         }
-        this.selectedItem = new MultiplyQuestion(nextTask.task)
+        this.selectedItem = new MultiplyQuestion(nextTask.task,nextTask.nrOfTasksInGroup,nextTask.completed)
     
         this.timer.reset();
         this.timer.start(); 
@@ -120,8 +120,7 @@ export class MainModel
                 state.selectedItem = await state.getLinks()
                 return 
             }
-        
-            state.selectedItem = new MultiplyQuestion(nextTask.task)
+            state.selectedItem =  new MultiplyQuestion(nextTask.task,nextTask.nrOfTasksInGroup,nextTask.completed)
   
             state.timer.reset();
             state.timer.start(); 
@@ -148,6 +147,8 @@ export class MainModel
 
     async goBackWithRefresh()
     {
+        this.timer.stop()
+        this.timer.reset()
         this.selectedItem = await this.getLinks();
     }
 

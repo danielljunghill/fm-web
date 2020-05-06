@@ -3,10 +3,15 @@ import { randomInteger } from './math'
 
 export class NextTaskResult
 {
-    constructor(task,endOfTasks)
+    constructor(task,endOfTasks, completed, total)
     {
         this.task = task;
         this.endOfTasks = endOfTasks;
+        console.log(completed)
+        console.log(total)
+
+        this.completed = completed
+        this.nrOfTasksInGroup = total
         
     }
 }
@@ -46,23 +51,26 @@ export function getTasks(taskGroupStore)
 
 export function selectNextTaskInSortedOrder(tasks)
 {
-    if (tasks.length == 0)
-        return new NextTaskResult(null,true);
+    if (tasks.notCompleted.length == 0)
+        return new NextTaskResult(null,true,tasks.notCompleted.length,tasks.nrOfTasks);
     //måste sätta nästa task i taskgroup
     //då this.task styr vilken task som visas i Task.vue
-    let nextTask = tasks[0];
-    return new NextTaskResult(nextTask,false);
+    let nextTask = tasks.notCompleted[0];
+    return new NextTaskResult(nextTask,false,tasks.notCompleted.length,tasks.nrOfTasks);
 }
 
 export function selectNextTaskInRandomOrder(tasks)
 {
-    if (tasks.length == 0)
-        return new NextTaskResult(null,true);
+    console.log('selectNextTaskInRandomOrder')
+    console.log(tasks)
+    if (tasks.notCompleted.length == 0)
+        return new NextTaskResult(null,true,tasks.notCompleted.length,tasks.nrOfTasks);
+    
     //måste sätta nästa task i taskgroup
     //då this.task styr vilken task som visas i Task.vue
-    let nextIndex = randomInteger(0,tasks.length - 1);
-    let nextTask = tasks[nextIndex];
-    return new NextTaskResult(nextTask,false);
+    let nextIndex = randomInteger(0,tasks.notCompleted.length - 1);
+    let nextTask = tasks.notCompleted[nextIndex]
+    return new NextTaskResult(nextTask,false,tasks.notCompleted.length,tasks.nrOfTasks);
 }
 
 export function getNotAnsweredTasks(getTasksAsync,attemptStore)
@@ -75,7 +83,7 @@ export function getNotAnsweredTasks(getTasksAsync,attemptStore)
         let taskids = taskIdsFromAttempts(attempts)  
         let filter = filterTask(taskids)
         let notAnswerdTasks = tasks.filter(filter)
-        return notAnswerdTasks
+        return { notCompleted : notAnswerdTasks, nrOfTasks: tasks.length }
     }
 
 
@@ -87,7 +95,7 @@ export async function getNotSuccessfullTasks(roundId,taskGroupId,getTasksAsync,a
     let attempts = await attemptStore.getAttemptsPerRound(roundId)
     let filter = filterTask(taskIdsFromSuccessfullAttempts(attempts))
     let notSuccessfullTasks = tasks.filter(filter)
-    return notSuccessfullTasks
+    return { notCompleted : notSuccessfullTasks, nrOfTasks: tasks.length }
 }
 
 

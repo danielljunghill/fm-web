@@ -1,17 +1,14 @@
 <template>
 <div id="app">
   <header id="header">
+    <!-- header -->
       <Header></Header>
   </header>
-  <div id="main">
- 
-    <div>
-    <Main></Main>
+  <div id="main" class="border">
+    <div class="content">
+       <Main></Main>
     </div>
   </div>
-   <footer id="footer">
-     <div>Footer</div>
-  </footer>
 </div>
 </template>
 
@@ -32,18 +29,21 @@ export default {
 <style>
 html, body {
     height:100%;
+    margin:0px
 }
 
 
 
 #header {
 
-    height: 100px;
+    height: 50px;
     width: 100%;
     background: #eee;
-
-
+    position: fixed;
+    top:0;
+    left:0;
 }
+
 
 #header div {
 
@@ -52,29 +52,47 @@ html, body {
 }
 
 #footer {
-    display: block;
-    height: 100px;
-    background: #eee;
-    width: 100%;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0
 
+    background:darkred;
+    height: 50px;
+    display:block;
+    position: fixed;
+    width:100%;
+    top:0;
+    left:0;
+          /* Footer height */
 }
+
 #app {
     width: 100%;
     height: 100%;
+}
+
+#main .content{
+ 
+    height: 100%;
+    width:100%;
+    display: block;
 
 }
 
 #main {
  
-    height: 500px;
+    height: 100%;
     margin: 0 auto;
     width:100%;
+    padding-top: 100px;
+    display: block;
 
 }
+
+.border 
+{
+   border-color: darkgreen;
+   border-width: 2px ;
+   border-style: dotted;
+}
+
 
 
 

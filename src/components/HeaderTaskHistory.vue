@@ -1,32 +1,20 @@
 <template>
-    <nav id="linkNavigation">
-      <a v-on:click="goBack">{{ text.getWord('Go_back') }}</a>
+    <nav class="linkNavigation">
+        <GoBack></GoBack>
     </nav>
 </template>
 
 <script>
 
-import getModelInstance from '../model/main-model.js'
-import  getTranslator from '../model/language/words.js'
 
-// import TaskState from '../model/task.js'
-let data = getModelInstance()
-// console.log(data.selectedItem)
-let translator = getTranslator()
-
+import GoBack from './Navigation/Goback'
  export default {
     name: 'HeaderTaskHistory',
-    props: ['item'],
-    data: function() { return { model: data, text: translator }},
-    methods: {
-        goBack:function()
-        {
-            
-            this.model.goBack();
-        },
+    components:
+    {
+        'GoBack': GoBack,
     }
-
-
+  
   }
 
 </script>

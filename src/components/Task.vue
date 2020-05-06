@@ -1,54 +1,61 @@
 <template>
 <div>
-<div class="height"></div>
-
 <div v-if="task.state != 4" id= "task" class="center"> 
-  
-    <div class="taskborder">
-
-    <!-- <p class="timer" >{{ model.timer.seconds }}</p> -->
-    <div>{{ task.A }}</div>
-    <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
-    <div>{{ task.B }}</div>
-    <div>=</div>
-    <div class="answer">
-      <input 
-          v-model="answer"
-          v-on:keyup.enter="answerTaskAsync" 
-          ref="nextTask" 
-          type="text"/></div>
-    </div>
-
-      <div class="timer">
-        <div  v-if = "model.timer.seconds > 0"
+       <div class="test center">
+           
+         <!-- timer -->
+         <div  v-if = "model.timer.seconds > 0"
             v-show="task.state == 1"
             v-bind:class="{'display-time': task.timelimit >= model.timer.seconds,'display-time-red': task.timelimit < model.timer.seconds}" >
             {{ model.timer.seconds }}
+    
         </div>
-    
+        <div else>
+        </div>
     </div>
-    
-</div>
+    <div>
+        <div class="taskborder">
 
+            <!-- <p class="timer" >{{ model.timer.seconds }}</p> -->
+            <div>{{ task.A }}</div>
+            <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
+            <div>{{ task.B }}</div>
+            <div>=</div>
+            <div class="answer">
+            <input 
+                v-model="answer"
+                v-on:keyup.enter="answerTaskAsync" 
+                ref="nextTask" 
+                type="text"/></div>
+        </div>
+
+        <div class="div-block">
+            <div class="progress">
+                <div class="progressbar" v-bind:style="{width: (100 - ((task.countAnswered/task.countTotal) * 100)) + '%'}"> </div>
+            </div>
+        </div>
+    </div>
+ 
+
+
+   
+</div>
 <div v-else id="task" class="center">
+    <div class="test center"></div>
     <div class="taskborder">
-    <div>{{ task.A }}</div>
-    <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
-    <div>{{ task.B }}</div>
-    <div>=</div>
-    <div>{{ answer }}</div>
-    <div class="nextQuestion"><button ref="nextQ" v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
+        <div>{{ task.A }}</div>
+        <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
+        <div>{{ task.B }}</div>
+        <div>=</div>
+        <div>{{ answer }}</div>
+        <div class="nextQuestion"><button ref="nextQ" v-on:click="nextTaskAsync">{{ text.getWord('goToNextQuestion') }}</button></div>
     </div>
+    
+
 </div>
 
-<div class="center">
-    <div v-on:click="goBack">{{ text.getWord('Go_back') }}</div>
-</div> 
 </div> 
 
-  
-  
-  
 </template>
 <script>
 
@@ -144,6 +151,13 @@ let translator = getTranslator()
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+#task .test
+{
+    height:50px;
+    width: 100%;
+    display:inline-block
+}
 #task 
 {
    
@@ -151,10 +165,42 @@ let translator = getTranslator()
     height: 100% ; 
 
 }
+#task .div-block
+{
+    display: block;
+}
 
+#task .progress {
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+  padding: 0px;
+  margin:0px;
+  font-size: 10px;
+  text-align: left;
+ 
 
+}
+
+#task .progressbar {
+  width: 1%;
+  height: 20px;
+  background-color: #4CAF50;
+display: inline-block;
+  padding: 0px;
+  margin:0px;
+  font-size: 10px;
+}
 
 #task .taskborder
+{
+    border-style: dotted;
+    border-color: grey;
+    border-width: 2px;
+
+}
+
+.taskborder
 {
     border-style: dotted;
     border-color: grey;
@@ -164,14 +210,17 @@ let translator = getTranslator()
 #task .timer
 {
     
-    height:50px;
-    width:50px
+    height:100%;
+    width:70px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+
 }
 
 #task div
 {
-    display:inline-block;
-
+    display: inline-block;
     font-size:50px;
     margin: 10px;
     background: white;
@@ -285,7 +334,7 @@ input:focus {
 {
     font-size: 50px;
     color:green;
-    
+   
 }
 
 .display-time-red

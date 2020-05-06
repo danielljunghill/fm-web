@@ -9,12 +9,17 @@ export const TaskState = {"notAnswered":1, "answeredCorrect":2, "answeredCorrect
 export class Task extends Component
 {
     
-    constructor(componentName,task)
+    constructor(componentName,task,countTotal,countAnswered)
     {       
         super(componentName) 
      //   this.Attempts = []
         this.task = task;
         this.state = TaskState.notAnswered;
+        console.log('Task')
+        console.log(countTotal)
+        console.log(countAnswered)
+        this.countTotal= countTotal;
+        this.countAnswered = countAnswered;   
 
     }
     

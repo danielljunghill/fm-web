@@ -1,19 +1,19 @@
 <template>
-    <div>
-        Task {{ item.task.id }}
-    </div>
+    <nav class="linkNavigation">
+        <GoBack></GoBack>
+    </nav>
 </template>
 
 <script>
-
-// import getModelInstance from '../model/main-model.js'
-// let data = getModelInstance()
-
+import GoBack from './Navigation/Goback.vue'
 
  export default {
     name: 'HeaderTask',
+    components:
+    {
+        'GoBack': GoBack,
+    },
     props: ['item']
-
 
   }
 

@@ -49,7 +49,7 @@ export default {
 #taskGroupLinks
 {
     
-    display: block;
+    display: inline-block;
 }
 
 #taskGroupLinks::after

@@ -4,12 +4,14 @@ import { Attempt } from './attempt.js'
 
 export class MultiplyQuestion extends Task
 {
-    constructor(task)
+    constructor(task,countTotal,countAnswered)
     {
-        super('Task',task)
+        super('Task',task,countTotal,countAnswered)
+        console.log(task)
         this.A = task.question.a;
         this.B = task.question.b; 
-        this.timelimit = 5    
+        this.timelimit = 5 
+  
     }
   //current Attempts
 

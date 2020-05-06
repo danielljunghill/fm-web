@@ -24,6 +24,7 @@ export class TaskGroupStore
     {
         console.log('init TaskGroupStore')
         this.taskStore = TaskGroupStore.init()
+        this.taskGroups = new Map()
     }
 
     static init()
@@ -99,13 +100,18 @@ export class TaskGroupStore
 
     async getTasksForGroup(taskGroup)
     {
+        let taskGroupCache = this.taskGroups
         function getMultiplyQuestions(tableNr,taskStore)
         {
-            let tasks = []
+            if(taskGroupCache.has(taskGroup.id))
+            {
+                console.log('taskGroup has taskgroup')
+                return taskGroupCache.get(taskGroup.id)
+            }
             
+
+            let tasks = []
             let i = {};
-            console.log('tableNr')
-            console.log(tableNr)
             let to = tableNr == 'all'? 10: tableNr
             let from  = tableNr == 'all'? 1: tableNr
             let j = {}
@@ -118,7 +124,7 @@ export class TaskGroupStore
                     tasks.push(mt);
                 }
             }
-      
+            taskGroupCache.set(taskGroup.id,tasks)
             return tasks;
 
         }

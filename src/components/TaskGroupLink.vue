@@ -52,7 +52,8 @@ let modelInstance = getModelInstance()
   width: 150px;
   padding: 50px;
   margin: 20px;
-  box-sizing: border-box;
+  display: inline-block;
+  /* box-sizing: border-box; */
   font-size: 30px;
 }
 
@@ -60,7 +61,7 @@ let modelInstance = getModelInstance()
  .active {
   background-color: lightgrey;
   border: 2px solid lightgrey;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 
 }
 

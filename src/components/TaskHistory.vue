@@ -80,6 +80,7 @@ let translator = getTranslator()
     padding: 5px;
     margin: 5px;
 }
+
 h3 {
   margin: 40px 0 0;
 }
