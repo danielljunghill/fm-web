@@ -1,0 +1,20 @@
+body
+{
+    background: red;
+}
+
+
+
+
+/* Media */
+
+
+@media screen and (max-width:700px){
+
+body {
+    background:blue;
+    color:white
+}
+
+
+}

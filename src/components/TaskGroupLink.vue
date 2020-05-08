@@ -1,6 +1,7 @@
 <template>
 
   <div id="taskGroupLink">
+      
       <div v-if="taskGroupLink.isActive() && !taskGroupLink.isCompleted()" 
           class='active'
           v-on:click="selected">

@@ -18,7 +18,7 @@
 
             <!-- <p class="timer" >{{ model.timer.seconds }}</p> -->
             <div>{{ task.A }}</div>
-            <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
+            <div class="canvas"><Sign></Sign></div>
             <div>{{ task.B }}</div>
             <div>=</div>
             <div class="answer">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="div-block">
-            <div class="progress">
+            <div class="progress border">
                 <div class="progressbar" v-bind:style="{width: (100 - ((task.countAnswered/task.countTotal) * 100)) + '%'}"> </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
     <div class="test center"></div>
     <div class="taskborder">
         <div>{{ task.A }}</div>
-        <div class="canvas"><canvas ref="sign" width="20px" height="20px"></canvas></div>
+        <div class="canvas"><Sign></Sign></div>
         <div>{{ task.B }}</div>
         <div>=</div>
         <div>{{ answer }}</div>
@@ -61,18 +61,17 @@
 
 import getModelInstance from '../model/main-model.js'
 import  getTranslator from '../model/language/words.js'
-import Designer from '../model/drawing/draw.js'
-// import TaskState from '../model/task.js'
+import Sign from './Sign.vue'
+
 let data = getModelInstance()
-// console.log(data.selectedItem)
+
 let translator = getTranslator()
 
   export default {
     name: 'Task',
-    // props: {
-    //   task: {},
-    // },
-  
+    components: {
+    Sign
+    },
     data: function() { return { answer:'', task: data.selectedItem,model: data, text: translator}},
     methods:
     {
@@ -127,8 +126,8 @@ let translator = getTranslator()
     mounted: function()
     {
       this.setFocus();
-      let designer = new Designer(this.$refs.sign)
-      designer.drawX(20,20)
+    //   let designer = new Designer(this.$refs.sign)
+    //   designer.drawX(20,20)
       // designer = new Designer(this.$refs.raster)
       // designer.drawRaster()
 
@@ -139,8 +138,8 @@ let translator = getTranslator()
         if(this.answer == '')
         {
           this.setFocus();
-          let designer = new Designer(this.$refs.sign)
-          designer.drawX(20,20)
+        //   let designer = new Designer(this.$refs.sign)
+        //   designer.drawX(20,20)
           // let designer = new Designer(this.$refs.raster)
           // designer.drawRaster()
 

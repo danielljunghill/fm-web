@@ -4,7 +4,7 @@
     <!-- header -->
       <Header></Header>
   </header>
-  <div id="main" class="border">
+  <div id="main">
     <div class="content">
        <Main></Main>
     </div>
@@ -27,12 +27,15 @@ export default {
 </script>
 
 <style>
-html, body {
+
+
+/* html, body {
     height:100%;
     margin:0px
-}
+} */
 
 
+@import './styles/fm-styles.css';
 
 #header {
 
