@@ -1,6 +1,7 @@
 <template>
-    <nav class="linkNavigation">
-      <!-- todo add to translator--> 
+
+    <nav v-bind:class="{ linkNavigation: true,'mnu-closed': !openMenu, 'mnu-opened':openMenu}">
+      <!-- todo add tov-bind:class="{'mnu-closed': !openMenu, 'mnu-opened':openMenu}" translator--> 
       <a v-on:click="viewHistory">{{ text.getWord('viewHistory') }}</a>
        <a v-on:click="viewSettings">{{ text.getWord('viewSettings') }}</a>
     </nav> 
@@ -19,16 +20,18 @@ console.log('translator')
 console.log(translator)
  export default {
     name: 'HeaderTaskGroupLinks',
-    props: ['item'],
+    props: ['item','openMenu'],
     data: function() { return { text : translator } },
     methods:
       { 
           viewHistory:async function()
           {
+              this.openMenu = false;
               await model.viewHistory();
           },
           viewSettings:async function()
           {
+              this.openMenu = false;
               await model.viewSettings();
           }
       }
@@ -38,21 +41,4 @@ console.log(translator)
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-
-
-
-
-
 </style>

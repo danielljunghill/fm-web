@@ -1,8 +1,12 @@
 <template>
   <div id="taskGroupLinks">
-        <template v-for="link in selectedItem.Links" >
-                <Link v-bind:taskGroupLink="link" v-bind:key="link.TableNr"/>
-        </template>
+        <ul>
+            <template v-for="link in selectedItem.Links" >
+                    <li v-bind:key="link.TableNr">
+                        <Link v-bind:taskGroupLink="link" />
+                    </li>
+            </template>
+        </ul>
          <div v-on:click="toggleLanguage">Toggle language</div>
          
   </div>
@@ -46,19 +50,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-#taskGroupLinks
-{
-    
-    display: inline-block;
-}
 
-#taskGroupLinks::after
-{
-    
-    clear: both;
-    display: block;
-
-}
 
 
 </style>

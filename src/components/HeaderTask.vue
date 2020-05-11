@@ -1,6 +1,6 @@
 <template>
-    <nav class="linkNavigation">
-        <GoBack></GoBack>
+    <nav v-bind:class="{ linkNavigation: true,'mnu-closed': !openMenu, 'mnu-opened':openMenu}">
+        <GoBack v-bind:openMenu="openMenu"></GoBack>
     </nav>
 </template>
 
@@ -9,11 +9,11 @@ import GoBack from './Navigation/Goback.vue'
 
  export default {
     name: 'HeaderTask',
+    props: ['item','openMenu'],
     components:
     {
         'GoBack': GoBack,
-    },
-    props: ['item']
+    }
 
   }
 
@@ -21,18 +21,5 @@ import GoBack from './Navigation/Goback.vue'
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

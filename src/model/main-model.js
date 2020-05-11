@@ -22,6 +22,19 @@ function round(taskGroup)
 {
     return { id:createUUID(), taskGroup: taskGroup }
 }
+
+export class NavigationState
+{
+    constructor()
+    {
+        this.opened = false
+    }
+
+    toggleOpenedStatus()
+    {
+        this.opened = !this.opened
+    }
+}
     
 export class MainModel
 {
@@ -31,6 +44,7 @@ export class MainModel
         this.selectedItem = this.start;
         this.timer = new Timer();
         this.round = {} 
+        this.navigation = new NavigationState();
     }
 
     async getLinks()
@@ -135,6 +149,7 @@ export class MainModel
             console.log(state)
         }
         Timer.flow(() => answerTaskFn(this,answer),() => nextTaskFn(this),1000)
+
     }
 
  
@@ -162,6 +177,8 @@ export class MainModel
     {
         this.selectedItem = new Settings(attemptStore) 
     }
+
+
 
 }
 

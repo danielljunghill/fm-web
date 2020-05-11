@@ -1,20 +1,346 @@
+
+
 body
 {
-    background: red;
+    background: white;
+    min-width: 100px;
+}
+
+li {
+    display: block;
+    margin: 0 20px;
+  }
+/* Display taskgroup elements */
+#taskGroupLinks
+{
+    
+    display: inline-block; 
+    
+}
+
+#taskGroupLinks li
+{
+   
+    margin: 0px; 
+    float: left;
+    width: 25%;
+
+    /* display: inline-block; */
+
+}
+
+#taskGroupLinks ul
+{
+    padding-inline-start: 0px;
+    text-align: center;
+}
+
+#taskGroupLinks ul:after{
+    content: "";
+    clear: both;
+    display: block;
+}
+
+#taskGroupLinks .taskgroup
+{
+    width: 150px;
+    padding: 50px;
+    margin: 20px;
+    display: inline-block;
+    /* box-sizing: border-box; */
+    font-size: 30px;
+    text-align: center;
+}
+
+#taskGroupLinks .active {
+  background-color: lightgrey;
+  border: 2px solid lightgrey;
+  /* box-sizing: border-box; */
+
+}
+
+#taskGroupLinks .completed {
+  background-color: lightgrey;
+  color: green;
+  border: 2px solid green;
+  box-sizing: border-box;
+} 
+
+
+#taskGroupLinks .completed:hover {
+  background-color: green;
+  color: white;
+  width: 150px;
+  border: 2px solid green;
+  box-sizing: border-box;
+}
+
+
+#taskGroupLinks .inactive {
+  background-color: gray;
+  border: 2px solid gray;
+  box-sizing: border-box;
+
+}
+
+#taskGroupLinks active:hover {
+  background-color: green;
+  width: 150px;
+  border: 2px solid green;
+  padding: 50px;
+  margin: 20px;
+  box-sizing: border-box;
+  color: whitesmoke;
+}
+
+.menu-selection{
+    height: 0px;
+    background: blue;
+    display: block;
+    width:100%
+}
+
+.linkNavigation a {
+  color: darkgreen;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+  margin-top: 10px;
+  padding:5px;
+  font-size: 25px;
+  border-style: solid;
+  border-width: 0px 0px 4px 0px;
+  border-color: transparent;
+
 }
 
 
 
+/* .*/
+/* 
+#taskGroupLinks::after
+{
+    
+    clear: both;
+    display: block;
 
-/* Media */
+} */
 
 
-@media screen and (max-width:700px){
+ @media screen and (max-width:700px){
 
-body {
-    background:blue;
-    color:white
+    body {
+        background:green;
+        color:white
+    }
+
+    #taskGroupLinks li{
+        width: 33%;
+
+    }
+
+    .linkNavigation a:hover {
+        /* color: green;
+        float: left;
+        margin-left:5px;
+        margin-right:10px;
+        margin-top: 10px;
+        padding:5px; */
+        border-style: solid;
+        border-width: 0px 0px 4px 0px;
+        border-color: green;
+      
+      } 
+
+
+
+}
+
+@media screen and (max-width:540px){
+
+    body {
+        background:red;
+        color:white
+    }
+
+    #taskGroupLinks li{
+        width: 49%;
+
+    }
+
+    /* .linkNavigation a:hover {
+        color: green;
+        float: left;
+        margin-left:5px;
+        margin-right:10px;
+        margin-top: 10px;
+        padding:5px;
+        border-style: solid;
+        border-width: 0px 0px 4px 0px;
+        border-color: green;
+      
+      }  */
+
+
+
+}
+
+@media screen and (max-width:400px){
+
+    .mnu-closed
+    {
+        visibility: hidden;
+    }
+
+    .mnu-opened
+    {
+        visibility: visible;
+        background-color: pink;
+    }
+
+    
+    body {
+        background:pink;
+        color:white;
+        margin:0px
+    }
+
+    #taskGroupLinks li{
+        width: 100%;
+    
+
+    }
+
+    #taskGroupLinks ul{
+        margin: 0px;
+
+    }
+
+    #header div{
+        width:100%
+    }
+
+    .menu-selection{
+        height: 50px;
+        background: gray;
+        display: block;
+        width:100%
+    }
+
+    .linkNavigation a{
+        display: block;
+        background:white;
+        color: darkgray;
+        float:none;
+        margin:0px;
+        border-style: none;
+        border-width: 0px 0px 0px 0px;
+        border-color: transparent;
+    };
+
+    .linkNavigation a:hover {
+        display: block;
+        background: rgb(154, 154, 154);
+        color: blue;
+        float:none;
+        margin:0px;
+        border-style: none;
+        border-width: 0px 0px 0px 0px;
+        border-color: transparent;
+
+    
+      }
+
+      .linkNavigation a:active {
+        display: block;
+        background: rgb(154, 154, 154);
+        color: blue;
+        float:none;
+        margin:0px;
+        border-style: none;
+        border-width: 0px 0px 0px 0px;
+        border-color: transparent;
+      }
+
+
+    #menuIcon {
+        float: right;  
+        width: 35px;
+        margin: 5px 10px;
+    }
+    
+    #menuIcon div{
+      display: block;
+      width: 35px;
+      height: 5px;
+      background-color: black;
+      margin: 6px 0;
+    }
+
+
+
+
+
+
+
+
+    /* #header nav{
+        visibility: hidden;
+    };
+
+    .mnu-opened
+    {
+        visibility: visible;
+    } */
+
+
+
 }
 
 
+/* @media screen and (max-width:700px){
+
+    body {
+        background:pink;
+        color:white
+    }
+
+    #taskGroupLinks li{
+        width: 33%;
+        float: left;
+        margin: 0 20px;
+    }
+
+
+} */
+
+/* @media screen and (max-width:500px){
+
+    body {
+        background:grey;
+        color:white
+    }
+
+    #taskGroupLinks li{
+        width: 49%;
+        float: left;
+    }
+
 }
+
+@media screen and (max-width:412px){
+
+    body {
+        background:yellow;
+        color:white
+        
+    }
+
+    #taskGroupLinks li{
+        width: 98%;
+        float: left;
+        
+    }
+} */
+
+

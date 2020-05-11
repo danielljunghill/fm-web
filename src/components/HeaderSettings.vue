@@ -1,5 +1,5 @@
 <template>
-    <nav class="linkNavigation">
+    <nav v-bind:class="{ linkNavigation: true,'mnu-closed': !openMenu, 'mnu-opened':openMenu}">
       <a v-on:click="goBack">{{ text.getWord('Go_back') }}</a>
     </nav>
 </template>
@@ -16,7 +16,7 @@ let translator = getTranslator()
 
  export default {
     name: 'HeaderSettings',
-    props: ['item'],
+    props: ['item','openMenu'],
     data: function() { return { model: data, text: translator }},
     methods: {
         goBack:function()
@@ -33,18 +33,5 @@ let translator = getTranslator()
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

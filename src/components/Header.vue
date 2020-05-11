@@ -1,5 +1,11 @@
 <template>
-      <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem"></component>
+      <div>
+        <MenuIcon></MenuIcon>
+        <a class="menu-selection" ref="mnu-selection" v-on:click="toggleMnu"> </a>
+        
+       
+      <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem" v-bind:openMenu="opened"></component>
+      </div>
 </template>
 
 <script>
@@ -8,6 +14,8 @@ import HeaderTaskGroupLinks from './HeaderTaskGroupLinks.vue'
 import HeaderTask from './HeaderTask.vue'
 import getModelInstance from '../model/main-model.js'
 import HeaderTaskHistory from './HeaderTaskHistory.vue'
+import MenuIcon from './MenuIcon.vue'
+
 import HeaderSettings from './HeaderSettings.vue'
 //import TaskGroup  from './TaskGroup.vue'
 // import Task from './Task.vue'
@@ -16,16 +24,24 @@ let data = getModelInstance()
 
 export default {
     name: 'Header',
-        components:
+    components:
     {
         'TaskGroupLinks': HeaderTaskGroupLinks,
         'Task': HeaderTask,
         'TaskHistory': HeaderTaskHistory,
-        'Settings': HeaderSettings
+        'Settings': HeaderSettings,
+        'MenuIcon': MenuIcon
 
     },
-    data: function()  { return { model : data } },
-   
+    data: function()  { return { model : data,opened: false } },
+    methods:
+    {
+       toggleMnu:function()
+       {
+
+           this.opened = !this.opened;
+       }
+    }
 
   }
 </script>
@@ -33,7 +49,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-.linkNavigation a {
+/* .linkNavigation a {
   color: darkgreen;
   float: left;
   margin-left:5px;
@@ -58,6 +74,6 @@ export default {
   border-width: 0px 0px 4px 0px;
   border-color: green;
 
-}
+} */
 
 </style>

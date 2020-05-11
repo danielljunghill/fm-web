@@ -1,22 +1,24 @@
 <template>
 
-  <div id="taskGroupLink">
+  <!-- <div id="taskGroupLink"> -->
+     
+        
       
       <div v-if="taskGroupLink.isActive() && !taskGroupLink.isCompleted()" 
-          class='active'
+          class='taskgroup active'
           v-on:click="selected">
           {{ taskGroupLink.description}}
       </div>
       <div v-else-if="taskGroupLink.isCompleted()"
-           class='completed'
+           class='taskgroup completed'
                 v-on:click="selected">
             {{ taskGroupLink.description}}
       </div> 
-      <div v-else class="inactive">
+      <div v-else class="taskgroup inactive">
             {{ taskGroupLink.description}}
       </div>
       
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -59,6 +61,16 @@ let modelInstance = getModelInstance()
 }
 
 
+.taskgroup
+{
+    width: 150px;
+    padding: 50px;
+    margin: 20px;
+    display: inline-block;
+    /* box-sizing: border-box; */
+    font-size: 30px;
+}
+
  .active {
   background-color: lightgrey;
   border: 2px solid lightgrey;
@@ -99,7 +111,7 @@ let modelInstance = getModelInstance()
   box-sizing: border-box;
   color: whitesmoke;
 }
-
+/* 
 h3 {
   margin: 40px 0 0;
 }
@@ -121,7 +133,7 @@ li:hover
 
 a {
   color: #42b983;
-}  
+}   */
 
 
 </style>

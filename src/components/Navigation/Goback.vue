@@ -1,5 +1,7 @@
 <template>
-      <a v-on:click="goBack">{{ text.getWord('Go_back') }}</a>
+      <a
+       v-bind:class="{'mnu-closed': !openMenu, 'mnu-opened':openMenu}"
+       v-on:click="goBack">{{ text.getWord('Go_back') }}</a>
 </template>
 
 <script>
@@ -14,11 +16,12 @@ let translator = getTranslator()
 
  export default {
     name: 'GoBack',
+    props: ['openMenu'],
     data: function() { return { model: data, text: translator }},
     methods: {
         goBack:function()
         {
-            
+            this.openMenu = !this.openMenu
             this.model.goBackWithRefresh();
         },
     }
