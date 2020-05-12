@@ -1,10 +1,12 @@
 <template>
       <div>
-        <MenuIcon></MenuIcon>
-        <a class="menu-selection" ref="mnu-selection" v-on:click="toggleMnu"> </a>
+          <div v-on:click="toggleMnu">
+        <MenuIcon></MenuIcon>'</div>
+        <!-- <a class="menu-selection" ref="mnu-selection" v-on:click="toggleMnu"></a> -->
         
-       
-      <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem" v-bind:openMenu="opened"></component>
+       <div>
+       <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem" v-bind:openMenu="opened"></component>
+      </div>
       </div>
 </template>
 
@@ -38,7 +40,7 @@ export default {
     {
        toggleMnu:function()
        {
-
+           console.log('toggle')
            this.opened = !this.opened;
        }
     }

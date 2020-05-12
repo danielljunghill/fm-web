@@ -263,18 +263,30 @@ li {
       }
 
 
-    #menuIcon {
+    #header #menuIcon {
         float: right;  
-        width: 35px;
-        margin: 5px 10px;
+        width: 40px;
+        margin: 0px;
+        text-align: right;
+        padding: 5px 10px
+        
+    }
+
+    #header #menuIcon div:after {
+        content: "";
+        clear: both;
+        display: block;
+        
     }
     
-    #menuIcon div{
+    #header #menuIcon div{
+      
       display: block;
       width: 35px;
       height: 5px;
-      background-color: black;
+      background-color: red;
       margin: 6px 0;
+      color: blue;
     }
 
 

@@ -1,11 +1,12 @@
 <template>
 
 
-<a id="menuIcon">
+<div id="menuIcon"> 
     <div></div>
     <div></div>
     <div></div>
-</a>
+</div>
+
 </template>
 
 <script>
@@ -13,6 +14,7 @@
 
  export default {
     name: 'MenuIcon'
+
 
   }
 
