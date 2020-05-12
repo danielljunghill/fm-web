@@ -1,7 +1,7 @@
 <template>
       <div>
           <div v-on:click="toggleMnu">
-        <MenuIcon></MenuIcon>'</div>
+        <MenuIcon></MenuIcon></div>
         <!-- <a class="menu-selection" ref="mnu-selection" v-on:click="toggleMnu"></a> -->
         
        <div>

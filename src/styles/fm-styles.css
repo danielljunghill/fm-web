@@ -115,7 +115,10 @@ li {
 }
 
 
-
+#header #menuIcon {
+    visibility: hidden;
+    
+}
 /* .*/
 /* 
 #taskGroupLinks::after
@@ -227,10 +230,16 @@ li {
         width:100%
     }
 
+    .linkNavigation
+    {
+        margin-top: -3px;
+    }
+
     .linkNavigation a{
         display: block;
         background:white;
         color: darkgray;
+        height: 50px;
         float:none;
         margin:0px;
         border-style: none;
@@ -264,6 +273,7 @@ li {
 
 
     #header #menuIcon {
+        visibility: visible;
         float: right;  
         width: 40px;
         margin: 0px;
