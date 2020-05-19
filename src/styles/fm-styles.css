@@ -239,12 +239,13 @@ li {
         display: block;
         background:white;
         color: darkgray;
-        height: 50px;
+        height: 40px;
         float:none;
         margin:0px;
         border-style: none;
         border-width: 0px 0px 0px 0px;
         border-color: transparent;
+        padding: 5px
     };
 
     .linkNavigation a:hover {
