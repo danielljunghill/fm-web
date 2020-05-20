@@ -1,0 +1,62 @@
+#settings button
+{
+    width: 400px;
+    height: 100px;
+    background: None;
+    font-size:20px;
+    color:white;
+    
+    border-width: 2px;
+    border-color:darkgreen;
+    border-style: solid;
+    border-radius: 10px;
+    background: darkgreen;
+
+}
+
+#settings button:focus
+{
+    outline: 0 !important;
+    border-color:green;
+    background: darkgreen;
+  
+}
+
+#settings button:hover
+{
+    width: 400px;
+    height: 100px;
+    background: None;
+    font-size:20px;
+    color:white;
+    outline: 0 !important;
+    border-width: 2px;
+    border-color:green;
+    border-style: solid;
+    border-radius: 10px;
+    background:green;
+    opacity: 0.8;
+
+}
+
+#settings 
+{
+    text-align: center;
+    padding: 20px;
+}
+
+@media screen and (max-width:540px){
+    #settings button
+    {
+        width:80%
+    }
+
+}
+
+@media screen and (max-width:400px){
+    #settings button
+    {
+        width:80%
+    }
+
+}

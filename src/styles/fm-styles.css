@@ -117,6 +117,7 @@ li {
 
 #header #menuIcon {
     visibility: hidden;
+    width: 0px;
     
 }
 /* .*/
@@ -134,7 +135,7 @@ li {
 
     body {
         background:green;
-        color:white
+
     }
 
     #taskGroupLinks li{
@@ -163,7 +164,7 @@ li {
 
     body {
         background:red;
-        color:white
+      
     }
 
     #taskGroupLinks li{
@@ -198,13 +199,12 @@ li {
     .mnu-opened
     {
         visibility: visible;
-        background-color: pink;
+        background-color: white;
     }
 
     
     body {
-        background:pink;
-        color:white;
+        background:white;
         margin:0px
     }
 
@@ -237,15 +237,17 @@ li {
 
     .linkNavigation a{
         display: block;
-        background:white;
-        color: darkgray;
+        background:gray;
+        color: white;
+        opacity: 1;
         height: 40px;
         float:none;
         margin:0px;
         border-style: none;
         border-width: 0px 0px 0px 0px;
         border-color: transparent;
-        padding: 5px
+        padding: 5px;
+        font-family:Arial
     };
 
     .linkNavigation a:hover {

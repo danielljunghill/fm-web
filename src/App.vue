@@ -36,6 +36,8 @@ export default {
 
 
 @import './styles/fm-styles.css';
+@import './styles/fm-settings-styles.css';
+@import './styles/fm-task-styles.css';
 
 #header {
 
