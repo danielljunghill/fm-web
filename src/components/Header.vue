@@ -5,7 +5,7 @@
         <!-- <a class="menu-selection" ref="mnu-selection" v-on:click="toggleMnu"></a> -->
         
        <div>
-       <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem" v-bind:openMenu="opened"></component>
+       <component v-bind:is="model.selectedItem.ComponentName" v-bind:item="model.selectedItem" v-bind:openMenu="model.navigation.opened"></component>
       </div>
       </div>
 </template>
@@ -41,7 +41,7 @@ export default {
        toggleMnu:function()
        {
            console.log('toggle')
-           this.opened = !this.opened;
+           this.model.navigation.toggleOpenedStatus();
        }
     }
 

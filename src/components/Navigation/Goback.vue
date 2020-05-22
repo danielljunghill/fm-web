@@ -14,6 +14,7 @@ let data = getModelInstance()
 // console.log(data.selectedItem)
 let translator = getTranslator()
 
+
  export default {
     name: 'GoBack',
     props: ['openMenu'],
@@ -21,7 +22,7 @@ let translator = getTranslator()
     methods: {
         goBack:function()
         {
-            this.openMenu = !this.openMenu
+            this.model.navigation.toggleOpenedStatus();
             this.model.goBackWithRefresh();
         },
     }

@@ -182,8 +182,8 @@ export class MainModel
 
 }
 
-
 let model = new MainModel()
+
 model.setup()
 export default function getModelInstance()
 {

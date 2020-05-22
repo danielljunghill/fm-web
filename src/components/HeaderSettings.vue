@@ -21,7 +21,7 @@ let translator = getTranslator()
     methods: {
         goBack:function()
         {
-            
+            this.model.navigation.toggleOpenedStatus();
             this.model.goBackWithRefresh();
         },
     }

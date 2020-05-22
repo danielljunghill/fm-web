@@ -21,17 +21,17 @@ console.log(translator)
  export default {
     name: 'HeaderTaskGroupLinks',
     props: ['item','openMenu'],
-    data: function() { return { text : translator } },
+    data: function() { return { text : translator , model: model} },
     methods:
       { 
           viewHistory:async function()
           {
-              this.openMenu = false;
+              this.model.navigation.toggleOpenedStatus();
               await model.viewHistory();
           },
           viewSettings:async function()
           {
-              this.openMenu = false;
+              this.model.navigation.toggleOpenedStatus();
               await model.viewSettings();
           }
       }
